@@ -6,6 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -17,7 +18,6 @@ import lombok.experimental.SuperBuilder;
 @AttributeOverride(name = "id", column = @Column(name = ("member_id")))
 @Entity
 public class Member extends BaseEntity {
-
 
 
     @Column(nullable = false, unique = true)
@@ -34,4 +34,13 @@ public class Member extends BaseEntity {
 
     @Column(length = 16)
     private String nickname;
+
+    @Column(nullable = false)
+    @Builder.Default
+    private Integer currentStreak = 0;
+
+    @Column(nullable = false)
+    @Builder.Default
+    private Integer longestStreak = 0;
+
 }
