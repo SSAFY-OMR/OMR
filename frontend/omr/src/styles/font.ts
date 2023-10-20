@@ -1,7 +1,7 @@
 import localFont from 'next/font/local';
 
 export const pretendard = localFont({
-  src: './PretendardVariable.woff2',
+  src: './fonts/PretendardVariable.woff2',
   fallback: [
     'Pretendard',
     '-apple-system',

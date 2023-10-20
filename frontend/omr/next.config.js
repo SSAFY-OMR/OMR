@@ -1,12 +1,22 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const prod = process.env.NODE_ENV === 'production';
+
+const runtimeCaching = require('next-pwa/cache');
+
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  customWorkerDir: 'worker',
+  runtimeCaching,
+  disable: prod ? false : true,
+});
+
+const nextConfig = withPWA({
+  // next config
   eslint: {
     ignoreDuringBuilds: true,
   },
   reactStrictMode: true,
-  experimental: {
-    appDir: true,
-  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -15,14 +25,6 @@ const nextConfig = {
 
     return config;
   },
-};
-
-const prod = process.env.NODE_ENV === 'production';
-
-const withPWA = require('next-pwa')({
-  customWorkerDir: 'src/worker',
-  dest: 'public',
-  disable: prod ? false : true,
 });
 
-module.exports = withPWA(nextConfig);
+module.exports = nextConfig;
