@@ -11,6 +11,7 @@ const withPWA = require('next-pwa')({
   disable: prod ? false : true,
 });
 
+/** @type {import('next').NextConfig} */
 const nextConfig = withPWA({
   // next config
   eslint: {
