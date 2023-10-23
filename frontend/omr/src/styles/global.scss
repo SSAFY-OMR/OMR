@@ -1,28 +1,35 @@
 @import '@/styles/reset.scss';
 
-$color-orange: #ff9f38;
-$color-light-orange: #fff0de;
-$color-blue: #477af6;
-$color-light-blue: #389bf2;
-$color-ligh-blue: #e4e9f6;
-$color-error-red: #ff6c6c;
-$color-gray: #b9b9b9;
 $color-white: #ffffff;
 $color-black: #000000;
+$color-blue-light: #e8f7fd;
+$color-blue-light-hover: #dcf4fb;
+$color-blue-light-active: #b7e7f8;
+$color-blue-normal: #18b3e7;
+$color-blue-normal-hover: #16a1d0;
+$color-blue-dark: #138fb9;
+$color-blue-dark-hover: #0e6b8b;
+$color-blue-dark-active: #0b5168;
+$color-blue-darker: #083f51;
 
 :root {
-  --color-orange: #{$color-orange};
-  --color-orange-lighter: color-mix(in srgb, var(--color-orange), #fff 10%);
-  --color-orange-darker: color-mix(in srgb, var(--color-orange), #000 10%);
-  --color-light-orange: #{$color-light-orange};
-  --color-blue: #{$color-blue};
-  --color-ligh-blue: #{$color-ligh-blue};
-  --color-error-red: #{$color-error-red};
-  --color-gray: #{$color-gray};
-  --color-gray-lighter: color-mix(in srgb, var(--color-gray), #fff 10%);
-  --color-gray-darker: color-mix(in srgb, var(--color-gray), #000 10%);
   --color-white: #{$color-white};
   --color-black: #{$color-black};
+  --color-blue-light: #{$color-blue-light};
+  --color-blue-light-hover: #{$color-blue-light-hover};
+  --color-blue-light-active: #{$color-blue-light-active};
+  --color-blue-normal: #{$color-blue-normal};
+  --color-blue-normal-hover: #{$color-blue-normal-hover};
+  --color-blue-dark: #{$color-blue-dark};
+  --color-blue-dark-hover: #{$color-blue-dark-hover};
+  --color-blue-dark-active: #{$color-blue-dark-active};
+  --color-blue-darker: #{$color-blue-darker};
+
+  --font-size-xsmall: 0.75rem;
+  --font-size-small: 0.875rem;
+  --font-size-medium: 1rem;
+  --font-size-large: 1.125rem;
+  --font-size-xlarge: 1.25rem;
 }
 
 a {
@@ -31,9 +38,6 @@ a {
 }
 * {
   box-sizing: border-box;
-}
-html {
-  font-size: 62.5%;
 }
 html,
 body,
@@ -59,11 +63,26 @@ table {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 10px;
   vertical-align: baseline;
 }
 html {
   height: 100dvh;
+  font-family:
+    'Pretendard Variable',
+    Pretendard,
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    Roboto,
+    'Helvetica Neue',
+    'Segoe UI',
+    'Apple SD Gothic Neo',
+    'Noto Sans KR',
+    'Malgun Gothic',
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    sans-serif;
 }
 body {
   line-height: 1;
