@@ -1,6 +1,6 @@
 package com.ssafy.omr.modules.meta.domain;
 
-import com.ssafy.omr.modules.meta.exception.MetaDataBadRequestException;
+import com.ssafy.omr.modules.meta.exception.InterviewCategoryBadRequestException;
 import lombok.Getter;
 
 import java.util.Arrays;
@@ -39,6 +39,6 @@ public enum InterviewCategory {
         return Arrays.stream(InterviewCategory.values())
                 .filter(value -> value.getName().equals(name))
                 .findAny()
-                .orElseThrow(MetaDataBadRequestException::new);
+                .orElseThrow(InterviewCategoryBadRequestException::new);
     }
 }
