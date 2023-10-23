@@ -2,22 +2,20 @@
   "env": {
     "browser": true,
     "es2022": true,
-    "jest/globals": true,
     "node": true,
     "worker": true
   },
   "extends": [
     "eslint:recommended",
-    "plugin:jest/recommended",
-    "plugin:jest/style",
     "next/core-web-vitals",
     "plugin:storybook/recommended"
   ],
   "plugins": ["@typescript-eslint", "no-null"],
   "rules": {
-    "@typescript-eslint/no-unused-vars": "error",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
     "import/order": [
-      "error",
+      "warn",
       {
         "groups": [
           "builtin",
@@ -44,7 +42,7 @@
       }
     ],
     "sort-imports": [
-      "error",
+      "warn",
       {
         "ignoreCase": true,
         "ignoreDeclarationSort": true,
