@@ -1,0 +1,122 @@
+@import '@/styles/reset.scss';
+
+$color-orange: #ff9f38;
+$color-light-orange: #fff0de;
+$color-blue: #477af6;
+$color-light-blue: #389bf2;
+$color-ligh-blue: #e4e9f6;
+$color-error-red: #ff6c6c;
+$color-gray: #b9b9b9;
+$color-white: #ffffff;
+$color-black: #000000;
+
+:root {
+  --color-orange: #{$color-orange};
+  --color-orange-lighter: color-mix(in srgb, var(--color-orange), #fff 10%);
+  --color-orange-darker: color-mix(in srgb, var(--color-orange), #000 10%);
+  --color-light-orange: #{$color-light-orange};
+  --color-blue: #{$color-blue};
+  --color-ligh-blue: #{$color-ligh-blue};
+  --color-error-red: #{$color-error-red};
+  --color-gray: #{$color-gray};
+  --color-gray-lighter: color-mix(in srgb, var(--color-gray), #fff 10%);
+  --color-gray-darker: color-mix(in srgb, var(--color-gray), #000 10%);
+  --color-white: #{$color-white};
+  --color-black: #{$color-black};
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+}
+html,
+body,
+div,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+form,
+label,
+table {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 10px;
+  vertical-align: baseline;
+}
+html {
+  height: 100dvh;
+}
+body {
+  line-height: 1;
+  margin-bottom: 100px;
+}
+ol,
+ul {
+  list-style: none;
+}
+button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  overflow-y: hidden;
+}
+
+input,
+textarea,
+button {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+}
+
+.fixed-width {
+  padding-top: 50px;
+  width: 500px;
+  @media (max-width: 500px) {
+    /* 화면 너비가 500px 이하가 되면 요소 너비를 100%로 고정*/
+    width: 100%;
+  }
+  background-color: #fff0de;
+  position: relative;
+  height: 100dvh;
+  overflow: auto;
+}
+
+/* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+.fixed-width::-webkit-scrollbar {
+  display: none;
+}
+
+.fixed-width {
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
