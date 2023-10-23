@@ -32,6 +32,8 @@ public class AuthService {
         String accessToken = tokenProvider.createAccessToken(authInfo);
         String refreshToken = tokenProvider.createRefreshToken(authInfo);
 
+        // TODO : redis에 refreshToken 저장
+
         return new TokenResponse(accessToken, refreshToken);
     }
 
