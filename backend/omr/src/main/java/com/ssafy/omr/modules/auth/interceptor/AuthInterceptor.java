@@ -4,6 +4,7 @@ import com.ssafy.omr.modules.auth.token.AuthorizationExtractor;
 import com.ssafy.omr.modules.auth.token.TokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,15 +17,12 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import java.util.Objects;
 
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthInterceptor.class);
 
     private final TokenProvider tokenProvider;
-
-    public AuthInterceptor(TokenProvider tokenProvider) {
-        this.tokenProvider = tokenProvider;
-    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -35,7 +33,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
         if (isGetMethod(request)) {
-            LOGGER.info("prometheus" + request.getRequestURI());
+            LOGGER.info("GET" + request.getRequestURI());
             return true;
         }
 

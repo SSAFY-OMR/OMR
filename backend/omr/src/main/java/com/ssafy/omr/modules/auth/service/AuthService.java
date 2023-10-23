@@ -2,6 +2,7 @@ package com.ssafy.omr.modules.auth.service;
 
 import com.ssafy.omr.modules.auth.dto.AuthInfo;
 import com.ssafy.omr.modules.auth.dto.LoginRequest;
+import com.ssafy.omr.modules.auth.dto.TokenResponse;
 import com.ssafy.omr.modules.auth.exception.LoginFailedException;
 import com.ssafy.omr.modules.auth.token.TokenProvider;
 import com.ssafy.omr.modules.auth.util.Encryptor;
@@ -16,15 +17,22 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthService {
 
     private final MemberRepository memberRepository;
+    private final TokenProvider tokenProvider;
     private final Encryptor encryptor;
 
     @Transactional(readOnly = true)
-    public AuthInfo login(LoginRequest loginRequest) {
+    public TokenResponse login(LoginRequest loginRequest) {
         String username = encryptor.encrypt(loginRequest.loginId());
         String password = encryptor.encrypt(loginRequest.password());
         Member member = memberRepository.findByLoginIdAndPassword(username, password)
                 .orElseThrow(LoginFailedException::new);
-        return new AuthInfo(member.getId(), member.getRoleType().getName(), member.getNickname());
+
+        AuthInfo authInfo = new AuthInfo(member.getId(), member.getRoleType().getName(), member.getNickname());
+
+        String accessToken = tokenProvider.createAccessToken(authInfo);
+        String refreshToken = tokenProvider.createRefreshToken(authInfo);
+
+        return new TokenResponse(accessToken, refreshToken);
     }
-    
+
 }
