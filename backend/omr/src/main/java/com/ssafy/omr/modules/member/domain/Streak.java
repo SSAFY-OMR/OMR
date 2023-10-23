@@ -8,6 +8,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -26,10 +27,11 @@ public class Streak extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @Column
-    private Integer solvedCount;
+    @Column(nullable = false)
+    @Builder.Default
+    private Integer solvedCount = 0;
 
-    @Column
+    @Column(nullable = false)
     private LocalDate streakDate;
 
 }
