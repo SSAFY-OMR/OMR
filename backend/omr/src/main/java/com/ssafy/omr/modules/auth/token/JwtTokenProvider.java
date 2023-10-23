@@ -36,9 +36,9 @@ public class JwtTokenProvider implements TokenProvider{
         Date validity = new Date(now.getTime() + validityInMilliseconds);
 
         return Jwts.builder()
-                .claim("id", authInfo.getId())
-                .claim("role", authInfo.getRole())
-                .claim("nickname", authInfo.getNickname())
+                .claim("id", authInfo.id())
+                .claim("role", authInfo.role())
+                .claim("nickname", authInfo.nickname())
                 .setIssuedAt(now)
                 .setExpiration(validity)
                 .signWith(signingKey)
@@ -51,7 +51,7 @@ public class JwtTokenProvider implements TokenProvider{
         Date validity = new Date(now.getTime() + refreshTokenValidityMilliseconds);
 
         return Jwts.builder()
-                .claim("id", authInfo.getId())
+                .claim("id", authInfo.id())
                 .setIssuedAt(now)
                 .setExpiration(validity)
                 .signWith(signingKey)
@@ -105,7 +105,7 @@ public class JwtTokenProvider implements TokenProvider{
 
     @Override
     public String createNewTokenWithNewNickname(String newNickname, AuthInfo authInfo) {
-        AuthInfo newAuthInfo = new AuthInfo(authInfo.getId(), authInfo.getRole(), newNickname);
+        AuthInfo newAuthInfo = new AuthInfo(authInfo.id(), authInfo.role(), newNickname);
         return this.createAccessToken(newAuthInfo);
     }
 }
