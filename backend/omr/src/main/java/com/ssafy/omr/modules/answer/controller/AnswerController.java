@@ -1,5 +1,6 @@
 package com.ssafy.omr.modules.answer.controller;
 
+import com.ssafy.omr.modules.answer.dto.CreateAnswerRequest;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerResponse;
 import com.ssafy.omr.modules.answer.service.AnswerService;
 import com.ssafy.omr.modules.auth.token.LoginUser;
@@ -16,8 +17,8 @@ public class AnswerController {
     private final AnswerService answerService;
 
     @PostMapping("/create")
-    public BaseResponse<CreateAnswerResponse> createAnswer(@LoginUser LoginUser loginUser, Long questionId) {
-        CreateAnswerResponse createAnswerResponse = answerService.createAnswer(loginUser, questionId);
+    public BaseResponse<CreateAnswerResponse> createAnswer(@LoginUser LoginUser loginUser, CreateAnswerRequest createAnswerRequest) {
+        CreateAnswerResponse createAnswerResponse = answerService.createAnswer(loginUser, createAnswerRequest);
         return BaseResponse.<CreateAnswerResponse>builder().data(createAnswerResponse).code("201").build();
     }
 
