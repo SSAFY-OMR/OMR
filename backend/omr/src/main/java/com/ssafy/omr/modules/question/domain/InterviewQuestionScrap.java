@@ -1,4 +1,4 @@
-package com.ssafy.omr.modules.interview.domain;
+package com.ssafy.omr.modules.question.domain;
 
 import com.ssafy.omr.modules.member.domain.Member;
 import com.ssafy.omr.modules.util.base.BaseEntity;
