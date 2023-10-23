@@ -5,7 +5,7 @@ import com.ssafy.omr.modules.auth.dto.AuthInfo;
 public interface TokenProvider {
     String createAccessToken(AuthInfo authInfo);
 
-    String createRefreshToken();
+    String createRefreshToken(AuthInfo authInfo);
 
     String getPayload(String token);
 

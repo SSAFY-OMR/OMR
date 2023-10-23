@@ -4,6 +4,8 @@ import com.ssafy.omr.modules.util.base.BaseEntity;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,6 +36,9 @@ public class Member extends BaseEntity {
 
     @Column(length = 16)
     private String nickname;
+
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
 
     @Column(nullable = false)
     @Builder.Default
