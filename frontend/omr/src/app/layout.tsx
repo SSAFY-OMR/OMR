@@ -1,5 +1,9 @@
+import React from 'react';
+
 import type { Metadata } from 'next';
+
 import { pretendard } from '@/styles/font';
+
 import './globals.css';
 import Head from './Head';
 
