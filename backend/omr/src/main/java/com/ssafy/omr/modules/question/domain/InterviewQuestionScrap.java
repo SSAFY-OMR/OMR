@@ -1,5 +1,6 @@
-package com.ssafy.omr.modules.interview.domain;
+package com.ssafy.omr.modules.question.domain;
 
+import com.ssafy.omr.modules.member.domain.Member;
 import com.ssafy.omr.modules.util.base.BaseEntity;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
@@ -13,19 +14,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-
 @Getter
 @SuperBuilder
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AttributeOverride(name = "id", column = @Column(name = "interview_question_id"))
+@AttributeOverride(name = "id",column = @Column(name = "interview_question_scrap"))
 @Entity
-public class InterviewQuestion extends BaseEntity {
+public class InterviewQuestionScrap extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "interview_category_id")
-    private InterviewCategory interviewCategory;
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
 
-    @Column(columnDefinition = "TEXT")
-    private String content;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "interview_question_id", nullable = false)
+    private InterviewQuestion interviewQuestion;
+
 }
