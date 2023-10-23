@@ -12,7 +12,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import java.util.Objects;
 
 @RequiredArgsConstructor
-public class AuthenicationPrincipalArgumentResolver implements HandlerMethodArgumentResolver {
+public class AuthenticationPrincipalArgumentResolver implements HandlerMethodArgumentResolver {
 
     private final TokenProvider tokenProvider;
 

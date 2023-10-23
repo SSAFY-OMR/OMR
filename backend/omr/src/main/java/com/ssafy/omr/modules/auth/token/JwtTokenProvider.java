@@ -46,11 +46,12 @@ public class JwtTokenProvider implements TokenProvider{
     }
 
     @Override
-    public String createRefreshToken() {
+    public String createRefreshToken(AuthInfo authInfo) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + refreshTokenValidityMilliseconds);
 
         return Jwts.builder()
+                .claim("id", authInfo.getId())
                 .setIssuedAt(now)
                 .setExpiration(validity)
                 .signWith(signingKey)
