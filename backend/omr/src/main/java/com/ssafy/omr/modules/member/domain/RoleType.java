@@ -3,7 +3,7 @@ package com.ssafy.omr.modules.member.domain;
 public enum RoleType {
     USER("USER"), ADMIN("ADMIN");
 
-    private String name;
+    private final String name;
 
     RoleType(String name) {
         this.name = name;
