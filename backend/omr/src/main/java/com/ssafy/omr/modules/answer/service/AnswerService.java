@@ -3,6 +3,8 @@ package com.ssafy.omr.modules.answer.service;
 import com.ssafy.omr.modules.answer.domain.Answer;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerRequest;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerResponse;
+import com.ssafy.omr.modules.answer.dto.UpdateAnswerRequest;
+import com.ssafy.omr.modules.answer.exception.AnswerNotFoundException;
 import com.ssafy.omr.modules.answer.mapper.AnswerMapper;
 import com.ssafy.omr.modules.answer.repository.AnswerRepository;
 import com.ssafy.omr.modules.auth.dto.AuthInfo;
@@ -47,5 +49,13 @@ public class AnswerService {
         );
         applicationEventPublisher.publishEvent(new createdAnswerEvent(authInfo.id()));
         return AnswerMapper.supplyCreateAnswerResponseFrom(createdAnswer);
+    }
+
+    @Transactional
+    public void updateAnswer(UpdateAnswerRequest updateAnswerRequest) {
+        Answer answer = answerRepository
+                .findById(updateAnswerRequest.answerId())
+                .orElseThrow(AnswerNotFoundException::new);
+        answer.updateContent(updateAnswerRequest.content());
     }
 }
