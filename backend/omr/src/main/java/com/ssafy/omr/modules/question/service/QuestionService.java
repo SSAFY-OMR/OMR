@@ -14,7 +14,7 @@ import com.ssafy.omr.modules.question.dto.QuestionsResponse;
 import com.ssafy.omr.modules.question.exception.InterviewQuestionNotFoundException;
 import com.ssafy.omr.modules.question.mapper.QuestionMapper;
 import com.ssafy.omr.modules.question.repository.InterviewQuestionRepository;
-import com.ssafy.omr.modules.question.repository.InterviewQuestionScrapRepository;
+import com.ssafy.omr.modules.scrap.repository.InterviewQuestionScrapRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -50,7 +50,7 @@ public class QuestionService {
         boolean isScrapped = false;
         String answer = null;
 
-        Optional<Member> optionalMember = memberRepository.findById(authInfo.getId());
+        Optional<Member> optionalMember = memberRepository.findById(authInfo.id());
         if (optionalMember.isPresent()) {
             isScrapped = interviewQuestionScrapRepository.existsByInterviewQuestionAndMember(interviewQuestion, optionalMember.get());
 
