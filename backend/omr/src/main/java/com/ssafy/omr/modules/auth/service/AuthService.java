@@ -11,7 +11,6 @@ import com.ssafy.omr.modules.auth.token.TokenProvider;
 import com.ssafy.omr.modules.auth.util.Encryptor;
 import com.ssafy.omr.modules.member.domain.Member;
 import com.ssafy.omr.modules.member.repository.MemberRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

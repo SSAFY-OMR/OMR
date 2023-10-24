@@ -57,7 +57,7 @@ public class MemberDummy {
                     .password(encryptor.encrypt(passwords.get(i)))
                     .nickname(nicknames.get(i))
                     .roleType(RoleType.USER)
-                    .emoji(":whale:")
+                    .emoji("⛑")
                     .build());
         }
 
