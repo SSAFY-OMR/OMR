@@ -19,7 +19,7 @@ import lombok.experimental.SuperBuilder;
 @Entity
 public class InterviewQuestion extends BaseEntity {
 
-    @Column(length = 16)
+    @Column(length = 63)
     @Convert(converter = InterviewCategoryConverter.class)
     private InterviewCategory interviewCategory;
 

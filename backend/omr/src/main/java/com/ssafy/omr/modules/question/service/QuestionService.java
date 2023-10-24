@@ -36,9 +36,16 @@ public class QuestionService {
     private final QuestionMapper questionMapper;
 
     @Transactional(readOnly = true)
-    public QuestionsResponse getQuestionsByCategory(AuthInfo authInfo, QuestionsRequest questionsRequest) {
+    public QuestionsResponse getQuestionsByCategory(QuestionsRequest questionsRequest) {
         PageRequest pageRequest = questionsRequest.toPageRequest();
-        Page<QuestionElement> questionElements = interviewQuestionRepository.findQuestionsByCategory(InterviewCategory.ofName(questionsRequest.getCategory()), pageRequest);
+
+        String category = questionsRequest.getCategory();
+        if (category == null) {
+            Page<QuestionElement> questionElements = interviewQuestionRepository.findQuestions(pageRequest);
+            return questionMapper.supplyQuestionsResponse(questionElements);
+        }
+
+        Page<QuestionElement> questionElements = interviewQuestionRepository.findQuestionsByCategory(InterviewCategory.ofName(category), pageRequest);
         return questionMapper.supplyQuestionsResponse(questionElements);
     }
 
