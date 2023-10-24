@@ -10,6 +10,7 @@ import com.ssafy.omr.modules.answer.mapper.AnswerMapper;
 import com.ssafy.omr.modules.answer.repository.AnswerRepository;
 import com.ssafy.omr.modules.auth.dto.AuthInfo;
 import com.ssafy.omr.modules.global.event.createdAnswerEvent;
+import com.ssafy.omr.modules.member.domain.RoleType;
 import com.ssafy.omr.modules.question.exception.InterviewQuestionNotFoundException;
 import com.ssafy.omr.modules.member.domain.Member;
 import com.ssafy.omr.modules.member.repository.MemberRepository;
@@ -57,9 +58,16 @@ public class AnswerService {
         Answer answer = answerRepository
                 .findById(updateAnswerRequest.answerId())
                 .orElseThrow(AnswerNotFoundException::new);
-        if (authInfo.id() == null || !authInfo.id().equals(answer.getMember().getId())) {
+        if (checkEditable(authInfo, answer.getMember().getId())) {
             throw new AnswerForbiddenException();
         }
         answer.updateContent(updateAnswerRequest.content());
     }
+
+    private boolean checkEditable(AuthInfo authInfo, Long answerOwnerId) {
+        boolean isOwner = answerOwnerId.equals(authInfo.id());
+        boolean isAdmin = authInfo.role().equals(RoleType.ADMIN.getName());
+        return isOwner || isAdmin;
+    }
+
 }
