@@ -40,4 +40,8 @@ public class Answer extends BaseEntity {
     @Builder.Default
     private Integer likeCount = 0;
 
+    public void updateContent(String content) {
+        this.content = content;
+    }
+
 }
