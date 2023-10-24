@@ -10,7 +10,6 @@ import com.ssafy.omr.modules.util.base.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,8 +26,9 @@ public class AnswerController {
         return BaseResponse.<CreateAnswerResponse>builder().data(createAnswerResponse).code("201").build();
     }
 
-    @PatchMapping("/update/{questionId}")
+    @PatchMapping("/update")
     public BaseResponse<Void> updateAnswer(@RequestBody UpdateAnswerRequest updateAnswerRequest) {
+        answerService.updateAnswer(updateAnswerRequest);
         return BaseResponse.<Void>builder().build();
     }
 
