@@ -8,6 +8,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetQuestionsRequest extends BasePageRequest{
+public class QuestionsRequest extends BasePageRequest{
     private String category;
 }
