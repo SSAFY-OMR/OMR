@@ -1,6 +1,7 @@
-package com.ssafy.omr.modules.question.domain;
+package com.ssafy.omr.modules.scrap.domain;
 
 import com.ssafy.omr.modules.member.domain.Member;
+import com.ssafy.omr.modules.question.domain.InterviewQuestion;
 import com.ssafy.omr.modules.util.base.BaseEntity;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
