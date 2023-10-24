@@ -8,6 +8,7 @@ import com.ssafy.omr.modules.auth.token.LoginUser;
 import com.ssafy.omr.modules.util.base.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +19,7 @@ public class AnswerController {
     private final AnswerService answerService;
 
     @PostMapping("/create")
-    public BaseResponse<CreateAnswerResponse> createAnswer(@LoginUser AuthInfo authInfo, CreateAnswerRequest createAnswerRequest) {
+    public BaseResponse<CreateAnswerResponse> createAnswer(@LoginUser AuthInfo authInfo, @RequestBody CreateAnswerRequest createAnswerRequest) {
         CreateAnswerResponse createAnswerResponse = answerService.createAnswer(authInfo, createAnswerRequest);
         return BaseResponse.<CreateAnswerResponse>builder().data(createAnswerResponse).code("201").build();
     }
