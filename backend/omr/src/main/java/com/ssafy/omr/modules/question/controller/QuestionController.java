@@ -2,7 +2,7 @@ package com.ssafy.omr.modules.question.controller;
 
 import com.ssafy.omr.modules.auth.dto.AuthInfo;
 import com.ssafy.omr.modules.question.dto.QuestionsRequest;
-import com.ssafy.omr.modules.question.dto.GetQuestionsResponse;
+import com.ssafy.omr.modules.question.dto.QuestionsResponse;
 import com.ssafy.omr.modules.question.service.QuestionService;
 import com.ssafy.omr.modules.util.base.BaseResponse;
 import jakarta.validation.Valid;
@@ -20,9 +20,9 @@ public class QuestionController {
     private final QuestionService questionService;
 
     @RequestMapping()
-    public BaseResponse<GetQuestionsResponse> getQuestionsByCategory(@Valid @ModelAttribute QuestionsRequest questionsRequest) {
+    public BaseResponse<QuestionsResponse> getQuestionsByCategory(@Valid @ModelAttribute QuestionsRequest questionsRequest) {
         AuthInfo authInfo = new AuthInfo(1L, "user", "김싸피");
-        return BaseResponse.<GetQuestionsResponse>builder()
+        return BaseResponse.<QuestionsResponse>builder()
                 .data(questionService.getQuestionsByCategory(authInfo, questionsRequest))
                 .build();
     }

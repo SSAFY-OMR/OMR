@@ -6,7 +6,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class GetQuestionsResponse {
+public class QuestionsResponse {
     private List<QuestionElement> questions;
     private Integer currentPage;
     private Integer totalPageCount;

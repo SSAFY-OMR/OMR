@@ -3,7 +3,7 @@ package com.ssafy.omr.modules.question.service;
 import com.ssafy.omr.modules.auth.dto.AuthInfo;
 import com.ssafy.omr.modules.meta.domain.InterviewCategory;
 import com.ssafy.omr.modules.question.dto.QuestionsRequest;
-import com.ssafy.omr.modules.question.dto.GetQuestionsResponse;
+import com.ssafy.omr.modules.question.dto.QuestionsResponse;
 import com.ssafy.omr.modules.question.dto.QuestionElement;
 import com.ssafy.omr.modules.question.mapper.QuestionMapper;
 import com.ssafy.omr.modules.question.repository.InterviewQuestionRepository;
@@ -22,7 +22,7 @@ public class QuestionService {
     private final QuestionMapper questionMapper;
 
     @Transactional(readOnly = true)
-    public GetQuestionsResponse getQuestionsByCategory(AuthInfo authInfo, QuestionsRequest questionsRequest) {
+    public QuestionsResponse getQuestionsByCategory(AuthInfo authInfo, QuestionsRequest questionsRequest) {
         PageRequest pageRequest = questionsRequest.toPageRequest();
         Page<QuestionElement> questionElements = interviewQuestionRepository.findQuestionsByCategory(InterviewCategory.ofName(questionsRequest.getCategory()), pageRequest);
         return questionMapper.supplyGetQuestionsResponse(questionElements);
