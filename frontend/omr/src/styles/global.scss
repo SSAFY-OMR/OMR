@@ -2,28 +2,34 @@
 
 $color-white: #ffffff;
 $color-black: #000000;
-$color-blue-light: #e8f7fd;
-$color-blue-light-hover: #dcf4fb;
-$color-blue-light-active: #b7e7f8;
-$color-blue-normal: #18b3e7;
-$color-blue-normal-hover: #16a1d0;
-$color-blue-dark: #138fb9;
-$color-blue-dark-hover: #0e6b8b;
-$color-blue-dark-active: #0b5168;
-$color-blue-darker: #083f51;
+$color-blue-50: #e8f7fd;
+$color-blue-100: #b7e7f8;
+$color-blue-200: #95dcf4;
+$color-blue-300: #64ccef;
+$color-blue-400: #46c2ec;
+$color-blue-500: #18b3e7;
+$color-blue-600: #16a3d2;
+$color-blue-700: #117fa4;
+$color-blue-800: #0d627f;
+$color-blue-900: #0a4b61;
+$color-neutral-20: #f5f6f7;
+$color-neutral-40: #dfe2e6;
 
 :root {
   --color-white: #{$color-white};
   --color-black: #{$color-black};
-  --color-blue-light: #{$color-blue-light};
-  --color-blue-light-hover: #{$color-blue-light-hover};
-  --color-blue-light-active: #{$color-blue-light-active};
-  --color-blue-normal: #{$color-blue-normal};
-  --color-blue-normal-hover: #{$color-blue-normal-hover};
-  --color-blue-dark: #{$color-blue-dark};
-  --color-blue-dark-hover: #{$color-blue-dark-hover};
-  --color-blue-dark-active: #{$color-blue-dark-active};
-  --color-blue-darker: #{$color-blue-darker};
+  --color-blue-50: #{$color-blue-50};
+  --color-blue-100: #{$color-blue-100};
+  --color-blue-200: #{$color-blue-200};
+  --color-blue-300: #{$color-blue-300};
+  --color-blue-400: #{$color-blue-400};
+  --color-blue-500: #{$color-blue-500};
+  --color-blue-600: #{$color-blue-600};
+  --color-blue-700: #{$color-blue-700};
+  --color-blue-800: #{$color-blue-800};
+  --color-blue-900: #{$color-blue-900};
+  --color-neutral-20: #{$color-neutral-20};
+  --color-neutral-40: #{$color-neutral-40};
 
   --font-size-xsmall: 0.75rem;
   --font-size-small: 0.875rem;

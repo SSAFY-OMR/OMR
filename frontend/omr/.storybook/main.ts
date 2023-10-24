@@ -32,10 +32,22 @@ const config: StorybookConfig = {
       return config;
     }
 
-    config.module.rules.unshift({
-      test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    });
+    config.module.rules = [
+      ...config.module.rules.map((rule) => {
+        if (!rule || rule === '...') {
+          return rule;
+        }
+
+        if (rule.test && /svg/.test(String(rule.test))) {
+          return { ...rule, exclude: /\.svg$/i };
+        }
+        return rule;
+      }),
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+      },
+    ];
 
     config.resolve.modules = [
       path.resolve(__dirname, '..'),
