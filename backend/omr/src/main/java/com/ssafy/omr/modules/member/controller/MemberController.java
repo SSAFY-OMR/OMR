@@ -4,6 +4,7 @@ import com.ssafy.omr.modules.auth.dto.AuthInfo;
 import com.ssafy.omr.modules.auth.token.LoginUser;
 import com.ssafy.omr.modules.member.dto.ChangeEmojiRequest;
 import com.ssafy.omr.modules.member.dto.MemberProfileResponse;
+import com.ssafy.omr.modules.member.dto.SignUpRequest;
 import com.ssafy.omr.modules.member.service.MemberService;
 import com.ssafy.omr.modules.util.base.BaseResponse;
 import jakarta.validation.Valid;
@@ -16,6 +17,12 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
+
+    @PostMapping("/signup")
+    public BaseResponse<Void> signUp(@Valid @RequestBody SignUpRequest signUpRequest) {
+        memberService.signUp(signUpRequest);
+        return BaseResponse.<Void>builder().build();
+    }
 
     @GetMapping("/my-profile")
     public BaseResponse<MemberProfileResponse> getMyProfileInformation(@LoginUser AuthInfo authInfo) {

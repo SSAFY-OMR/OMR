@@ -119,10 +119,4 @@ public class JwtTokenProvider implements TokenProvider{
             return false;
         }
     }
-
-    @Override
-    public String createNewTokenWithNewNickname(String newNickname, AuthInfo authInfo) {
-        AuthInfo newAuthInfo = new AuthInfo(authInfo.id(), authInfo.role(), newNickname);
-        return this.createAccessToken(newAuthInfo);
-    }
 }
