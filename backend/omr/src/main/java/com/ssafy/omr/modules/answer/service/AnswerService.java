@@ -4,6 +4,7 @@ import com.ssafy.omr.modules.answer.domain.Answer;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerRequest;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerResponse;
 import com.ssafy.omr.modules.answer.dto.UpdateAnswerRequest;
+import com.ssafy.omr.modules.answer.exception.AnswerForbiddenException;
 import com.ssafy.omr.modules.answer.exception.AnswerNotFoundException;
 import com.ssafy.omr.modules.answer.mapper.AnswerMapper;
 import com.ssafy.omr.modules.answer.repository.AnswerRepository;
@@ -52,10 +53,13 @@ public class AnswerService {
     }
 
     @Transactional
-    public void updateAnswer(UpdateAnswerRequest updateAnswerRequest) {
+    public void updateAnswer(AuthInfo authInfo, UpdateAnswerRequest updateAnswerRequest) {
         Answer answer = answerRepository
                 .findById(updateAnswerRequest.answerId())
                 .orElseThrow(AnswerNotFoundException::new);
+        if (authInfo.id() == null || !authInfo.id().equals(answer.getMember().getId())) {
+            throw new AnswerForbiddenException();
+        }
         answer.updateContent(updateAnswerRequest.content());
     }
 }

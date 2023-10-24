@@ -27,8 +27,8 @@ public class AnswerController {
     }
 
     @PatchMapping("/update")
-    public BaseResponse<Void> updateAnswer(@RequestBody UpdateAnswerRequest updateAnswerRequest) {
-        answerService.updateAnswer(updateAnswerRequest);
+    public BaseResponse<Void> updateAnswer(@LoginUser AuthInfo authInfo, @RequestBody UpdateAnswerRequest updateAnswerRequest) {
+        answerService.updateAnswer(authInfo,updateAnswerRequest);
         return BaseResponse.<Void>builder().build();
     }
 
