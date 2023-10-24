@@ -48,4 +48,7 @@ public class Member extends BaseEntity {
     @Builder.Default
     private Integer longestStreak = 0;
 
+    public void changeEmoji(String emoji) {
+        this.emoji = emoji;
+    }
 }
