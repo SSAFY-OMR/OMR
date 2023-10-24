@@ -3,6 +3,7 @@ package com.ssafy.omr.modules.answer.mapper;
 import com.ssafy.omr.modules.answer.domain.Answer;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerRequest;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerResponse;
+import com.ssafy.omr.modules.answer.dto.ToggleLikeAnswerResponse;
 import com.ssafy.omr.modules.member.domain.Member;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
 
@@ -22,4 +23,9 @@ public class AnswerMapper {
                 .content(createAnswerRequest.content())
                 .build();
     }
+
+    public static ToggleLikeAnswerResponse supplyToggleLikeAnswerResponseOf(boolean isToggled) {
+        return new ToggleLikeAnswerResponse(isToggled);
+    }
+
 }
