@@ -1,0 +1,49 @@
+.Button {
+  border-radius: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  & > span {
+    font-weight: 600;
+  }
+}
+
+.small {
+  font-size: var(--font-size-xsmall);
+  padding: 8px 8px;
+}
+
+.medium {
+  font-size: var(--font-size-small);
+  padding: 8px 10px;
+}
+
+.large {
+  font-size: var(--font-size-medium);
+  padding: 10px 12px;
+}
+
+.primary {
+  background-color: var(--color-blue-500);
+  color: var(--color-white);
+}
+
+.secondary {
+  background-color: var(--color-blue-50);
+  color: var(--color-blue-600);
+}
+
+.fitContent {
+  width: fit-content;
+}
+
+.full {
+  width: 100%;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
