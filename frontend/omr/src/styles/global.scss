@@ -14,6 +14,7 @@ $color-blue-800: #0d627f;
 $color-blue-900: #0a4b61;
 $color-neutral-20: #f5f6f7;
 $color-neutral-40: #dfe2e6;
+$color-neutral-60: #b3b9c4;
 
 :root {
   --color-white: #{$color-white};
@@ -30,6 +31,7 @@ $color-neutral-40: #dfe2e6;
   --color-blue-900: #{$color-blue-900};
   --color-neutral-20: #{$color-neutral-20};
   --color-neutral-40: #{$color-neutral-40};
+  --color-neutral-60: #{$color-neutral-60};
 
   --font-size-xsmall: 0.75rem;
   --font-size-small: 0.875rem;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ArrowIcon, CheckIcon, CommunityIcon, EditIcon } from 'public/icons';
 
@@ -15,6 +15,8 @@ type ButtonProps = {
 };
 
 const Button = ({ children, size, color, width, type }: ButtonProps) => {
+  const [name, setName] = useState('');
+
   const iconSize = {
     small: '16px',
     medium: '20px',
