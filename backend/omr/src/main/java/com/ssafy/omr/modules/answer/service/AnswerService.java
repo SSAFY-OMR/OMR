@@ -37,7 +37,7 @@ public class AnswerService {
      */
     @Transactional
     public CreateAnswerResponse createAnswer(AuthInfo authInfo, CreateAnswerRequest createAnswerRequest) {
-        Member memberRef = memberRepository.getReferenceById(authInfo.getId());
+        Member memberRef = memberRepository.getReferenceById(authInfo.id());
         InterviewQuestion interviewQuestionRef = interViewQuestionRepository
                 .findById(createAnswerRequest.questionId())
                 .orElseThrow(InterviewQuestionNotFoundException::new);
@@ -45,7 +45,7 @@ public class AnswerService {
         Answer createdAnswer = answerRepository.save(
                 AnswerMapper.supplyAnswerOf(memberRef, interviewQuestionRef, createAnswerRequest)
         );
-        applicationEventPublisher.publishEvent(new createdAnswerEvent(authInfo.getId()));
+        applicationEventPublisher.publishEvent(new createdAnswerEvent(authInfo.id()));
         return AnswerMapper.supplyCreateAnswerResponseFrom(createdAnswer);
     }
 }
