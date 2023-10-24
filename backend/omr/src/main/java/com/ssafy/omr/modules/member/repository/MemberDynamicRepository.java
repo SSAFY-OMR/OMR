@@ -26,7 +26,7 @@ public class MemberDynamicRepository {
 
         List<StreakProjection> streaks = jpaQueryFactory
                 .select(Projections.fields(StreakProjection.class,
-                        streak.streakDate.as("localDateTime"),
+                        streak.streakDate.as("localDate"),
                         streak.solvedCount.as("count")))
                 .from(streak)
                 .where(streak.member.id.eq(memberId), streak.streakDate.dayOfMonth().eq(month))
