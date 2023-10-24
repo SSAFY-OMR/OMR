@@ -4,7 +4,7 @@ import com.ssafy.omr.modules.member.domain.Member;
 import com.ssafy.omr.modules.member.domain.RoleType;
 import com.ssafy.omr.modules.member.dto.MemberProfileResponse;
 import com.ssafy.omr.modules.member.dto.MemberStreakResponse;
-import com.ssafy.omr.modules.member.dto.StreakProjection;
+import com.ssafy.omr.modules.member.dto.StreakElement;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -31,7 +31,7 @@ public class MemberMapper {
     }
 
     public static MemberStreakResponse supplyMemberStreakResponseOf(
-            List<StreakProjection> streaks,
+            List<StreakElement> streaks,
             int currentStreak,
             int longestStreak) {
         return new MemberStreakResponse(streaks, currentStreak, longestStreak);

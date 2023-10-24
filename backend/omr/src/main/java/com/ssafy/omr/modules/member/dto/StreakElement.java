@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Setter
 @Getter
 
-public class StreakProjection {
+public class StreakElement {
     private LocalDate localDate;
     private int count;
 }
