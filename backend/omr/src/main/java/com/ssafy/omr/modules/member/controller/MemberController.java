@@ -4,10 +4,13 @@ import com.ssafy.omr.modules.auth.dto.AuthInfo;
 import com.ssafy.omr.modules.auth.token.LoginUser;
 import com.ssafy.omr.modules.member.dto.ChangeEmojiRequest;
 import com.ssafy.omr.modules.member.dto.MemberProfileResponse;
+import com.ssafy.omr.modules.member.dto.MemberStreakResponse;
 import com.ssafy.omr.modules.member.dto.SignUpRequest;
 import com.ssafy.omr.modules.member.service.MemberService;
 import com.ssafy.omr.modules.util.base.BaseResponse;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,5 +40,15 @@ public class MemberController {
             @Valid @RequestBody ChangeEmojiRequest changeEmojiRequest) {
         memberService.changeMemberEmoji(authInfo.id(), changeEmojiRequest);
         return BaseResponse.<Void>builder().build();
+    }
+
+    @GetMapping("/streak/{month}/{year}")
+    public BaseResponse<MemberStreakResponse> getStreaksByMonth(
+            @LoginUser AuthInfo authInfo,
+            @PathVariable("month") @NotBlank @Size(min = 1, max = 12) int month,
+            @PathVariable("year") @NotBlank @Size(min = 2023, max = 2024) int year) {
+        return BaseResponse.<MemberStreakResponse>builder()
+                .data(memberService.getStreaksByMonth(authInfo.id(), year, month))
+                .build();
     }
 }
