@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.util.Arrays;
 
 @Getter
-public enum InterviewCategory {
+public enum InterviewCategory implements MetaData {
     DATA_STRUCTURE(1, "DATA_STRUCTURE", "자료구조"),
     ALGORITHM(2, "ALGORITHM", "알고리즘"),
     COMPUTER_ARCHITECTURE(3, "COMPUTER_ARCHITECTURE", "컴퓨터구조"),
