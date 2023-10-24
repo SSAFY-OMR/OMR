@@ -8,7 +8,6 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -36,14 +35,6 @@ public class Member extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
-
-    @Column(nullable = false)
-    @Builder.Default
-    private Integer currentStreak = 0;
-
-    @Column(nullable = false)
-    @Builder.Default
-    private Integer longestStreak = 0;
 
     public void changeEmoji(String emoji) {
         this.emoji = emoji;
