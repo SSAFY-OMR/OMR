@@ -23,7 +23,7 @@ public class ScrapController {
 	@PostMapping("/questions/{questionId}/scrap")
 	public BaseResponse<PostScrapResponse> toggleInterviewQuestionScrap(@LoginUser AuthInfo authInfo, @PathVariable Long questionId) {
 		return BaseResponse.<PostScrapResponse>builder()
-			.data(scrapService.toggleInterviewQuestionScrap(questionId, authInfo.getId()))
+			.data(scrapService.toggleInterviewQuestionScrap(questionId, authInfo.id()))
 			.build();
 	}
 }
