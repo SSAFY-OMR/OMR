@@ -3,9 +3,8 @@ package com.ssafy.omr.modules.answer.mapper;
 import com.ssafy.omr.modules.answer.domain.Answer;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerRequest;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerResponse;
-import com.ssafy.omr.modules.interview.domain.InterviewQuestion;
 import com.ssafy.omr.modules.member.domain.Member;
-import org.springframework.stereotype.Component;
+import com.ssafy.omr.modules.question.domain.InterviewQuestion;
 
 public class AnswerMapper {
 

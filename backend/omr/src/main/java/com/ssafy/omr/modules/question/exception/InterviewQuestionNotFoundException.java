@@ -1,4 +1,4 @@
-package com.ssafy.omr.modules.interview.exception;
+package com.ssafy.omr.modules.question.exception;
 
 import com.ssafy.omr.modules.global.exception.NotFoundException;
 
