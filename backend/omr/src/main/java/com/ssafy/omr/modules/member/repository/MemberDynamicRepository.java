@@ -4,7 +4,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.omr.modules.member.domain.MemberStreak;
 import com.ssafy.omr.modules.member.dto.MemberStreakResponse;
-import com.ssafy.omr.modules.member.dto.StreakProjection;
+import com.ssafy.omr.modules.member.dto.StreakElement;
 import com.ssafy.omr.modules.member.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -20,16 +20,18 @@ public class MemberDynamicRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
 
-    public MemberStreakResponse getMemberStreaksInformation(Long memberId, int month) {
+    public MemberStreakResponse getMemberStreaksInformation(Long memberId, int year, int month) {
         int currentStreak = 0;
         int longestStreak = 0;
 
-        List<StreakProjection> streaks = jpaQueryFactory
-                .select(Projections.fields(StreakProjection.class,
+        List<StreakElement> streaks = jpaQueryFactory
+                .select(Projections.fields(StreakElement.class,
                         streak.streakDate.as("localDate"),
                         streak.solvedCount.as("count")))
                 .from(streak)
-                .where(streak.member.id.eq(memberId), streak.streakDate.dayOfMonth().eq(month))
+                .where(streak.member.id.eq(memberId),
+                       streak.streakDate.month().eq(month),
+                       streak.streakDate.year().eq(year))
                 .stream().toList();
 
         MemberStreak memberStreakInfo = jpaQueryFactory

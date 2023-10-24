@@ -42,12 +42,13 @@ public class MemberController {
         return BaseResponse.<Void>builder().build();
     }
 
-    @GetMapping("/streak/{month}")
+    @GetMapping("/streak/{month}/{year}")
     public BaseResponse<MemberStreakResponse> getStreaksByMonth(
             @LoginUser AuthInfo authInfo,
-            @PathVariable("month") @NotBlank @Size(min = 1, max = 12) int month) {
+            @PathVariable("month") @NotBlank @Size(min = 1, max = 12) int month,
+            @PathVariable("year") @NotBlank @Size(min = 2023, max = 2024) int year) {
         return BaseResponse.<MemberStreakResponse>builder()
-                .data(memberService.getStreaksByMonth(authInfo.id(), month))
+                .data(memberService.getStreaksByMonth(authInfo.id(), year, month))
                 .build();
     }
 }

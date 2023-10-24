@@ -32,8 +32,8 @@ public class MemberService {
     }
 
     @Transactional(readOnly = true)
-    public MemberStreakResponse getStreaksByMonth(Long memberId, int month) {
-        return memberDynamicRepository.getMemberStreaksInformation(memberId, month);
+    public MemberStreakResponse getStreaksByMonth(Long memberId, int year, int month) {
+        return memberDynamicRepository.getMemberStreaksInformation(memberId, year, month);
     }
 
     @Transactional
