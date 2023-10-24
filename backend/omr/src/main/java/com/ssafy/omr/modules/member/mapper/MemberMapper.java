@@ -3,8 +3,12 @@ package com.ssafy.omr.modules.member.mapper;
 import com.ssafy.omr.modules.member.domain.Member;
 import com.ssafy.omr.modules.member.domain.RoleType;
 import com.ssafy.omr.modules.member.dto.MemberProfileResponse;
+import com.ssafy.omr.modules.member.dto.MemberStreakResponse;
+import com.ssafy.omr.modules.member.dto.StreakElement;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MemberMapper {
@@ -24,5 +28,12 @@ public class MemberMapper {
                 .nickname(nickname)
                 .roleType(RoleType.USER)
                 .build();
+    }
+
+    public static MemberStreakResponse supplyMemberStreakResponseOf(
+            List<StreakElement> streaks,
+            int currentStreak,
+            int longestStreak) {
+        return new MemberStreakResponse(streaks, currentStreak, longestStreak);
     }
 }
