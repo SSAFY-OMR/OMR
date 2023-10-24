@@ -3,6 +3,7 @@ package com.ssafy.omr.modules.answer.service;
 import com.ssafy.omr.modules.answer.domain.Answer;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerRequest;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerResponse;
+import com.ssafy.omr.modules.answer.dto.DeleteAnswerRequest;
 import com.ssafy.omr.modules.answer.dto.UpdateAnswerRequest;
 import com.ssafy.omr.modules.answer.exception.AnswerForbiddenException;
 import com.ssafy.omr.modules.answer.exception.AnswerNotFoundException;
@@ -58,11 +59,25 @@ public class AnswerService {
         Answer answer = answerRepository
                 .findById(updateAnswerRequest.answerId())
                 .orElseThrow(AnswerNotFoundException::new);
+
         if (checkEditable(authInfo, answer.getMember().getId())) {
             throw new AnswerForbiddenException();
         }
         answer.updateContent(updateAnswerRequest.content());
     }
+
+    @Transactional
+    public void deleteAnswer(AuthInfo authInfo, DeleteAnswerRequest deleteAnswerRequest) {
+        Answer answer = answerRepository
+                .findById(deleteAnswerRequest.answerId())
+                .orElseThrow(AnswerNotFoundException::new);
+
+        if (checkEditable(authInfo, answer.getMember().getId())) {
+            throw new AnswerForbiddenException();
+        }
+        answerRepository.delete(answer);
+    }
+
 
     private boolean checkEditable(AuthInfo authInfo, Long answerOwnerId) {
         boolean isOwner = answerOwnerId.equals(authInfo.id());
