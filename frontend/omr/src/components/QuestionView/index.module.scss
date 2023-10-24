@@ -17,6 +17,16 @@
   padding: 10px;
 }
 
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+}
+
 .questionContent {
   display: flex;
   justify-content: center;
@@ -24,4 +34,10 @@
   font-weight: 500;
   text-align: center;
   line-height: 20px;
+}
+
+.listItem {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* 말줄임 적용 */
 }
