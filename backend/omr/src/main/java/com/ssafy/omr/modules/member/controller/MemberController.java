@@ -20,7 +20,7 @@ public class MemberController {
     @GetMapping("/my-profile")
     public BaseResponse<MemberProfileResponse> getMyProfileInformation(@LoginUser AuthInfo authInfo) {
         return BaseResponse.<MemberProfileResponse>builder()
-                .data(memberService.getMyProfileInformation(authInfo.getId()))
+                .data(memberService.getMyProfileInformation(authInfo.id()))
                 .build();
     }
 
@@ -28,7 +28,7 @@ public class MemberController {
     public BaseResponse<Void> changeMemberEmoji(
             @LoginUser AuthInfo authInfo,
             @Valid @RequestBody ChangeEmojiRequest changeEmojiRequest) {
-        memberService.changeMemberEmoji(authInfo.getId(), changeEmojiRequest);
+        memberService.changeMemberEmoji(authInfo.id(), changeEmojiRequest);
         return BaseResponse.<Void>builder().build();
     }
 }
