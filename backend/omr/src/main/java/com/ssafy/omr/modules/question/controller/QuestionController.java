@@ -1,7 +1,7 @@
 package com.ssafy.omr.modules.question.controller;
 
 import com.ssafy.omr.modules.auth.dto.AuthInfo;
-import com.ssafy.omr.modules.question.dto.GetQuestionsRequest;
+import com.ssafy.omr.modules.question.dto.QuestionsRequest;
 import com.ssafy.omr.modules.question.dto.GetQuestionsResponse;
 import com.ssafy.omr.modules.question.service.QuestionService;
 import com.ssafy.omr.modules.util.base.BaseResponse;
@@ -20,10 +20,10 @@ public class QuestionController {
     private final QuestionService questionService;
 
     @RequestMapping()
-    public BaseResponse<GetQuestionsResponse> getQuestionsByCategory(@Valid @ModelAttribute GetQuestionsRequest getQuestionsRequest) {
+    public BaseResponse<GetQuestionsResponse> getQuestionsByCategory(@Valid @ModelAttribute QuestionsRequest questionsRequest) {
         AuthInfo authInfo = new AuthInfo(1L, "user", "김싸피");
         return BaseResponse.<GetQuestionsResponse>builder()
-                .data(questionService.getQuestionsByCategory(authInfo, getQuestionsRequest))
+                .data(questionService.getQuestionsByCategory(authInfo, questionsRequest))
                 .build();
     }
 }
