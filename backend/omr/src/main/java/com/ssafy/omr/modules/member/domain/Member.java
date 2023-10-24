@@ -39,4 +39,7 @@ public class Member extends BaseEntity {
     public void changeEmoji(String emoji) {
         this.emoji = emoji;
     }
+    public void changePassword(String password) {
+        this.password = password;
+    }
 }

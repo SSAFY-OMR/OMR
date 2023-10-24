@@ -3,10 +3,12 @@ package com.ssafy.omr.modules.member.service;
 import com.ssafy.omr.modules.auth.util.Encryptor;
 import com.ssafy.omr.modules.member.domain.Member;
 import com.ssafy.omr.modules.member.dto.ChangeEmojiRequest;
+import com.ssafy.omr.modules.member.dto.ChangePasswordRequest;
 import com.ssafy.omr.modules.member.dto.MemberProfileResponse;
 import com.ssafy.omr.modules.member.dto.MemberStreakResponse;
 import com.ssafy.omr.modules.member.dto.SignUpRequest;
 import com.ssafy.omr.modules.member.exception.MemberNotFoundException;
+import com.ssafy.omr.modules.member.exception.SamePasswordException;
 import com.ssafy.omr.modules.member.mapper.MemberMapper;
 import com.ssafy.omr.modules.member.repository.MemberDynamicRepository;
 import com.ssafy.omr.modules.member.repository.MemberRepository;
@@ -52,5 +54,19 @@ public class MemberService {
         Member member = MemberMapper.supplyUserOf(loginId, password, signUpRequest.emoji(), randomUtil.generateNickname());
 
         memberRepository.save(member);
+    }
+
+    @Transactional
+    public void changePassword(Long memberId, ChangePasswordRequest changePasswordRequest) {
+
+        Member member = memberRepository.findById(memberId).orElseThrow(MemberNotFoundException::new);
+
+        String passwordToBe = encryptor.encrypt(changePasswordRequest.password());
+
+        if (member.getPassword().equals(passwordToBe)) {
+            throw new SamePasswordException();
+        }
+
+        member.changePassword(passwordToBe);
     }
 }
