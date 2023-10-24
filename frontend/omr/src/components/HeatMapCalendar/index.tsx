@@ -3,6 +3,8 @@ import React from 'react';
 import HeatMap from '@uiw/react-heat-map';
 import Tooltip from '@uiw/react-tooltip';
 
+import type { RectProps } from '@uiw/react-heat-map/lib/Rect';
+
 import {
   BLUE_100,
   BLUE_300,
@@ -10,8 +12,6 @@ import {
   BLUE_700,
   NEUTRAL_40,
 } from '@/styles/color';
-
-import type { RectProps } from '@uiw/react-heat-map/lib/Rect';
 
 type HeatMapCalendarProps = {
   value: { date: string; count: number }[];
