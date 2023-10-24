@@ -9,10 +9,7 @@ import com.ssafy.omr.modules.util.base.BaseResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/questions")
@@ -21,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class QuestionController {
     private final QuestionService questionService;
 
-    @RequestMapping()
+    @GetMapping()
     public BaseResponse<QuestionsResponse> getQuestionsByCategory(@Valid @ModelAttribute QuestionsRequest questionsRequest) {
         AuthInfo authInfo = new AuthInfo(1L, "user", "김싸피");
         return BaseResponse.<QuestionsResponse>builder()
@@ -29,7 +26,7 @@ public class QuestionController {
                 .build();
     }
 
-    @RequestMapping("/{questionId}")
+    @GetMapping("/{questionId}")
     public BaseResponse<QuestionDetailResponse> getQuestionById(@PathVariable Long questionId){
         AuthInfo authInfo = new AuthInfo(1L, "user", "김싸피");
         return BaseResponse.<QuestionDetailResponse>builder()
