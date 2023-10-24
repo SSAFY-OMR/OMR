@@ -19,7 +19,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AttributeOverride(name = "id",column = @Column(name = "interview_question_scrap"))
+@AttributeOverride(name = "id",column = @Column(name = "interview_question_scrap_id"))
 @Entity
 public class InterviewQuestionScrap extends BaseEntity {
 
