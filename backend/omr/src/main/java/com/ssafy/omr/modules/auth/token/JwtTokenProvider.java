@@ -1,6 +1,7 @@
 package com.ssafy.omr.modules.auth.token;
 
 import com.ssafy.omr.modules.auth.dto.AuthInfo;
+import com.ssafy.omr.modules.auth.exception.InvalidRefreshTokenException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
@@ -87,6 +88,22 @@ public class JwtTokenProvider implements TokenProvider{
         String role = claims.get("role", String.class);
         String nickname = claims.get("nickname", String.class);
         return new AuthInfo(id, role, nickname);
+    }
+
+    public Long parseRefreshToken(String token) {
+        Claims claims;
+        try {
+            claims = Jwts.parserBuilder()
+                    .setSigningKey(signingKey)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (ExpiredJwtException ex) {
+            throw new InvalidRefreshTokenException();
+        }
+
+        Long id = claims.get("id", Long.class);
+        return id;
     }
 
     @Override

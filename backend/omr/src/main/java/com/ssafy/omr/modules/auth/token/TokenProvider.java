@@ -13,5 +13,7 @@ public interface TokenProvider {
 
     boolean isValid(String token);
 
+    Long parseRefreshToken(String token);
+
     String createNewTokenWithNewNickname(String newNickname, AuthInfo authInfo);
 }
