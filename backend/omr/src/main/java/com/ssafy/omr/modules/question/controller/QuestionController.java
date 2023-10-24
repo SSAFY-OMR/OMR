@@ -1,16 +1,15 @@
 package com.ssafy.omr.modules.question.controller;
 
 import com.ssafy.omr.modules.auth.dto.AuthInfo;
-import com.ssafy.omr.modules.question.dto.GetQuestionsRequest;
-import com.ssafy.omr.modules.question.dto.GetQuestionsResponse;
+import com.ssafy.omr.modules.question.dto.QuestionDetailResponse;
+import com.ssafy.omr.modules.question.dto.QuestionsRequest;
+import com.ssafy.omr.modules.question.dto.QuestionsResponse;
 import com.ssafy.omr.modules.question.service.QuestionService;
 import com.ssafy.omr.modules.util.base.BaseResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/questions")
@@ -19,11 +18,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class QuestionController {
     private final QuestionService questionService;
 
-    @RequestMapping()
-    public BaseResponse<GetQuestionsResponse> getQuestionsByCategory(@Valid @ModelAttribute GetQuestionsRequest getQuestionsRequest) {
+    @GetMapping()
+    public BaseResponse<QuestionsResponse> getQuestionsByCategory(@Valid @ModelAttribute QuestionsRequest questionsRequest) {
         AuthInfo authInfo = new AuthInfo(1L, "user", "김싸피");
-        return BaseResponse.<GetQuestionsResponse>builder()
-                .data(questionService.getQuestionsByCategory(authInfo, getQuestionsRequest))
+        return BaseResponse.<QuestionsResponse>builder()
+                .data(questionService.getQuestionsByCategory(authInfo, questionsRequest))
+                .build();
+    }
+
+    @GetMapping("/{questionId}")
+    public BaseResponse<QuestionDetailResponse> getQuestionById(@PathVariable Long questionId){
+        AuthInfo authInfo = new AuthInfo(1L, "user", "김싸피");
+        return BaseResponse.<QuestionDetailResponse>builder()
+                .data(questionService.getQuestionById(authInfo, questionId))
                 .build();
     }
 }
