@@ -1,4 +1,6 @@
 export const WHITE = '#FFFFFF';
+export const GREEN = '#00a870';
+export const RED = '#f04242';
 
 export const NORMAL_BLUE = '#18b3e7';
 export const BLUE_50 = '#e8f7fd';

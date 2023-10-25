@@ -2,6 +2,13 @@
 
 $color-white: #ffffff;
 $color-black: #000000;
+$color-green: #00a870;
+$color-red: #f04242;
+
+$color-neutral-20: #f5f6f7;
+$color-neutral-40: #dfe2e6;
+$color-neutral-60: #b3b9c4;
+
 $color-blue-50: #e8f7fd;
 $color-blue-100: #b7e7f8;
 $color-blue-200: #95dcf4;
@@ -12,13 +19,13 @@ $color-blue-600: #16a3d2;
 $color-blue-700: #117fa4;
 $color-blue-800: #0d627f;
 $color-blue-900: #0a4b61;
-$color-neutral-20: #f5f6f7;
-$color-neutral-40: #dfe2e6;
-$color-neutral-60: #b3b9c4;
 
 :root {
   --color-white: #{$color-white};
   --color-black: #{$color-black};
+  --color-green: #{$color-green};
+  --color-red: #{$color-red};
+
   --color-blue-50: #{$color-blue-50};
   --color-blue-100: #{$color-blue-100};
   --color-blue-200: #{$color-blue-200};
@@ -111,7 +118,6 @@ button {
 body {
   display: flex;
   justify-content: center;
-  overflow-y: hidden;
 }
 
 input,
