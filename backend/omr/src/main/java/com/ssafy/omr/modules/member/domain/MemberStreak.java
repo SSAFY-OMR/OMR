@@ -23,4 +23,16 @@ public class MemberStreak extends BaseEntity {
     @MapsId
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
+
+    public void increaseCurrentStreak() {
+        this.currentStreak++;
+    }
+
+    public void startCurrentStreak() {
+        this.currentStreak = 1;
+    }
+
+    public void updateLongestStreak() {
+        this.longestStreak = this.currentStreak;
+    }
 }

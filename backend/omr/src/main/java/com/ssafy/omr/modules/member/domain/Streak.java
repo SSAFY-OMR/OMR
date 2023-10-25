@@ -34,4 +34,7 @@ public class Streak extends BaseEntity {
     @Column(nullable = false)
     private LocalDate streakDate;
 
+    public void increaseSolvedCount() {
+        this.solvedCount++;
+    }
 }
