@@ -36,7 +36,7 @@ public class MemberService {
         return MemberMapper.supplyMemberProfileResponseFrom(member);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public MemberStreakResponse getStreaksByMonth(Long memberId, int year, int month) {
         return memberDynamicRepository.getMemberStreaksInformation(memberId, year, month);
     }
