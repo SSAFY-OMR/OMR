@@ -3,6 +3,7 @@ package com.ssafy.omr.modules.member.controller;
 import com.ssafy.omr.modules.auth.dto.AuthInfo;
 import com.ssafy.omr.modules.auth.token.LoginUser;
 import com.ssafy.omr.modules.member.dto.ChangeEmojiRequest;
+import com.ssafy.omr.modules.member.dto.ChangePasswordRequest;
 import com.ssafy.omr.modules.member.dto.MemberProfileResponse;
 import com.ssafy.omr.modules.member.dto.MemberStreakResponse;
 import com.ssafy.omr.modules.member.dto.SignUpRequest;
@@ -50,5 +51,13 @@ public class MemberController {
         return BaseResponse.<MemberStreakResponse>builder()
                 .data(memberService.getStreaksByMonth(authInfo.id(), year, month))
                 .build();
+    }
+
+    @PostMapping("/password")
+    public BaseResponse<Void> updatePassword(@LoginUser AuthInfo authInfo,
+                                             @Valid @RequestBody ChangePasswordRequest changePasswordRequest) {
+
+        memberService.changePassword(authInfo.id(), changePasswordRequest);
+        return BaseResponse.<Void>builder().build();
     }
 }
