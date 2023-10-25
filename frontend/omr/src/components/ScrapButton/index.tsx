@@ -12,9 +12,9 @@ const ScrapButton = ({ isScrapped }: ScrapButtonProps) => {
   return (
     <button>
       {isScrapped ? (
-        <BookmarkIcon width={'24px'} height={'24px'} fill={BLUE_600} />
+        <BookmarkIcon width={24} height={24} fill={BLUE_600} />
       ) : (
-        <BookmarkIcon width={'24px'} height={'24px'} fill={NEUTRAL_60} />
+        <BookmarkIcon width={24} height={24} fill={NEUTRAL_60} />
       )}
     </button>
   );

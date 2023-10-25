@@ -1,0 +1,17 @@
+.FeedbackMessage {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.message {
+  font-size: var(--font-size-small);
+}
+
+.error {
+  color: var(--color-red);
+}
+
+.success {
+  color: var(--color-green);
+}
