@@ -32,7 +32,7 @@ const QuestionView = ({ question, type }: QuestionProps) => {
       {type === 'listItem' && (
         <div className={styles.footer}>
           <button>
-            <ArrowIcon width={'24px'} height={'24px'} fill={BLUE_600} />
+            <ArrowIcon width={24} height={24} fill={BLUE_600} />
           </button>
         </div>
       )}

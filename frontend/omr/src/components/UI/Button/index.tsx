@@ -18,9 +18,9 @@ const Button = ({ children, size, color, width, type }: ButtonProps) => {
   const [name, setName] = useState('');
 
   const iconSize = {
-    small: '16px',
-    medium: '20px',
-    large: '24px',
+    small: 16,
+    medium: 20,
+    large: 24,
   };
 
   const iconColor = {
