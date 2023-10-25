@@ -2,14 +2,9 @@ package com.ssafy.omr.modules.member.domain;
 
 import com.ssafy.omr.modules.util.base.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
+import lombok.*;
 
-@SuperBuilder
+@Builder
 @Getter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -25,6 +20,7 @@ public class MemberStreak extends BaseEntity {
     private Integer longestStreak = 0;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 }
