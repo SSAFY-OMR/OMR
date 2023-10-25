@@ -67,7 +67,7 @@ const Button = ({ children, size, color, width, type }: ButtonProps) => {
     <button
       className={`${styles.Button} ${styles[size]} ${styles[color]} ${styles[width]}`}
     >
-      <span>{children}</span>
+      <span className={styles.content}>{children}</span>
       <span className={styles.icon}>{Icon && Icon}</span>
     </button>
   );
