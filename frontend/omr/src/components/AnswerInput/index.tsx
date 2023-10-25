@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './index.module.scss';
-import Button from '../common/Button';
+import Button from '../UI/Button';
 
 type AnswerInputProps = {
   type: 'edit' | 'read';
