@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.List;
 import java.util.Objects;
 
@@ -71,39 +70,26 @@ public class MemberDynamicRepository {
 
         if(Objects.isNull(streakInfo)) { //오늘 문제를 푼 적이 없다면 new Streak을 생성해서 저장
             Member memberInfo = jpaQueryFactory.selectFrom(member).where(member.id.eq(memberId)).fetchOne();
-            if(Objects.nonNull(memberInfo)) {
-                streakInfo = StreakMapper.supplyStreakEntityOf(memberInfo, localDate);
-                em.persist(streakInfo);
-            }
+            updateMemberStreak(localDate, memberStreakInfo, memberInfo);
         } else { //오늘 문제를 푼 적이 있다면 solvedCount + 1
             streakInfo.increaseSolvedCount();
         }
+    }
 
-        if(Objects.nonNull(memberStreakInfo)) {
-            updateCurrentStreakAndLongestStreak(memberStreakInfo, localDate);
+    private void updateMemberStreak(LocalDate localDate, MemberStreak memberStreak, Member member) {
+        Streak streak;
+        if(Objects.nonNull(member)) {
+            streak = StreakMapper.supplyStreakEntityOf(member, localDate);
+            em.persist(streak);
+            if(Objects.nonNull(memberStreak)) {
+                updateCurrentStreakAndLongestStreak(memberStreak);
+            }
         }
     }
 
-    private void updateCurrentStreakAndLongestStreak(MemberStreak memberStreak, LocalDate localDate) {
-        LocalDate memberStreakModifiedDate = memberStreak.getModifiedAt().toLocalDate();
-
-        Period period = Period.between(localDate, memberStreakModifiedDate);
-
-        //currentStreak이 longestStreak보다 크면 갱신
-        if(isYesterDay(period)) { //memberStreak modifiedAt이 어제라면 currentStreak + 1
-            memberStreak.increaseCurrentStreak();
-            updateLongestStreak(memberStreak);
-        } else if(notToday(period)) { //modifiedAt이 어제가 아니라면 currentStreak = 1
-            memberStreak.startCurrentStreak();
-        }
-    }
-
-    private boolean isYesterDay(Period period) {
-        return period.getYears() == 0 && period.getMonths() == 0 && period.getDays() == 1;
-    }
-
-    private boolean notToday(Period period) {
-        return period.getYears() > 0 || period.getMonths() > 0 || period.getDays() > 0;
+    private void updateCurrentStreakAndLongestStreak(MemberStreak memberStreak) {
+        memberStreak.increaseCurrentStreak();
+        updateLongestStreak(memberStreak);
     }
 
     private void updateLongestStreak(MemberStreak memberStreak) {
