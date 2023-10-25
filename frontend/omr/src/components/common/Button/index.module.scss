@@ -11,17 +11,17 @@
 
 .small {
   font-size: var(--font-size-xsmall);
-  padding: 8px 8px;
+  padding: 8px 10px;
 }
 
 .medium {
   font-size: var(--font-size-small);
-  padding: 8px 10px;
+  padding: 8px 12px;
 }
 
 .large {
   font-size: var(--font-size-medium);
-  padding: 10px 12px;
+  padding: 10px 14px;
 }
 
 .primary {
@@ -46,4 +46,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.content {
+  width: fit-content;
 }
