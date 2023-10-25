@@ -1,5 +1,6 @@
 package com.ssafy.omr.modules.util.base;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,4 +19,9 @@ public class BaseResponse<T> {
     private String message = "success";
 
     private T data;
+
+    @JsonIgnore
+    public static BaseResponse<Void> noContent() {
+        return BaseResponse.<Void>builder().build();
+    }
 }

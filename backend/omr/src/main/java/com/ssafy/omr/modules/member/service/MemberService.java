@@ -2,6 +2,7 @@ package com.ssafy.omr.modules.member.service;
 
 import com.ssafy.omr.modules.auth.util.Encryptor;
 import com.ssafy.omr.modules.member.domain.Member;
+import com.ssafy.omr.modules.member.domain.MemberStreak;
 import com.ssafy.omr.modules.member.dto.ChangeEmojiRequest;
 import com.ssafy.omr.modules.member.dto.ChangePasswordRequest;
 import com.ssafy.omr.modules.member.dto.MemberProfileResponse;
@@ -12,6 +13,7 @@ import com.ssafy.omr.modules.member.exception.SamePasswordException;
 import com.ssafy.omr.modules.member.mapper.MemberMapper;
 import com.ssafy.omr.modules.member.repository.MemberDynamicRepository;
 import com.ssafy.omr.modules.member.repository.MemberRepository;
+import com.ssafy.omr.modules.member.repository.MemberStreakRepository;
 import com.ssafy.omr.modules.util.RandomUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final MemberDynamicRepository memberDynamicRepository;
+    private final MemberStreakRepository memberStreakRepository;
     private final RandomUtil randomUtil;
     private final Encryptor encryptor;
 
@@ -53,7 +56,10 @@ public class MemberService {
 
         Member member = MemberMapper.supplyUserOf(loginId, password, signUpRequest.emoji(), randomUtil.generateNickname());
 
+        MemberStreak memberStreak = MemberStreak.builder().member(member).build();
+
         memberRepository.save(member);
+        memberStreakRepository.save(memberStreak);
     }
 
     @Transactional
