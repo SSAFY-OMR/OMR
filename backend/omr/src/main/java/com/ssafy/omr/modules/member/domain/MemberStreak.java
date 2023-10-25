@@ -3,8 +3,9 @@ package com.ssafy.omr.modules.member.domain;
 import com.ssafy.omr.modules.util.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@Builder
+@SuperBuilder
 @Getter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,8 +29,8 @@ public class MemberStreak extends BaseEntity {
         this.currentStreak++;
     }
 
-    public void startCurrentStreak() {
-        this.currentStreak = 1;
+    public void initializeCurrentStreak() {
+        this.currentStreak = 0;
     }
 
     public void updateLongestStreak() {

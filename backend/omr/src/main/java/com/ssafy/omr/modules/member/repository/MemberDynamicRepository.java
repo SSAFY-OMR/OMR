@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,7 +48,8 @@ public class MemberDynamicRepository {
                 .where(memberStreak.id.eq(memberId))
                 .fetchOne();
 
-        if(memberStreakInfo != null) {
+        if (Objects.nonNull(memberStreakInfo)) {
+            updateCurrentStreak(memberStreakInfo);
             currentStreak = memberStreakInfo.getCurrentStreak();
             longestStreak = memberStreakInfo.getLongestStreak();
         }
@@ -74,6 +76,20 @@ public class MemberDynamicRepository {
         } else { //오늘 문제를 푼 적이 있다면 solvedCount + 1
             streakInfo.increaseSolvedCount();
         }
+    }
+
+    private void updateCurrentStreak(MemberStreak memberStreak) {
+        LocalDate currentModifiedDate = memberStreak.getModifiedAt().toLocalDate();
+        LocalDate localDate = LocalDate.now();
+        Period period = Period.between(currentModifiedDate, localDate);
+
+        if (isNotYesterDay(period)) {
+            memberStreak.initializeCurrentStreak();
+        }
+    }
+
+    private boolean isNotYesterDay(Period period) {
+        return period.getYears() != 0 || period.getMonths() != 0 || period.getDays() > 1;
     }
 
     private void updateMemberStreak(LocalDate localDate, MemberStreak memberStreak, Member member) {
