@@ -2,25 +2,24 @@ package com.ssafy.omr.modules.answer.service;
 
 import com.ssafy.omr.modules.answer.domain.Answer;
 import com.ssafy.omr.modules.answer.domain.AnswerLike;
-import com.ssafy.omr.modules.answer.dto.CreateAnswerRequest;
+import com.ssafy.omr.modules.answer.dto.UpdateAnswerRequest;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerResponse;
+import com.ssafy.omr.modules.answer.dto.CreateAnswerRequest;
 import com.ssafy.omr.modules.answer.dto.DeleteAnswerRequest;
 import com.ssafy.omr.modules.answer.dto.ToggleLikeAnswerRequest;
 import com.ssafy.omr.modules.answer.dto.ToggleLikeAnswerResponse;
-import com.ssafy.omr.modules.answer.dto.UpdateAnswerRequest;
 import com.ssafy.omr.modules.answer.exception.AnswerForbiddenException;
 import com.ssafy.omr.modules.answer.exception.AnswerNotFoundException;
-import com.ssafy.omr.modules.answer.exception.AnswerUnauthorizedException;
 import com.ssafy.omr.modules.answer.mapper.AnswerMapper;
 import com.ssafy.omr.modules.answer.repository.AnswerLikeRepository;
 import com.ssafy.omr.modules.answer.repository.AnswerRepository;
 import com.ssafy.omr.modules.auth.dto.AuthInfo;
-import com.ssafy.omr.modules.global.event.createdAnswerEvent;
-import com.ssafy.omr.modules.member.domain.RoleType;
-import com.ssafy.omr.modules.question.exception.InterviewQuestionNotFoundException;
+import com.ssafy.omr.modules.global.event.CreatedAnswerEvent;
 import com.ssafy.omr.modules.member.domain.Member;
+import com.ssafy.omr.modules.member.domain.RoleType;
 import com.ssafy.omr.modules.member.repository.MemberRepository;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
+import com.ssafy.omr.modules.question.exception.InterviewQuestionNotFoundException;
 import com.ssafy.omr.modules.question.repository.InterviewQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,7 +55,7 @@ public class AnswerService {
         Answer createdAnswer = answerRepository.save(
                 AnswerMapper.supplyAnswerOf(memberRef, interviewQuestionRef, createAnswerRequest)
         );
-        applicationEventPublisher.publishEvent(new createdAnswerEvent(authInfo.id()));
+        applicationEventPublisher.publishEvent(new CreatedAnswerEvent(authInfo.id()));
         return AnswerMapper.supplyCreateAnswerResponseFrom(createdAnswer);
     }
 
