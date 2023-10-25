@@ -4,6 +4,7 @@ import { ArrowIcon, BookmarkIcon } from 'public/icons';
 
 import styles from './index.module.scss';
 import CategoryTag from '../CategoryTag';
+import ScrapButton from '../ScrapButton';
 
 import type { Question } from '@/types/question';
 
@@ -22,7 +23,7 @@ const QuestionView = ({ question, type }: QuestionProps) => {
           <CategoryTag category={question.category} />
         </span>
         {type === 'questionView' && (
-          <BookmarkIcon width={'24px'} height={'24px'} fill={NEUTRAL_60} />
+          <ScrapButton isScrapped={question.isScrapped} />
         )}
       </div>
       <div className={`${styles.questionContent} ${styles[type]}`}>
@@ -30,7 +31,9 @@ const QuestionView = ({ question, type }: QuestionProps) => {
       </div>
       {type === 'listItem' && (
         <div className={styles.footer}>
-          <ArrowIcon width={'24px'} height={'24px'} fill={BLUE_600} />
+          <button>
+            <ArrowIcon width={'24px'} height={'24px'} fill={BLUE_600} />
+          </button>
         </div>
       )}
     </div>
