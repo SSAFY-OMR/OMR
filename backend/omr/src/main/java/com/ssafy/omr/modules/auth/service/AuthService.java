@@ -8,6 +8,7 @@ import com.ssafy.omr.modules.auth.exception.InvalidRefreshTokenException;
 import com.ssafy.omr.modules.auth.exception.LoginFailedException;
 import com.ssafy.omr.modules.auth.repository.RefreshTokenRepository;
 import com.ssafy.omr.modules.auth.token.TokenProvider;
+import com.ssafy.omr.modules.auth.util.BlacklistUtil;
 import com.ssafy.omr.modules.auth.util.Encryptor;
 import com.ssafy.omr.modules.member.domain.Member;
 import com.ssafy.omr.modules.member.repository.MemberRepository;
@@ -15,12 +16,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
+
 @RequiredArgsConstructor
 @Service
 public class AuthService {
 
     private final MemberRepository memberRepository;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final BlacklistUtil blacklistUtil;
     private final TokenProvider tokenProvider;
     private final Encryptor encryptor;
 
@@ -49,15 +53,31 @@ public class AuthService {
         Long id = tokenProvider.parseRefreshToken(token);
         Member member = memberRepository.findById(id).orElseThrow(InvalidRefreshTokenException::new);
 
-        RefreshToken refreshToken = refreshTokenRepository.findById(member.getLoginId())
+        RefreshToken refreshToken = refreshTokenRepository.findById(token)
                 .orElseThrow(InvalidRefreshTokenException::new);
 
-        if (!refreshToken.getToken().equals(token)) {
+        if (!refreshToken.getLoginId().equals(member.getLoginId())) {
             throw new InvalidRefreshTokenException();
         }
 
         String accessToken = tokenProvider.createAccessToken(new AuthInfo(member.getId(), member.getRoleType().getName(), member.getNickname()));
 
         return new TokenResponse(accessToken,token);
+    }
+
+    @Transactional
+    public void logout(Long memberId, String accessToken, String refreshToken) {
+
+        if (!Objects.nonNull(memberId)) {
+            throw new LoginFailedException();
+        }
+
+        memberRepository.findById(memberId).orElseThrow(LoginFailedException::new);
+
+        Long expiresIn = tokenProvider.getExpiration(accessToken);
+
+        blacklistUtil.setBlacklist(accessToken, expiresIn);
+
+        refreshTokenRepository.deleteById(refreshToken);
     }
 }
