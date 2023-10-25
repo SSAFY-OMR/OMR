@@ -2,6 +2,7 @@ package com.ssafy.omr.modules.auth.token;
 
 import com.ssafy.omr.modules.auth.dto.AuthInfo;
 import com.ssafy.omr.modules.auth.exception.InvalidRefreshTokenException;
+import com.ssafy.omr.modules.auth.util.BlacklistUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
@@ -16,19 +17,22 @@ import java.security.Key;
 import java.util.Date;
 
 @Component
-public class JwtTokenProvider implements TokenProvider{
+public class JwtTokenProvider implements TokenProvider {
 
     private final Key signingKey;
+    private final BlacklistUtil blacklistUtil;
     private final long validityInMilliseconds;
     private final long refreshTokenValidityMilliseconds;
 
     public JwtTokenProvider(@Value("${security.jwt.token.secret-key}") String secretKey,
                             @Value("${security.jwt.token.expire-length.access}") long validityInMilliseconds,
-                            @Value("${security.jwt.token.expire-length.refresh}") long refreshTokenValidityMilliseconds) {
+                            @Value("${security.jwt.token.expire-length.refresh}") long refreshTokenValidityMilliseconds,
+                            BlacklistUtil blacklistUtil) {
         byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
         this.signingKey = Keys.hmacShaKeyFor(keyBytes);
         this.validityInMilliseconds = validityInMilliseconds;
         this.refreshTokenValidityMilliseconds = refreshTokenValidityMilliseconds;
+        this.blacklistUtil = blacklistUtil;
     }
 
     @Override
@@ -60,13 +64,12 @@ public class JwtTokenProvider implements TokenProvider{
     }
 
     @Override
-    public String getPayload(String token) {
+    public Claims getPayload(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(signingKey)
                 .build()
                 .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+                .getBody();
     }
 
     public AuthInfo getParsedClaims(String token) {
@@ -109,6 +112,10 @@ public class JwtTokenProvider implements TokenProvider{
     @Override
     public boolean isValid(String token) {
         try {
+            if (blacklistUtil.isBlacklist(token)) {
+                throw new JwtException("로그아웃된 토큰입니다.");
+            }
+
             Jws<Claims> claims = Jwts.parserBuilder()
                     .setSigningKey(signingKey)
                     .build()
@@ -118,5 +125,13 @@ public class JwtTokenProvider implements TokenProvider{
         } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
+    }
+
+    @Override
+    public Long getExpiration(String token) {
+
+        Date expiration = getPayload(token).getExpiration();
+
+        return expiration.getTime() - new Date().getTime();
     }
 }

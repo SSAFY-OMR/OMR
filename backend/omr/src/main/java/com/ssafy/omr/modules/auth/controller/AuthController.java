@@ -1,9 +1,11 @@
 package com.ssafy.omr.modules.auth.controller;
 
+import com.ssafy.omr.modules.auth.dto.AuthInfo;
 import com.ssafy.omr.modules.auth.dto.LoginRequest;
 import com.ssafy.omr.modules.auth.dto.TokenResponse;
 import com.ssafy.omr.modules.auth.service.AuthService;
 import com.ssafy.omr.modules.auth.token.AuthorizationExtractor;
+import com.ssafy.omr.modules.auth.token.LoginUser;
 import com.ssafy.omr.modules.util.base.BaseResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -34,4 +36,14 @@ public class AuthController {
                 .build();
     }
 
+    @PostMapping("/logout")
+    public BaseResponse<Void> logout(@LoginUser AuthInfo authInfo, HttpServletRequest request) {
+
+        String accessToken = AuthorizationExtractor.extractAccessToken(Objects.requireNonNull(request));
+        String refreshToken = AuthorizationExtractor.extractRefreshToken(Objects.requireNonNull(request));
+
+        authService.logout(authInfo.id(), accessToken, refreshToken);
+
+        return BaseResponse.noContent();
+    }
 }
