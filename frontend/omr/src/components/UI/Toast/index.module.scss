@@ -1,0 +1,21 @@
+.Toast {
+  width: 90%;
+  max-width: 400px;
+  height: 44px;
+  padding: 15px 20px;
+  background-color: rgba($color: #000000, $alpha: 0.8);
+  border-radius: 10px;
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  margin: 0 auto;
+  color: white;
+  text-align: center;
+  font-size: var(--font-size-small);
+  transition: bottom 0.3s;
+  transform: translateX(-50%);
+}
+
+.show {
+  bottom: 10px;
+}
