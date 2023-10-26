@@ -37,8 +37,7 @@ public class MemberService {
     @Transactional(readOnly = true)
     public MemberProfileResponse getMyProfileInformation(Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow(MemberNotFoundException::new);
-
-        return MemberMapper.supplyMemberProfileResponseFrom(member);
+        return MemberMapper.supplyMemberProfileResponseFrom(member, encryptor.decrypt(member.getLoginId()));
     }
 
     @Transactional
@@ -70,13 +69,15 @@ public class MemberService {
 
         String loginId = encryptor.encrypt(signUpRequest.loginId());
         String password = encryptor.encrypt(signUpRequest.password());
+        Member member = MemberMapper.supplyUserOf(
+                loginId,
+                password,
+                signUpRequest.emoji(),
+                randomUtil.generateNickname(),
+                memberStreakRepository.save(MemberMapper.supplyMemberStreakEntity()));
 
-        Member member = MemberMapper.supplyUserOf(loginId, password, signUpRequest.emoji(), randomUtil.generateNickname());
-
-        MemberStreak memberStreak = MemberStreak.builder().member(member).build();
 
         memberRepository.save(member);
-        memberStreakRepository.save(memberStreak);
     }
 
     @Transactional

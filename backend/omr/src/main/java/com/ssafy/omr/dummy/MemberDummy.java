@@ -53,7 +53,6 @@ public class MemberDummy {
 
     public List<Member> createMemberDummies() {
         List<Member> members = new ArrayList<>();
-        List<MemberStreak> memberStreaks = new ArrayList<>();
 
         for(int i = 0; i < nicknames.size(); i++) {
             members.add(Member.builder()
@@ -62,14 +61,10 @@ public class MemberDummy {
                     .nickname(nicknames.get(i))
                     .roleType(RoleType.USER)
                     .emoji("⛑")
-                    .build());
-
-            memberStreaks.add(MemberStreak.builder()
-                    .member(members.get(i))
+                    .memberStreak(memberStreakRepository.save(MemberStreak.builder().build()))
                     .build());
         }
 
-        memberStreakRepository.saveAll(memberStreaks);
         memberRepository.saveAll(members);
         return members;
     }
