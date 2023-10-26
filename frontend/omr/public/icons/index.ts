@@ -4,6 +4,7 @@ import CheckIcon from './check-icon.svg';
 import CommunityIcon from './community-icon.svg';
 import EditIcon from './edit-icon.svg';
 import ErrorIcon from './error-icon.svg';
+import LikeIcon from './like-icon.svg';
 import SuccessIcon from './success-icon.svg';
 
 export {
@@ -13,5 +14,6 @@ export {
   CommunityIcon,
   EditIcon,
   ErrorIcon,
+  LikeIcon,
   SuccessIcon,
 };

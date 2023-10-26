@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { ArrowIcon, CheckIcon, CommunityIcon, EditIcon } from 'public/icons';
 
@@ -11,12 +11,20 @@ type ButtonProps = {
   size: 'small' | 'medium' | 'large';
   color: 'primary' | 'secondary';
   width: 'fitContent' | 'full';
-  type: 'complete' | 'arrow' | 'edit' | 'community';
+  iconType: 'complete' | 'arrow' | 'edit' | 'community';
+  type?: 'button' | 'submit';
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-const Button = ({ children, size, color, width, type }: ButtonProps) => {
-  const [name, setName] = useState('');
-
+const Button = ({
+  children,
+  size,
+  color,
+  width,
+  iconType,
+  type = 'button',
+  onClick,
+}: ButtonProps) => {
   const iconSize = {
     small: 16,
     medium: 20,
@@ -29,7 +37,7 @@ const Button = ({ children, size, color, width, type }: ButtonProps) => {
   };
 
   let Icon: any = undefined;
-  if (type === 'complete') {
+  if (iconType === 'complete') {
     Icon = (
       <CheckIcon
         height={iconSize[size]}
@@ -37,7 +45,7 @@ const Button = ({ children, size, color, width, type }: ButtonProps) => {
         fill={iconColor[color]}
       />
     );
-  } else if (type === 'arrow') {
+  } else if (iconType === 'arrow') {
     Icon = (
       <ArrowIcon
         height={iconSize[size]}
@@ -45,7 +53,7 @@ const Button = ({ children, size, color, width, type }: ButtonProps) => {
         fill={iconColor[color]}
       />
     );
-  } else if (type === 'community') {
+  } else if (iconType === 'community') {
     Icon = (
       <CommunityIcon
         height={iconSize[size]}
@@ -53,7 +61,7 @@ const Button = ({ children, size, color, width, type }: ButtonProps) => {
         fill={iconColor[color]}
       />
     );
-  } else if (type === 'edit') {
+  } else if (iconType === 'edit') {
     Icon = (
       <EditIcon
         height={iconSize[size]}
@@ -65,7 +73,9 @@ const Button = ({ children, size, color, width, type }: ButtonProps) => {
 
   return (
     <button
+      type={type}
       className={`${styles.Button} ${styles[size]} ${styles[color]} ${styles[width]}`}
+      onClick={onClick}
     >
       <span className={styles.content}>{children}</span>
       <span className={styles.icon}>{Icon && Icon}</span>

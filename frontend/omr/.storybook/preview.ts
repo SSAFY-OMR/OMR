@@ -12,7 +12,13 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      default: 'dark',
+      default: 'omr',
+      values: [
+        {
+          name: 'omr',
+          value: '#ebedf0',
+        },
+      ],
     },
   },
 };
