@@ -27,7 +27,7 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <div style={{ overflow: 'auto', minHeight: '300px' }}>
+      <div style={{ minHeight: '300px', padding: '10px' }}>
         {/* 👇 Decorators in Storybook also accept a function. Replace <Story/> with Story() to enable it  */}
         <Story />
       </div>
