@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ArrowIcon, BookmarkIcon } from 'public/icons';
+import { ArrowIcon } from 'public/icons';
 
 import styles from './index.module.scss';
 import CategoryTag from '../CategoryTag';
@@ -8,7 +8,7 @@ import ScrapButton from '../ScrapButton';
 
 import type { Question } from '@/types/question';
 
-import { BLUE_600, NEUTRAL_60 } from '@/styles/color';
+import { BLUE_600 } from '@/styles/color';
 
 type QuestionProps = {
   question: Question;

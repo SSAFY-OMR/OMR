@@ -18,7 +18,7 @@ export const Edit: Story = {
     size: 'small',
     color: 'primary',
     width: 'fitContent',
-    type: 'edit',
+    iconType: 'edit',
   },
 };
 
@@ -28,7 +28,7 @@ export const Complete: Story = {
     size: 'medium',
     color: 'primary',
     width: 'fitContent',
-    type: 'complete',
+    iconType: 'complete',
   },
 };
 
@@ -38,7 +38,7 @@ export const Community: Story = {
     size: 'medium',
     color: 'primary',
     width: 'fitContent',
-    type: 'community',
+    iconType: 'community',
   },
 };
 
@@ -48,7 +48,7 @@ export const Secondary: Story = {
     size: 'medium',
     color: 'secondary',
     width: 'fitContent',
-    type: 'arrow',
+    iconType: 'arrow',
   },
 };
 
@@ -58,6 +58,6 @@ export const Full: Story = {
     size: 'medium',
     color: 'secondary',
     width: 'full',
-    type: 'complete',
+    iconType: 'complete',
   },
 };

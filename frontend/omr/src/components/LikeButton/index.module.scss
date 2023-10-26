@@ -1,0 +1,12 @@
+.LikeButton {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+}
+
+.likeCount {
+  font-size: var(--font-size-xsmall);
+}
