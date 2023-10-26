@@ -31,6 +31,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 public class QuestionService {
+    private static final Integer MINUS_HOURS = 8;
+    private static final Integer MINUS_MINUTES = 59;
+    private static final Integer MINUS_SECONDS = 59;
+
     private final InterviewQuestionRepository interviewQuestionRepository;
     private final InterviewQuestionScrapRepository interviewQuestionScrapRepository;
     private final MemberRepository memberRepository;
@@ -93,9 +97,9 @@ public class QuestionService {
 
     private Integer generateRandomSeed() {
         LocalDate localDate = LocalDateTime.now()
-                .minusHours(8)
-                .minusMinutes(59)
-                .minusSeconds(59)
+                .minusHours(MINUS_HOURS)
+                .minusMinutes(MINUS_MINUTES)
+                .minusSeconds(MINUS_SECONDS)
                 .toLocalDate();
 
         String seed = localDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
