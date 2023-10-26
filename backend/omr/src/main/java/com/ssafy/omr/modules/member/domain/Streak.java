@@ -1,6 +1,6 @@
 package com.ssafy.omr.modules.member.domain;
 
-import com.ssafy.omr.modules.util.base.BaseEntity;
+import com.ssafy.omr.modules.util.base.AllBaseInitEntity;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,7 +21,7 @@ import java.time.LocalDate;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AttributeOverride(name = "id", column = @Column(name = ("streak_id")))
 @Entity
-public class Streak extends BaseEntity {
+public class Streak extends AllBaseInitEntity {
 
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -29,7 +29,7 @@ public class Streak extends BaseEntity {
 
     @Column(nullable = false)
     @Builder.Default
-    private Integer solvedCount = 0;
+    private Integer solvedCount = 1;
 
     @Column(nullable = false)
     private LocalDate streakDate;
