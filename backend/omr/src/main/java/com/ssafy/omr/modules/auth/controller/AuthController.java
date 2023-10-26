@@ -1,8 +1,10 @@
 package com.ssafy.omr.modules.auth.controller;
 
 import com.ssafy.omr.modules.auth.dto.AuthInfo;
-import com.ssafy.omr.modules.auth.dto.LoginRequest;
 import com.ssafy.omr.modules.auth.dto.TokenResponse;
+import com.ssafy.omr.modules.auth.dto.LoginRequest;
+import com.ssafy.omr.modules.auth.dto.ExistLoginIdResponse;
+import com.ssafy.omr.modules.auth.dto.LoginIdRequest;
 import com.ssafy.omr.modules.auth.service.AuthService;
 import com.ssafy.omr.modules.auth.token.AuthorizationExtractor;
 import com.ssafy.omr.modules.auth.token.LoginUser;
@@ -45,5 +47,12 @@ public class AuthController {
         authService.logout(authInfo.id(), accessToken, refreshToken);
 
         return BaseResponse.noContent();
+    }
+
+    @PostMapping("/login-id")
+    public BaseResponse<ExistLoginIdResponse> isExistLoginId(@Valid @RequestBody LoginIdRequest loginIdRequest) {
+        return BaseResponse.<ExistLoginIdResponse>builder()
+                .data(authService.isExistLoginId(loginIdRequest.loginId()))
+                .build();
     }
 }
