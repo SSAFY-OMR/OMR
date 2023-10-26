@@ -1,5 +1,6 @@
 package com.ssafy.omr.modules.question.mapper;
 
+import com.ssafy.omr.modules.question.domain.DailyQuestion;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
 import com.ssafy.omr.modules.question.dto.DailyQuestionResponse;
 import com.ssafy.omr.modules.question.dto.QuestionDetailResponse;
@@ -33,6 +34,21 @@ public class QuestionMapper {
     public DailyQuestionResponse supplyDailyQuestionResponse(InterviewQuestion interviewQuestion) {
         return DailyQuestionResponse.builder()
                 .category(interviewQuestion.getInterviewCategory())
+                .content(interviewQuestion.getContent())
+                .build();
+    }
+
+    public DailyQuestionResponse supplyDailyQuestionResponse(DailyQuestion dailyQuestion) {
+        return DailyQuestionResponse.builder()
+                .category(dailyQuestion.getInterviewCategory())
+                .content(dailyQuestion.getContent())
+                .build();
+    }
+
+    public DailyQuestion supplyDailyQuestion(Integer seed, InterviewQuestion interviewQuestion) {
+        return DailyQuestion.builder()
+                .id(seed)
+                .interviewCategory(interviewQuestion.getInterviewCategory())
                 .content(interviewQuestion.getContent())
                 .build();
     }

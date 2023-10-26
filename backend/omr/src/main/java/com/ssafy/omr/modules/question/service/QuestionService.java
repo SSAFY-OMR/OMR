@@ -6,6 +6,7 @@ import com.ssafy.omr.modules.auth.dto.AuthInfo;
 import com.ssafy.omr.modules.member.domain.Member;
 import com.ssafy.omr.modules.member.repository.MemberRepository;
 import com.ssafy.omr.modules.meta.domain.InterviewCategory;
+import com.ssafy.omr.modules.question.domain.DailyQuestion;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
 import com.ssafy.omr.modules.question.dto.*;
 import com.ssafy.omr.modules.question.exception.DailyQuestionNotFoundException;
@@ -73,12 +74,21 @@ public class QuestionService {
         return questionMapper.supplyQuestionDetailResponse(interviewQuestion, isScrapped, answer);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional()
     public DailyQuestionResponse getDailyQuestion() {
         Integer seed = generateRandomSeed();
 
+        Optional<DailyQuestion> cachedData = dailyQuestionRepository.findById(seed);
+        if (cachedData.isPresent()) {
+            return questionMapper.supplyDailyQuestionResponse(cachedData.get());
+        }
+
         InterviewQuestion interviewQuestion = interviewQuestionRepository.findRandomQuestion(seed)
                 .orElseThrow(DailyQuestionNotFoundException::new);
+
+        DailyQuestion dailyQuestion = questionMapper.supplyDailyQuestion(seed, interviewQuestion);
+        dailyQuestionRepository.save(dailyQuestion);
+
         return questionMapper.supplyDailyQuestionResponse(interviewQuestion);
 
     }

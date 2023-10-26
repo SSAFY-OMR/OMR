@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("/questions")
 @RequiredArgsConstructor
@@ -35,7 +37,6 @@ public class QuestionController {
                 .build();
     }
 
-//    @Cacheable(value = "dailyQuestion", key = "1")
     @GetMapping("/daily")
     public BaseResponse<DailyQuestionResponse> getDailyQuestion() {
         return BaseResponse.<DailyQuestionResponse>builder()
