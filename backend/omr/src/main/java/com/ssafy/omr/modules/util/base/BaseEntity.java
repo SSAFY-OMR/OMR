@@ -34,7 +34,6 @@ public class BaseEntity {
     protected LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(insertable = false)
     private LocalDateTime modifiedAt;
 
 }
