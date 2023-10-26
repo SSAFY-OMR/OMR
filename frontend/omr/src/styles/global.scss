@@ -105,6 +105,7 @@ html {
 body {
   line-height: 1;
   margin-bottom: 100px;
+  overflow: hidden;
 }
 ol,
 ul {
@@ -148,11 +149,13 @@ button {
 }
 
 /* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
-.fixed-width::-webkit-scrollbar {
+div::-webkit-scrollbar,
+body::-webkit-scrollbar {
   display: none;
 }
 
-.fixed-width {
+div,
+body {
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
   scrollbar-width: none; /* 파이어폭스 */
 }
