@@ -1,0 +1,21 @@
+.loginInputBox {
+    vertical-align: middle;
+    width: 90%;
+    max-width: 400px;
+    height: 240px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.loginInputTitle {
+    text-align: left;
+
+    padding:30px;
+}
