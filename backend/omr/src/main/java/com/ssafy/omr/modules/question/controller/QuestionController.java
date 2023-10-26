@@ -31,7 +31,8 @@ public class QuestionController {
     }
 
     @GetMapping("/{questionId}")
-    public BaseResponse<QuestionDetailResponse> getQuestionById(@LoginUser AuthInfo authInfo, @PathVariable Long questionId) {
+    public BaseResponse<QuestionDetailResponse> getQuestionById(@PathVariable Long questionId) {
+        AuthInfo authInfo = new AuthInfo(1L, "user", "싸피");
         return BaseResponse.<QuestionDetailResponse>builder()
                 .data(questionService.getQuestionById(authInfo, questionId))
                 .build();

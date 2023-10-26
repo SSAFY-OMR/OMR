@@ -23,6 +23,7 @@ public class QuestionMapper {
 
     public static QuestionDetailResponse supplyQuestionDetailResponse(InterviewQuestion interviewQuestion, Boolean isScrapped, String answer) {
         return QuestionDetailResponse.builder()
+                .category(interviewQuestion.getInterviewCategory())
                 .content(interviewQuestion.getContent())
                 .isScraped(isScrapped)
                 .answer(answer)
