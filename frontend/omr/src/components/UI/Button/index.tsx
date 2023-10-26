@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { ArrowIcon, CheckIcon, CommunityIcon, EditIcon } from 'public/icons';
 
@@ -12,11 +12,17 @@ type ButtonProps = {
   color: 'primary' | 'secondary';
   width: 'fitContent' | 'full';
   type: 'complete' | 'arrow' | 'edit' | 'community';
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-const Button = ({ children, size, color, width, type }: ButtonProps) => {
-  const [name, setName] = useState('');
-
+const Button = ({
+  children,
+  size,
+  color,
+  width,
+  type,
+  onClick,
+}: ButtonProps) => {
   const iconSize = {
     small: 16,
     medium: 20,
@@ -66,6 +72,7 @@ const Button = ({ children, size, color, width, type }: ButtonProps) => {
   return (
     <button
       className={`${styles.Button} ${styles[size]} ${styles[color]} ${styles[width]}`}
+      onClick={onClick}
     >
       <span className={styles.content}>{children}</span>
       <span className={styles.icon}>{Icon && Icon}</span>
