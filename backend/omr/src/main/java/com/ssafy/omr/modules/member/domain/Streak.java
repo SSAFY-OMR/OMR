@@ -29,7 +29,7 @@ public class Streak extends BaseEntity {
 
     @Column(nullable = false)
     @Builder.Default
-    private Integer solvedCount = 0;
+    private Integer solvedCount = 1;
 
     @Column(nullable = false)
     private LocalDate streakDate;
