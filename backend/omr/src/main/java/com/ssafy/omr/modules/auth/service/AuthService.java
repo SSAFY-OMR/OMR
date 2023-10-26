@@ -2,10 +2,12 @@ package com.ssafy.omr.modules.auth.service;
 
 import com.ssafy.omr.modules.auth.domain.RefreshToken;
 import com.ssafy.omr.modules.auth.dto.AuthInfo;
+import com.ssafy.omr.modules.auth.dto.ExistLoginIdResponse;
 import com.ssafy.omr.modules.auth.dto.LoginRequest;
 import com.ssafy.omr.modules.auth.dto.TokenResponse;
 import com.ssafy.omr.modules.auth.exception.InvalidRefreshTokenException;
 import com.ssafy.omr.modules.auth.exception.LoginFailedException;
+import com.ssafy.omr.modules.auth.mapper.AuthMapper;
 import com.ssafy.omr.modules.auth.repository.RefreshTokenRepository;
 import com.ssafy.omr.modules.auth.token.TokenProvider;
 import com.ssafy.omr.modules.auth.util.BlacklistUtil;
@@ -79,5 +81,13 @@ public class AuthService {
         blacklistUtil.setBlacklist(accessToken, expiresIn);
 
         refreshTokenRepository.deleteById(refreshToken);
+    }
+
+    @Transactional(readOnly = true)
+    public ExistLoginIdResponse isExistLoginId(String loginId) {
+        if(memberRepository.existsByLoginId(loginId)) {
+            return AuthMapper.supplyExistLoginIdResponseFrom(true);
+        }
+        return AuthMapper.supplyExistLoginIdResponseFrom(false);
     }
 }
