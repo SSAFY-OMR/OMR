@@ -7,12 +7,11 @@ import com.ssafy.omr.modules.member.domain.Member;
 import com.ssafy.omr.modules.member.repository.MemberRepository;
 import com.ssafy.omr.modules.meta.domain.InterviewCategory;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
-import com.ssafy.omr.modules.question.dto.QuestionDetailResponse;
-import com.ssafy.omr.modules.question.dto.QuestionElement;
-import com.ssafy.omr.modules.question.dto.QuestionsRequest;
-import com.ssafy.omr.modules.question.dto.QuestionsResponse;
+import com.ssafy.omr.modules.question.dto.*;
+import com.ssafy.omr.modules.question.exception.DailyQuestionNotFoundException;
 import com.ssafy.omr.modules.question.exception.InterviewQuestionNotFoundException;
 import com.ssafy.omr.modules.question.mapper.QuestionMapper;
+import com.ssafy.omr.modules.question.repository.DailyQuestionRepository;
 import com.ssafy.omr.modules.question.repository.InterviewQuestionRepository;
 import com.ssafy.omr.modules.scrap.repository.InterviewQuestionScrapRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +21,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Service
@@ -32,6 +34,7 @@ public class QuestionService {
     private final InterviewQuestionScrapRepository interviewQuestionScrapRepository;
     private final MemberRepository memberRepository;
     private final AnswerRepository answerRepository;
+    private final DailyQuestionRepository dailyQuestionRepository;
 
     private final QuestionMapper questionMapper;
 
@@ -68,5 +71,26 @@ public class QuestionService {
         }
 
         return questionMapper.supplyQuestionDetailResponse(interviewQuestion, isScrapped, answer);
+    }
+
+    @Transactional(readOnly = true)
+    public DailyQuestionResponse getDailyQuestion() {
+        Integer seed = generateRandomSeed();
+
+        InterviewQuestion interviewQuestion = interviewQuestionRepository.findRandomQuestion(seed)
+                .orElseThrow(DailyQuestionNotFoundException::new);
+        return questionMapper.supplyDailyQuestionResponse(interviewQuestion);
+
+    }
+
+    private Integer generateRandomSeed() {
+        LocalDate localDate = LocalDateTime.now()
+                .minusHours(8)
+                .minusMinutes(59)
+                .minusSeconds(59)
+                .toLocalDate();
+
+        String seed = localDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        return Integer.valueOf(seed);
     }
 }
