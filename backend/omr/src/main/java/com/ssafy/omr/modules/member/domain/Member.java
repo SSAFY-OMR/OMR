@@ -1,11 +1,7 @@
 package com.ssafy.omr.modules.member.domain;
 
 import com.ssafy.omr.modules.util.base.BaseEntity;
-import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,6 +31,10 @@ public class Member extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
+
+    @OneToOne
+    @JoinColumn(name = "member_streak_id", nullable = false)
+    private MemberStreak memberStreak;
 
     public void changeEmoji(String emoji) {
         this.emoji = emoji;

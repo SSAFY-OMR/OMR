@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-@EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
 public class AllBaseInitEntity extends BaseIdEntity {
 

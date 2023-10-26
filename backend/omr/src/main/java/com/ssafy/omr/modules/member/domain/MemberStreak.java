@@ -9,6 +9,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AttributeOverride(name = "id", column = @Column(name = ("member_streak_id")))
 @Entity
 public class MemberStreak extends AllBaseInitEntity {
 
@@ -19,11 +20,6 @@ public class MemberStreak extends AllBaseInitEntity {
     @Column(nullable = false)
     @Builder.Default
     private Integer longestStreak = 0;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    @JoinColumn(name = "member_id", nullable = false)
-    private Member member;
 
     public void increaseCurrentStreak() {
         this.currentStreak++;
