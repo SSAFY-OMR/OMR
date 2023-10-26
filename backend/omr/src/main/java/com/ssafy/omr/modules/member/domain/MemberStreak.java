@@ -1,6 +1,6 @@
 package com.ssafy.omr.modules.member.domain;
 
-import com.ssafy.omr.modules.util.base.BaseEntity;
+import com.ssafy.omr.modules.util.base.AllBaseInitEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class MemberStreak extends BaseEntity {
+public class MemberStreak extends AllBaseInitEntity {
 
     @Column(nullable = false)
     @Builder.Default
