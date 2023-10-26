@@ -15,7 +15,7 @@ type Story = StoryObj<typeof QuestionView>;
 export const Default: Story = {
   args: {
     question: {
-      category: '네트워크',
+      category: { id: 3, name: 'NETWORK', description: '네트워크' },
       content: 'OSI 7계층에 대해 설명해보세요.',
       isScrapped: false,
     },
@@ -26,7 +26,7 @@ export const Default: Story = {
 export const ListItem: Story = {
   args: {
     question: {
-      category: '네트워크',
+      category: { id: 3, name: 'NETWORK', description: '네트워크' },
       content: 'OSI 7계층에 대해 설명해보세요.',
       isScrapped: false,
     },
@@ -37,7 +37,7 @@ export const ListItem: Story = {
 export const LongQuestion: Story = {
   args: {
     question: {
-      category: '네트워크',
+      category: { id: 3, name: 'NETWORK', description: '네트워크' },
       content:
         'OSI 7계층에 대해 설명해보세요.OSI 7계층에 대해 설명해보세요.OSI 7계층에 대해 설명해보세요.OSI 7계층에 대해 설명해보세요.OSI 7계층에 대해 설명해보세요.OSI 7계층에 대해 설명해보세요.',
       isScrapped: true,
@@ -49,7 +49,7 @@ export const LongQuestion: Story = {
 export const LongQuestionListItem: Story = {
   args: {
     question: {
-      category: '네트워크',
+      category: { id: 3, name: 'NETWORK', description: '네트워크' },
       content:
         'OSI 7계층에 대해 설명해보세요.OSI 7계층에 대해 설명해보세요.OSI 7계층에 대해 설명해보세요.OSI 7계층에 대해 설명해보세요.OSI 7계층에 대해 설명해보세요.OSI 7계층에 대해 설명해보세요.',
       isScrapped: false,
