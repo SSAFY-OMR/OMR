@@ -2,8 +2,10 @@ package com.ssafy.omr.dummy;
 
 import com.ssafy.omr.modules.auth.util.Encryptor;
 import com.ssafy.omr.modules.member.domain.Member;
+import com.ssafy.omr.modules.member.domain.MemberStreak;
 import com.ssafy.omr.modules.member.domain.RoleType;
 import com.ssafy.omr.modules.member.repository.MemberRepository;
+import com.ssafy.omr.modules.member.repository.MemberStreakRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -17,6 +19,7 @@ import java.util.List;
 public class MemberDummy {
 
     private final MemberRepository memberRepository;
+    private final MemberStreakRepository memberStreakRepository;
     private final Encryptor encryptor;
 
     private final List<String> nicknames = new ArrayList<>(){
@@ -50,6 +53,7 @@ public class MemberDummy {
 
     public List<Member> createMemberDummies() {
         List<Member> members = new ArrayList<>();
+        List<MemberStreak> memberStreaks = new ArrayList<>();
 
         for(int i = 0; i < nicknames.size(); i++) {
             members.add(Member.builder()
@@ -59,8 +63,13 @@ public class MemberDummy {
                     .roleType(RoleType.USER)
                     .emoji("⛑")
                     .build());
+
+            memberStreaks.add(MemberStreak.builder()
+                    .member(members.get(i))
+                    .build());
         }
 
+        memberStreakRepository.saveAll(memberStreaks);
         memberRepository.saveAll(members);
         return members;
     }
