@@ -1,11 +1,17 @@
 import type { User } from './user';
 
 export type Question = {
-  category: string;
+  category: Category;
   content: string;
   isScrapped: boolean;
   answer?: string;
 };
+
+export type Category = {
+  id: number;
+  name: string;
+  description: string;
+}
 
 export type Answer = {
   user: User;
