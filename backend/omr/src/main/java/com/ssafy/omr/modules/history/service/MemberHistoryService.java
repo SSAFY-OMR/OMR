@@ -19,13 +19,13 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberHistoryService {
 
 	private final MemberQuestionHistoryRepository memberQuestionHistoryRepository;
-	private final QuestionMapper questionMapper;
+
 	@Transactional(readOnly = true)
 	public QuestionsResponse findScrapedQuestion(Long memberId, QuestionsRequest questionsRequest) {
 		Page<QuestionElement> scrapedQuestions = memberQuestionHistoryRepository.findByScrapedQuestion(memberId,
 			questionsRequest.getCategory(), questionsRequest.toPageRequest());
 
-		return questionMapper.supplyQuestionsResponse(scrapedQuestions);
+		return QuestionMapper.supplyQuestionsResponse(scrapedQuestions);
 	}
 
 	@Transactional(readOnly = true)
@@ -33,6 +33,6 @@ public class MemberHistoryService {
 		Page<QuestionElement> solvedQuestions = memberQuestionHistoryRepository.findBySolvedQuestion(memberId,
 			questionsRequest.getCategory(), questionsRequest.toPageRequest());
 
-		return questionMapper.supplyQuestionsResponse(solvedQuestions);
+		return QuestionMapper.supplyQuestionsResponse(solvedQuestions);
 	}
 }

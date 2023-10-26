@@ -11,6 +11,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
 @Repository
 public interface InterviewQuestionRepository extends JpaRepository<InterviewQuestion, Long> {
     @Query(value = """
@@ -25,4 +28,12 @@ public interface InterviewQuestionRepository extends JpaRepository<InterviewQues
         from InterviewQuestion q
     """)
     Page<QuestionElement> findQuestions(PageRequest pageRequest);
+
+    @Query(value = """
+        select q
+        from InterviewQuestion q
+        order by rand(:seed)
+        limit 1
+    """)
+    Optional<InterviewQuestion> findRandomQuestion(@Param("seed") Integer seed);
 }

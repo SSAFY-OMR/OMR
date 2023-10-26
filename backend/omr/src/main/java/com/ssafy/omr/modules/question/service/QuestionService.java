@@ -6,13 +6,13 @@ import com.ssafy.omr.modules.auth.dto.AuthInfo;
 import com.ssafy.omr.modules.member.domain.Member;
 import com.ssafy.omr.modules.member.repository.MemberRepository;
 import com.ssafy.omr.modules.meta.domain.InterviewCategory;
+import com.ssafy.omr.modules.question.domain.DailyQuestion;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
-import com.ssafy.omr.modules.question.dto.QuestionDetailResponse;
-import com.ssafy.omr.modules.question.dto.QuestionElement;
-import com.ssafy.omr.modules.question.dto.QuestionsRequest;
-import com.ssafy.omr.modules.question.dto.QuestionsResponse;
+import com.ssafy.omr.modules.question.dto.*;
+import com.ssafy.omr.modules.question.exception.DailyQuestionNotFoundException;
 import com.ssafy.omr.modules.question.exception.InterviewQuestionNotFoundException;
 import com.ssafy.omr.modules.question.mapper.QuestionMapper;
+import com.ssafy.omr.modules.question.repository.DailyQuestionRepository;
 import com.ssafy.omr.modules.question.repository.InterviewQuestionRepository;
 import com.ssafy.omr.modules.scrap.repository.InterviewQuestionScrapRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,18 +22,24 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class QuestionService {
+    private static final Integer MINUS_HOURS = 8;
+    private static final Integer MINUS_MINUTES = 59;
+    private static final Integer MINUS_SECONDS = 59;
+
     private final InterviewQuestionRepository interviewQuestionRepository;
     private final InterviewQuestionScrapRepository interviewQuestionScrapRepository;
     private final MemberRepository memberRepository;
     private final AnswerRepository answerRepository;
-
-    private final QuestionMapper questionMapper;
+    private final DailyQuestionRepository dailyQuestionRepository;
 
     @Transactional(readOnly = true)
     public QuestionsResponse getQuestionsByCategory(QuestionsRequest questionsRequest) {
@@ -42,11 +48,11 @@ public class QuestionService {
         String category = questionsRequest.getCategory();
         if (category == null) {
             Page<QuestionElement> questionElements = interviewQuestionRepository.findQuestions(pageRequest);
-            return questionMapper.supplyQuestionsResponse(questionElements);
+            return QuestionMapper.supplyQuestionsResponse(questionElements);
         }
 
         Page<QuestionElement> questionElements = interviewQuestionRepository.findQuestionsByCategory(InterviewCategory.ofName(category), pageRequest);
-        return questionMapper.supplyQuestionsResponse(questionElements);
+        return QuestionMapper.supplyQuestionsResponse(questionElements);
     }
 
     @Transactional(readOnly = true)
@@ -67,6 +73,36 @@ public class QuestionService {
             }
         }
 
-        return questionMapper.supplyQuestionDetailResponse(interviewQuestion, isScrapped, answer);
+        return QuestionMapper.supplyQuestionDetailResponse(interviewQuestion, isScrapped, answer);
+    }
+
+    @Transactional()
+    public DailyQuestionResponse getDailyQuestion() {
+        Integer seed = generateRandomSeed();
+
+        Optional<DailyQuestion> cachedData = dailyQuestionRepository.findById(seed);
+        if (cachedData.isPresent()) {
+            return QuestionMapper.supplyDailyQuestionResponse(cachedData.get());
+        }
+
+        InterviewQuestion interviewQuestion = interviewQuestionRepository.findRandomQuestion(seed)
+                .orElseThrow(DailyQuestionNotFoundException::new);
+
+        DailyQuestion dailyQuestion = QuestionMapper.supplyDailyQuestion(seed, interviewQuestion);
+        dailyQuestionRepository.save(dailyQuestion);
+
+        return QuestionMapper.supplyDailyQuestionResponse(interviewQuestion);
+
+    }
+
+    private Integer generateRandomSeed() {
+        LocalDate localDate = LocalDateTime.now()
+                .minusHours(MINUS_HOURS)
+                .minusMinutes(MINUS_MINUTES)
+                .minusSeconds(MINUS_SECONDS)
+                .toLocalDate();
+
+        String seed = localDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        return Integer.valueOf(seed);
     }
 }
