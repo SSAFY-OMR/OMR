@@ -12,7 +12,7 @@ type ButtonProps = {
   color: 'primary' | 'secondary';
   width: 'fitContent' | 'full';
   iconType: 'complete' | 'arrow' | 'edit' | 'community';
-  type: 'button' | 'submit';
+  type?: 'button' | 'submit';
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
@@ -22,7 +22,7 @@ const Button = ({
   color,
   width,
   iconType,
-  type,
+  type = 'button',
   onClick,
 }: ButtonProps) => {
   const iconSize = {

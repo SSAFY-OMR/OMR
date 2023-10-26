@@ -25,13 +25,18 @@ const AnswerInput = ({ type, content }: AnswerInputProps) => {
           <Button
             color="secondary"
             size="small"
-            type="complete"
+            iconType="complete"
             width="fitContent"
           >
             저장
           </Button>
         ) : (
-          <Button color="secondary" size="small" type="edit" width="fitContent">
+          <Button
+            color="secondary"
+            size="small"
+            iconType="edit"
+            width="fitContent"
+          >
             수정
           </Button>
         )}
