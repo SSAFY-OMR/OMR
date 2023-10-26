@@ -11,7 +11,8 @@ type ButtonProps = {
   size: 'small' | 'medium' | 'large';
   color: 'primary' | 'secondary';
   width: 'fitContent' | 'full';
-  type: 'complete' | 'arrow' | 'edit' | 'community';
+  iconType: 'complete' | 'arrow' | 'edit' | 'community';
+  type: 'button' | 'submit';
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
@@ -20,6 +21,7 @@ const Button = ({
   size,
   color,
   width,
+  iconType,
   type,
   onClick,
 }: ButtonProps) => {
@@ -35,7 +37,7 @@ const Button = ({
   };
 
   let Icon: any = undefined;
-  if (type === 'complete') {
+  if (iconType === 'complete') {
     Icon = (
       <CheckIcon
         height={iconSize[size]}
@@ -43,7 +45,7 @@ const Button = ({
         fill={iconColor[color]}
       />
     );
-  } else if (type === 'arrow') {
+  } else if (iconType === 'arrow') {
     Icon = (
       <ArrowIcon
         height={iconSize[size]}
@@ -51,7 +53,7 @@ const Button = ({
         fill={iconColor[color]}
       />
     );
-  } else if (type === 'community') {
+  } else if (iconType === 'community') {
     Icon = (
       <CommunityIcon
         height={iconSize[size]}
@@ -59,7 +61,7 @@ const Button = ({
         fill={iconColor[color]}
       />
     );
-  } else if (type === 'edit') {
+  } else if (iconType === 'edit') {
     Icon = (
       <EditIcon
         height={iconSize[size]}
@@ -71,6 +73,7 @@ const Button = ({
 
   return (
     <button
+      type={type}
       className={`${styles.Button} ${styles[size]} ${styles[color]} ${styles[width]}`}
       onClick={onClick}
     >
