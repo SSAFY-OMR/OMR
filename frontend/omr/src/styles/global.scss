@@ -8,6 +8,7 @@ $color-red: #f04242;
 $color-neutral-20: #f5f6f7;
 $color-neutral-40: #dfe2e6;
 $color-neutral-60: #b3b9c4;
+$color-neutral-500: #42526d;
 
 $color-blue-50: #e8f7fd;
 $color-blue-100: #b7e7f8;
@@ -36,9 +37,11 @@ $color-blue-900: #0a4b61;
   --color-blue-700: #{$color-blue-700};
   --color-blue-800: #{$color-blue-800};
   --color-blue-900: #{$color-blue-900};
+
   --color-neutral-20: #{$color-neutral-20};
   --color-neutral-40: #{$color-neutral-40};
   --color-neutral-60: #{$color-neutral-60};
+  --color-neutral-500: #{$color-neutral-500};
 
   --font-size-xsmall: 0.75rem;
   --font-size-small: 0.875rem;

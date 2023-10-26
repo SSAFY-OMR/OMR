@@ -20,7 +20,7 @@ const QuestionView = ({ question, type }: QuestionProps) => {
     <div className={styles.QuestionView}>
       <div className={styles.header}>
         <span className={styles.category}>
-          <CategoryTag category={question.category} />
+          <CategoryTag category={question.category.description} />
         </span>
         {type === 'questionView' && (
           <ScrapButton isScrapped={question.isScrapped} />
