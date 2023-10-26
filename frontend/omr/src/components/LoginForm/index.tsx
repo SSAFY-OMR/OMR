@@ -6,16 +6,16 @@ import styles from './index.module.scss';
 import Button from '../UI/Button';
 import FeedbackMessage from '../FeedbackMessage';
 
-interface FormValue {
+type FormValue = {
     loginId: string;
     password: string;
-  }
+}
 
 const handleLogin = async (data : FieldValues) => {
-        
+
 };
 
-const LoginForm = (props: any) => {
+const LoginForm = () => {
 
     const {
         register,
@@ -27,7 +27,7 @@ const LoginForm = (props: any) => {
     const [isLoginSucceed, setIsLoginSucceed] = useState(false);
 
     return (
-        <form onSubmit={handleSubmit(props.onSubmit)}>
+        <form>
             <div className={styles.loginInputs}>
                 <div className={styles.loginInput}>
                     <label htmlFor="loginId" className={styles.loginInputTitle}>아이디</label>
