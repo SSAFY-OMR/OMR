@@ -37,8 +37,6 @@ public class QuestionService {
     private final AnswerRepository answerRepository;
     private final DailyQuestionRepository dailyQuestionRepository;
 
-    private final QuestionMapper questionMapper;
-
     @Transactional(readOnly = true)
     public QuestionsResponse getQuestionsByCategory(QuestionsRequest questionsRequest) {
         PageRequest pageRequest = questionsRequest.toPageRequest();
@@ -46,11 +44,11 @@ public class QuestionService {
         String category = questionsRequest.getCategory();
         if (category == null) {
             Page<QuestionElement> questionElements = interviewQuestionRepository.findQuestions(pageRequest);
-            return questionMapper.supplyQuestionsResponse(questionElements);
+            return QuestionMapper.supplyQuestionsResponse(questionElements);
         }
 
         Page<QuestionElement> questionElements = interviewQuestionRepository.findQuestionsByCategory(InterviewCategory.ofName(category), pageRequest);
-        return questionMapper.supplyQuestionsResponse(questionElements);
+        return QuestionMapper.supplyQuestionsResponse(questionElements);
     }
 
     @Transactional(readOnly = true)
@@ -71,7 +69,7 @@ public class QuestionService {
             }
         }
 
-        return questionMapper.supplyQuestionDetailResponse(interviewQuestion, isScrapped, answer);
+        return QuestionMapper.supplyQuestionDetailResponse(interviewQuestion, isScrapped, answer);
     }
 
     @Transactional()
@@ -80,16 +78,16 @@ public class QuestionService {
 
         Optional<DailyQuestion> cachedData = dailyQuestionRepository.findById(seed);
         if (cachedData.isPresent()) {
-            return questionMapper.supplyDailyQuestionResponse(cachedData.get());
+            return QuestionMapper.supplyDailyQuestionResponse(cachedData.get());
         }
 
         InterviewQuestion interviewQuestion = interviewQuestionRepository.findRandomQuestion(seed)
                 .orElseThrow(DailyQuestionNotFoundException::new);
 
-        DailyQuestion dailyQuestion = questionMapper.supplyDailyQuestion(seed, interviewQuestion);
+        DailyQuestion dailyQuestion = QuestionMapper.supplyDailyQuestion(seed, interviewQuestion);
         dailyQuestionRepository.save(dailyQuestion);
 
-        return questionMapper.supplyDailyQuestionResponse(interviewQuestion);
+        return QuestionMapper.supplyDailyQuestionResponse(interviewQuestion);
 
     }
 

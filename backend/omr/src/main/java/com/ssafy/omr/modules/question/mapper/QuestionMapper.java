@@ -9,13 +9,11 @@ import com.ssafy.omr.modules.question.dto.QuestionsResponse;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Component;
 
-@Component
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class QuestionMapper {
 
-    public QuestionsResponse supplyQuestionsResponse(Page<QuestionElement> questionElements) {
+    public static QuestionsResponse supplyQuestionsResponse(Page<QuestionElement> questionElements) {
         return QuestionsResponse.builder()
                 .questions(questionElements.getContent())
                 .currentPage(questionElements.getNumber())
@@ -23,7 +21,7 @@ public class QuestionMapper {
                 .build();
     }
 
-    public QuestionDetailResponse supplyQuestionDetailResponse(InterviewQuestion interviewQuestion, Boolean isScrapped, String answer) {
+    public static QuestionDetailResponse supplyQuestionDetailResponse(InterviewQuestion interviewQuestion, Boolean isScrapped, String answer) {
         return QuestionDetailResponse.builder()
                 .content(interviewQuestion.getContent())
                 .isScraped(isScrapped)
@@ -31,21 +29,21 @@ public class QuestionMapper {
                 .build();
     }
 
-    public DailyQuestionResponse supplyDailyQuestionResponse(InterviewQuestion interviewQuestion) {
+    public static DailyQuestionResponse supplyDailyQuestionResponse(InterviewQuestion interviewQuestion) {
         return DailyQuestionResponse.builder()
                 .category(interviewQuestion.getInterviewCategory())
                 .content(interviewQuestion.getContent())
                 .build();
     }
 
-    public DailyQuestionResponse supplyDailyQuestionResponse(DailyQuestion dailyQuestion) {
+    public static DailyQuestionResponse supplyDailyQuestionResponse(DailyQuestion dailyQuestion) {
         return DailyQuestionResponse.builder()
                 .category(dailyQuestion.getInterviewCategory())
                 .content(dailyQuestion.getContent())
                 .build();
     }
 
-    public DailyQuestion supplyDailyQuestion(Integer seed, InterviewQuestion interviewQuestion) {
+    public static DailyQuestion supplyDailyQuestion(Integer seed, InterviewQuestion interviewQuestion) {
         return DailyQuestion.builder()
                 .id(seed)
                 .interviewCategory(interviewQuestion.getInterviewCategory())
