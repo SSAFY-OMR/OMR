@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 
+import CategoryRadioButton from './CategoryRadioButton';
 import styles from './index.module.scss';
-import CategoryRadioButton from '../CategoryRadioButton';
 
 import type { Category } from '@/types/question';
 
