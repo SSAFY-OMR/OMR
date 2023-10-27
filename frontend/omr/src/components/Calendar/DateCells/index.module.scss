@@ -1,0 +1,37 @@
+.DateCells {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.dateCell {
+  width: 24px;
+  height: 24px;
+  margin: 3px;
+  border-radius: 5px;
+}
+
+.week {
+  display: flex;
+  justify-content: space-between;
+}
+
+.neutral40 {
+  background-color: var(--color-neutral-40);
+}
+
+.blue100 {
+  background-color: var(--color-blue-100);
+}
+
+.blue300 {
+  background-color: var(--color-blue-300);
+}
+
+.blue500 {
+  background-color: var(--color-blue-500);
+}
+
+.blue700 {
+  background-color: var(--color-blue-700);
+}
