@@ -17,3 +17,5 @@ export const BLUE_900 = '#0a4b61';
 export const NEUTRAL_20 = '#f5f6f7';
 export const NEUTRAL_40 = '#dfe2e6';
 export const NEUTRAL_60 = '#b3b9c4';
+export const NEUTRAL_100 = '#7a8699';
+export const NEUTRAL_500 = '#42526d';
