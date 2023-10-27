@@ -15,6 +15,7 @@
     "@uiw/react-heat-map": "^2.2.0",
     "@uiw/react-tooltip": "^4.22.0",
     "axios": "^1.5.1",
+    "date-fns": "^2.30.0",
     "jwt-decode": "^3.1.2",
     "next": "13.5.6",
     "next-pwa": "^5.6.0",
