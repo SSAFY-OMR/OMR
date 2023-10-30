@@ -6,22 +6,16 @@ import { NextIcon, PrevIcon } from 'public/icons';
 import DateCells from './DateCells';
 import styles from './index.module.scss';
 
+import type { Streak } from '@/types/streak';
+
 import { DAYS } from '@/constants/calendar';
 import { NEUTRAL_500 } from '@/styles/color';
 
-// dummy data
-const streaks = {
-  '2023/09/04': 100,
-  '2023/09/05': 2,
-  '2023/09/20': 3,
-  '2023/09/22': 4,
-  '2023/10/01': 100,
-  '2023/10/05': 2,
-  '2023/10/11': 3,
-  '2023/10/14': 4,
+type CalendarProps = {
+  streaks: Streak;
 };
 
-const Calendar = () => {
+const Calendar = ({ streaks }: CalendarProps) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
   const handleClickPrevMonth = () => {

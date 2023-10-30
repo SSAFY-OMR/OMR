@@ -37,13 +37,13 @@ const DateCells = ({ currentMonth, streaks }: DateCellsProps) => {
   const setCountColor = (count: number | undefined): string => {
     if (count === undefined) {
       return 'neutral40';
-    } else if (count < 2) {
+    } else if (count < 3) {
       return 'blue100';
-    } else if (count < 4) {
+    } else if (count < 5) {
       return 'blue300';
-    } else if (count < 6) {
+    } else if (count < 7) {
       return 'blue500';
-    } else if (count > 7) {
+    } else if (count >= 7) {
       return 'blue700';
     }
     return '';
@@ -52,7 +52,7 @@ const DateCells = ({ currentMonth, streaks }: DateCellsProps) => {
   while (date < endDateOfLastWeek) {
     for (let i = 0; i < 7; i++) {
       const isCurrentMonth = date >= startDateOfMonth && date <= endDateOfMonth;
-      const count: number | undefined = streaks[format(date, 'yyyy/MM/dd')];
+      const count: number | undefined = streaks[format(date, 'yyyy-MM-dd')];
 
       let color = '';
 
@@ -86,6 +86,8 @@ const DateCells = ({ currentMonth, streaks }: DateCellsProps) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const left = rect.left + rect.width / 2;
     const top = rect.top;
+
+    if (!count) return;
 
     setTooltipContent(count.toString());
     setTooltipPosition({ left, top });
