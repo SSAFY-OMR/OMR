@@ -1,14 +1,16 @@
 package com.ssafy.omr.modules.question.mapper;
 
+import com.ssafy.omr.modules.meta.domain.InterviewCategory;
+import com.ssafy.omr.modules.meta.domain.MetaData;
 import com.ssafy.omr.modules.question.domain.DailyQuestion;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
-import com.ssafy.omr.modules.question.dto.DailyQuestionResponse;
-import com.ssafy.omr.modules.question.dto.QuestionDetailResponse;
-import com.ssafy.omr.modules.question.dto.QuestionElement;
-import com.ssafy.omr.modules.question.dto.QuestionsResponse;
+import com.ssafy.omr.modules.question.dto.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class QuestionMapper {
@@ -50,5 +52,20 @@ public class QuestionMapper {
                 .interviewCategory(interviewQuestion.getInterviewCategory())
                 .content(interviewQuestion.getContent())
                 .build();
+    }
+
+    public static List<InterviewQuestion> supplyInterviewQuestionEntityOf(
+            List<String> categories,
+            List<String> contents) {
+        List<InterviewQuestion> interviewQuestions = new ArrayList<>();
+
+        for(int i = 0; i < categories.size(); i++) {
+            interviewQuestions.add(InterviewQuestion.builder()
+                    .interviewCategory(InterviewCategory.ofName(categories.get(i)))
+                    .content(contents.get(i))
+                    .build());
+        }
+
+        return interviewQuestions;
     }
 }
