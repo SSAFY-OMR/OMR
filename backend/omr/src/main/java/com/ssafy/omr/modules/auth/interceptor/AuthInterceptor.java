@@ -32,6 +32,11 @@ public class AuthInterceptor implements HandlerInterceptor {
         if (CorsUtils.isPreFlightRequest(request)) {
             return true;
         }
+
+        if(isPostMethodQuestions(request)) {
+            return true;
+        }
+
         if (isGetMethod(request)) {
             LOGGER.info("GET" + request.getRequestURI());
             return true;
@@ -62,6 +67,10 @@ public class AuthInterceptor implements HandlerInterceptor {
 //    private boolean isGetMethodWithAnswersUri(HttpServletRequest request) {
 //        return request.getRequestURI().contains("/answers") && request.getMethod().equalsIgnoreCase("GET");
 //    }
+
+    private boolean isPostMethodQuestions(HttpServletRequest request) {
+        return request.getMethod().equalsIgnoreCase("POST") && request.getRequestURI().contains("/questions");
+    }
 
     private boolean notExistHeader(HttpServletRequest request) {
         String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
