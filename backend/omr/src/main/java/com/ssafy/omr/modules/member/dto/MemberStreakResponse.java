@@ -1,9 +1,10 @@
 package com.ssafy.omr.modules.member.dto;
 
-import java.util.List;
+import java.time.LocalDate;
+import java.util.Map;
 
 public record MemberStreakResponse(
-        List<StreakElement> streaks,
+        Map<LocalDate, Integer> streaks,
         int currentStreak,
         int longestStreak
 ) {

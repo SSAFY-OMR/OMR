@@ -20,7 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @RequiredArgsConstructor
@@ -42,17 +44,21 @@ public class MemberService {
 
     @Transactional
     public MemberStreakResponse getStreaksByMonth(Long memberId, int year, int month) {
-        Integer currentStreak = 0, longestStreak = 0;
         List<StreakElement> streakElements = memberDynamicRepository.getStreaksByMemberId(memberId, year, month);
         MemberStreak memberStreak = memberStreakRepository.findById(memberId)
                 .orElseThrow(MemberNotFoundException::new);
+        Map<LocalDate, Integer> map = new HashMap<>();
 
+        for(StreakElement streakElement : streakElements) {
+            map.put(streakElement.getLocalDate(), streakElement.getCount());
+        }
         updateCurrentStreak(memberStreak);
-        currentStreak = memberStreak.getCurrentStreak();
-        longestStreak = memberStreak.getLongestStreak();
+        Integer currentStreak = memberStreak.getCurrentStreak();
+        Integer longestStreak = memberStreak.getLongestStreak();
+
 
         return MemberMapper.supplyMemberStreakResponseOf(
-                streakElements,
+                map,
                 currentStreak,
                 longestStreak);
     }
