@@ -2,6 +2,8 @@ import ArrowIcon from './arrow-icon.svg';
 import BookmarkIcon from './bookmark-icon.svg';
 import CheckIcon from './check-icon.svg';
 import CommunityIcon from './community-icon.svg';
+import DoubleNextIcon from './double-next-icon.svg';
+import DoublePrevIcon from './double-prev-icon.svg';
 import EditIcon from './edit-icon.svg';
 import ErrorIcon from './error-icon.svg';
 import LikeIcon from './like-icon.svg';
@@ -14,6 +16,8 @@ export {
   BookmarkIcon,
   CheckIcon,
   CommunityIcon,
+  DoubleNextIcon,
+  DoublePrevIcon,
   EditIcon,
   ErrorIcon,
   LikeIcon,
