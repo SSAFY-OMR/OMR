@@ -2,9 +2,10 @@ import React from 'react';
 
 import type { Metadata } from 'next';
 
+import Header from '@/components/UI/Header';
 import { pretendard } from '@/styles/font';
 
-import './globals.css';
+import './global.scss';
 
 export const metadata: Metadata = {
   title: 'OMR',
@@ -25,7 +26,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={pretendard.className}>
       <body className={pretendard.className} suppressHydrationWarning={true}>
-        {children}
+        <div id="rootDiv" className="fixed-width">
+          <Header />
+          {children}
+        </div>
       </body>
     </html>
   );
