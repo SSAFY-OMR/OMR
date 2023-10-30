@@ -4,6 +4,6 @@ import java.util.List;
 
 public record CreateQuestionsRequest(
         List<String> contents,
-        List<String> categories
+        String category
 ) {
 }

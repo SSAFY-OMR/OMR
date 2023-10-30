@@ -78,12 +78,10 @@ public class QuestionController {
                                                     """  
                                                             { 
                                                                 "contents": ["스택과 힙의 차이는 무엇일까요?"],
-                                                                "categories": ["DATA_STRUCTURE"]
+                                                                "category": "DATA_STRUCTURE"
                                                             } 
                                                             """,
-                                            description = "contents: 질문 내용들, categories: DATA_STRUCTURE, ALGORITHM, " +
-                                                    "COMPUTER_ARCHITECTURE, NETWORK, OPERATING_SYSTEM, DATABASE, JAVA" +
-                                                    "SPRING, JAVASCRIPT, TYPESCRIPT, REACT, VUE, PYTHONe, GIT, CLOUD, WEB"
+                                            description = "contents: 해당 카테고리에 따른 질문 내용들, category: 카테고리"
                                     )}))
     )
     @PostMapping
