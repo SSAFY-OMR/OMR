@@ -2,6 +2,8 @@ package com.ssafy.omr.modules.answer.service;
 
 import com.ssafy.omr.modules.answer.domain.Answer;
 import com.ssafy.omr.modules.answer.domain.AnswerLike;
+import com.ssafy.omr.modules.answer.dto.AnswerResponse;
+import com.ssafy.omr.modules.answer.dto.QuestionAnswerResponse;
 import com.ssafy.omr.modules.answer.dto.UpdateAnswerRequest;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerResponse;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerRequest;
@@ -24,6 +26,8 @@ import com.ssafy.omr.modules.question.repository.InterviewQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,7 +66,8 @@ public class AnswerService {
     /**
      * 답변 내용을 갱신한다.
      * 내부적으로 권환 확인을 수행
-     * @param authInfo 권한 객체
+     *
+     * @param authInfo            권한 객체
      * @param updateAnswerRequest 갱신 내용이 담긴 객체
      */
     @Transactional
@@ -80,7 +85,8 @@ public class AnswerService {
     /**
      * 답변을 삭제처리한다.
      * 내부적으로 권환 확인을 진행한다.
-     * @param authInfo 권한 객체
+     *
+     * @param authInfo            권한 객체
      * @param deleteAnswerRequest 삭제 답변의 정보가 담긴 객체
      */
     @Transactional
@@ -99,7 +105,8 @@ public class AnswerService {
      * 답변에 대해 좋아요 처리 수행
      * 좋아요가 없으면 신규 좋아요 객체 생성
      * 좋아요가 있으면 좋아요 객체 삭제
-     * @param authInfo 권한 객체
+     *
+     * @param authInfo                권한 객체
      * @param toggleLikeAnswerRequest 답변 정보 객체
      * @return 좋아요 여부가 담긴 응답객체
      */
@@ -138,5 +145,12 @@ public class AnswerService {
                 .answer(answer)
                 .build();
         answerLikeRepository.save(answerLike);
+    }
+
+    public QuestionAnswerResponse getAnswerList(Long questionId, Pageable pageRequest) {
+        Page<AnswerResponse> answerList = answerRepository
+                .findAnswerListByQuestion(interViewQuestionRepository.getReferenceById(questionId), pageRequest)
+                .map(AnswerMapper::supplyAnswerResponseOf);
+        return AnswerMapper.supplyQuestionAnswerResponseOf(questionId, answerList);
     }
 }
