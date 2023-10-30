@@ -1,15 +1,16 @@
 package com.ssafy.omr.modules.question.controller;
 
 import com.ssafy.omr.modules.auth.dto.AuthInfo;
-import com.ssafy.omr.modules.auth.token.LoginUser;
+import com.ssafy.omr.modules.question.dto.CreateQuestionsRequest;
+import com.ssafy.omr.modules.question.dto.QuestionsResponse;
+import com.ssafy.omr.modules.question.dto.QuestionsRequest;
 import com.ssafy.omr.modules.question.dto.DailyQuestionResponse;
 import com.ssafy.omr.modules.question.dto.QuestionDetailResponse;
-import com.ssafy.omr.modules.question.dto.QuestionsRequest;
-import com.ssafy.omr.modules.question.dto.QuestionsResponse;
 import com.ssafy.omr.modules.question.service.QuestionService;
 import com.ssafy.omr.modules.util.base.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -64,6 +65,33 @@ public class QuestionController {
     public BaseResponse<DailyQuestionResponse> getDailyQuestion() {
         return BaseResponse.<DailyQuestionResponse>builder()
                 .data(questionService.getDailyQuestion())
+                .build();
+    }
+
+    @Operation(summary = "문제 생성",
+            description = "문제 content, 문제 분류를 지정하면 문제가 삽입됩니다.",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    content = @Content(
+                            examples = {
+                                    @ExampleObject(name = "CreateQuestionsRequest",
+                                            value =
+                                                    """  
+                                                            { 
+                                                                "contents": ["스택과 힙의 차이는 무엇일까요?"],
+                                                                "categories": ["DATA_STRUCTURE"]
+                                                            } 
+                                                            """,
+                                            description = "contents: 질문 내용들, categories: DATA_STRUCTURE, ALGORITHM, " +
+                                                    "COMPUTER_ARCHITECTURE, NETWORK, OPERATING_SYSTEM, DATABASE, JAVA" +
+                                                    "SPRING, JAVASCRIPT, TYPESCRIPT, REACT, VUE, PYTHONe, GIT, CLOUD, WEB"
+                                    )}))
+    )
+    @PostMapping
+    public BaseResponse<Void> createQuestions(
+            @Valid @RequestBody CreateQuestionsRequest createQuestionsRequest
+    ) {
+        questionService.createQuestions(createQuestionsRequest);
+        return BaseResponse.<Void>builder()
                 .build();
     }
 }
