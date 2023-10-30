@@ -54,15 +54,14 @@ public class QuestionMapper {
                 .build();
     }
 
-    public static List<InterviewQuestion> supplyInterviewQuestionEntityOf(
-            List<String> categories,
-            List<String> contents) {
+    public static List<InterviewQuestion> supplyInterviewQuestionEntityOf(String category, List<String> contents) {
         List<InterviewQuestion> interviewQuestions = new ArrayList<>();
+        InterviewCategory interviewCategory = InterviewCategory.ofName(category);
 
-        for(int i = 0; i < categories.size(); i++) {
+        for (String content : contents) {
             interviewQuestions.add(InterviewQuestion.builder()
-                    .interviewCategory(InterviewCategory.ofName(categories.get(i)))
-                    .content(contents.get(i))
+                    .interviewCategory(interviewCategory)
+                    .content(content)
                     .build());
         }
 

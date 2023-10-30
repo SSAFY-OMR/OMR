@@ -99,7 +99,7 @@ public class QuestionService {
     @Transactional
     public void createQuestions(CreateQuestionsRequest createQuestionsRequest) {
         List<InterviewQuestion> interviewQuestions = QuestionMapper.supplyInterviewQuestionEntityOf(
-                createQuestionsRequest.categories(), createQuestionsRequest.contents());
+                createQuestionsRequest.category(), createQuestionsRequest.contents());
 
         interviewQuestionRepository.saveAll(interviewQuestions);
     }
