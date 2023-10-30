@@ -1,4 +1,5 @@
 export const WHITE = '#FFFFFF';
+export const BLACK = '#000000';
 export const GREEN = '#00a870';
 export const RED = '#f04242';
 
