@@ -1,15 +1,19 @@
 import axios, { AxiosError } from 'axios';
-import { isExpired } from './jwtProvider';
+
+import { isExpired } from '@/utils/jwtProvider';
+
+export const defaultInstance = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+});
 
 export const authInstance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
 authInstance.interceptors.request.use(
-
   async (request) => {
     if (!localStorage.getItem('accessToken')) {
-        return Promise.reject();
+      return Promise.reject();
     }
 
     const accessToken = localStorage
@@ -17,8 +21,7 @@ authInstance.interceptors.request.use(
       .replaceAll('"', '');
 
     if (isExpired(accessToken)) {
-
-        const refreshToken = localStorage
+      const refreshToken = localStorage
         .getItem('refreshToken')!
         .replaceAll('"', '');
 
@@ -30,7 +33,7 @@ authInstance.interceptors.request.use(
               'Refresh-Token': `Bearer ${refreshToken}`,
               'Content-Type': 'application/json',
             },
-          }
+          },
         );
 
         const newAccessToken = data.data.accessToken;
@@ -58,6 +61,5 @@ authInstance.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
-
