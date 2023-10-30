@@ -67,9 +67,7 @@ public class AnswerController {
     @GetMapping("/question/{questionId}")
     public BaseResponse<QuestionAnswerResponse> getAnswerList(
             @RequestParam("questionId") Long questionId,
-            @PageableDefault(
-                    size = PAGE_SIZE
-            )
+            @PageableDefault(size = PAGE_SIZE)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "likeCount", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)

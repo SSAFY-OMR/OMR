@@ -149,8 +149,8 @@ public class AnswerService {
 
     public QuestionAnswerResponse getAnswerList(Long questionId, Pageable pageRequest) {
         Page<AnswerResponse> answerList = answerRepository
-                .getAnswerListByQuestion(questionId, pageRequest)
+                .getAnswerListByQuestion(interViewQuestionRepository.getReferenceById(questionId), pageRequest)
                 .map(AnswerMapper::supplyAnswerResponseOf);
-        return AnswerMapper.supplyQuestionAnswerResponseOf(questionId,answerList);
+        return AnswerMapper.supplyQuestionAnswerResponseOf(questionId, answerList);
     }
 }

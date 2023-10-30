@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -25,8 +26,8 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
 
     @Query(value = """
                 select a
-                from Answer a inner join a.member
-                where a.interviewQuestion.questionId=:questionId
+                from Answer a inner join a.member m
+                where a.interviewQuestion = :question
             """)
-    Page<Answer> getAnswerListByQuestion(Long questionId, Pageable pageRequest);
+    Page<Answer> getAnswerListByQuestion(InterviewQuestion question, Pageable pageRequest);
 }
