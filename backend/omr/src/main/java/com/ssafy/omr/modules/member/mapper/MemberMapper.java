@@ -5,11 +5,11 @@ import com.ssafy.omr.modules.member.domain.MemberStreak;
 import com.ssafy.omr.modules.member.domain.RoleType;
 import com.ssafy.omr.modules.member.dto.MemberProfileResponse;
 import com.ssafy.omr.modules.member.dto.MemberStreakResponse;
-import com.ssafy.omr.modules.member.dto.StreakElement;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.time.LocalDate;
+import java.util.Map;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MemberMapper {
@@ -38,7 +38,7 @@ public class MemberMapper {
     }
 
     public static MemberStreakResponse supplyMemberStreakResponseOf(
-            List<StreakElement> streaks,
+            Map<LocalDate, Integer> streaks,
             int currentStreak,
             int longestStreak) {
         return new MemberStreakResponse(streaks, currentStreak, longestStreak);
