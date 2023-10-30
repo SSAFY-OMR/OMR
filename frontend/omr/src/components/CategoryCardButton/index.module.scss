@@ -1,0 +1,23 @@
+.CategoryCardButton {
+  padding: 15px;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: fit-content;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.title {
+  font-weight: 700;
+}
+
+.count {
+  font-size: small;
+}
