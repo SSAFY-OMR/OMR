@@ -11,9 +11,13 @@ import com.ssafy.omr.modules.question.dto.QuestionsRequest;
 import com.ssafy.omr.modules.question.dto.QuestionsResponse;
 import com.ssafy.omr.modules.util.base.BaseResponse;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+@Tag(name = "member history", description = "사용자 CS 질문 스크랩 및 답변 API")
 @RestController
 @RequestMapping("/history")
 @RequiredArgsConstructor
@@ -23,14 +27,22 @@ public class MemberHistoryController {
 	private final MemberHistoryService memberHistoryService;
 
 	@GetMapping("/questions/scraped")
-	public BaseResponse<QuestionsResponse> findScrapedQuestion(@LoginUser AuthInfo authInfo, QuestionsRequest questionsRequest) {
+	@Operation(
+		summary = "사용자 스크랩 조회",
+		description = "사용자가 스크랩한 CS질문 목록을 조회합니다. (offset 기반 페이지네이션)"
+	)
+	public BaseResponse<QuestionsResponse> findScrapedQuestion(@Parameter(hidden = true) @LoginUser AuthInfo authInfo, QuestionsRequest questionsRequest) {
 		return BaseResponse.<QuestionsResponse>builder()
 			.data(memberHistoryService.findScrapedQuestion(authInfo.id(), questionsRequest))
 			.build();
 	}
 
 	@GetMapping("/questions/solved")
-	public BaseResponse<QuestionsResponse> findSolvedQuestion(@LoginUser AuthInfo authInfo, QuestionsRequest questionsRequest) {
+	@Operation(
+		summary = "사용자 푼 문제 조회",
+		description = "사용자가 답변한 CS질문 목록을 조회합니다. (offset 기반 페이지네이션)"
+	)
+	public BaseResponse<QuestionsResponse> findSolvedQuestion(@Parameter(hidden = true) @LoginUser AuthInfo authInfo, QuestionsRequest questionsRequest) {
 		return BaseResponse.<QuestionsResponse>builder()
 			.data(memberHistoryService.findSolvedQuestion(authInfo.id(), questionsRequest))
 			.build();
