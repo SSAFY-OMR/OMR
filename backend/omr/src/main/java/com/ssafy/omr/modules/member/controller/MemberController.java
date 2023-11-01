@@ -13,6 +13,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -59,8 +61,14 @@ public class MemberController {
     }
 
     @Operation(summary = "나의 프로필 조회", description = "나의 프로필 조회 API입니다.")
+    @ApiResponse(
+            responseCode = "200",
+            description = "나의 프로필 조회 성공",
+            content = @Content(schema = @Schema(implementation = MemberProfileResponse.class))
+    )
     @GetMapping("/my-profile")
-    public BaseResponse<MemberProfileResponse> getMyProfileInformation(@LoginUser AuthInfo authInfo) {
+    public BaseResponse<MemberProfileResponse> getMyProfileInformation(
+            @Parameter(hidden = true) @LoginUser AuthInfo authInfo) {
         return BaseResponse.<MemberProfileResponse>builder()
                 .data(memberService.getMyProfileInformation(authInfo.id()))
                 .build();
@@ -95,9 +103,14 @@ public class MemberController {
             parameters = {
                     @Parameter(name = "month", description = "달", required = true),
                     @Parameter(name = "year", description = "년도", required = true)})
+    @ApiResponse(
+            responseCode = "200",
+            description = "스트릭 조회 성공",
+            content = @Content(schema = @Schema(implementation = MemberStreakResponse.class))
+    )
     @GetMapping("/streak/{month}/{year}")
     public BaseResponse<MemberStreakResponse> getStreaksByMonth(
-            @LoginUser AuthInfo authInfo,
+            @Parameter(hidden = true) @LoginUser AuthInfo authInfo,
             @PathVariable("month") @NotBlank @Size(min = 1, max = 12) int month,
             @PathVariable("year") @NotBlank @Size(min = 2023, max = 2024) int year) {
         return BaseResponse.<MemberStreakResponse>builder()
