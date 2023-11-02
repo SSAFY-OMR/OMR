@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import CategoryRadioButton from './CategoryRadioButton';
 import styles from './index.module.scss';
@@ -8,12 +8,16 @@ import styles from './index.module.scss';
 import type { Category } from '@/types/question';
 
 type CategoryRadioGroupProps = {
+  selectedCategory: string;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
   categoryList: Category[];
 };
 
-const CategoryRadioGroup = ({ categoryList }: CategoryRadioGroupProps) => {
-  const [selectedCategory, setSelectedCategory] = useState('ALL');
-
+const CategoryRadioGroup = ({
+  selectedCategory,
+  setSelectedCategory,
+  categoryList,
+}: CategoryRadioGroupProps) => {
   const handleChangeCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedCategory(e.target.value);
   };

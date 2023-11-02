@@ -23,6 +23,7 @@ const CategoryRadioButton = ({
     >
       <input
         type="radio"
+        className={styles.radioInput}
         value={category.name}
         checked={selectedCategory === category.name}
         onChange={(e) => handleChangeCategory(e)}
