@@ -12,9 +12,8 @@ export default function useCategoryList(): {
   isLoading: boolean;
   isError: boolean;
 } {
-  const { data, isLoading, isError } = useFetcher<
-    AxiosResponse<CategoryListResponse>
-  >(`/category`, '');
+  const { data, isLoading, isError } =
+    useFetcher<AxiosResponse<CategoryListResponse>>(`/category`);
 
   return {
     categoryList: data?.data.metaData as Category[],
