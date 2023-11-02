@@ -1,7 +1,7 @@
-import { authInstance, defaultInstance } from '.';
+import { axiosInstance } from './utils';
 
 export const login = async (user: { loginId: string; password: string }) => {
-  const res = await defaultInstance.post(`/login`, user, {
+  const res = await axiosInstance.post(`/login`, user, {
     headers: {
       'Content-Type': 'application/json',
     },
