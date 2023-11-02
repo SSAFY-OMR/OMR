@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 import { ArrowIcon } from 'public/icons';
@@ -16,13 +18,17 @@ type QuestionProps = {
 };
 
 const QuestionView = ({ question, type }: QuestionProps) => {
+  const handleClickQuestion = () => {
+    console.log(question);
+  };
+
   return (
-    <div className={styles.QuestionView}>
+    <div className={styles.QuestionView} onClick={handleClickQuestion}>
       <div className={styles.header}>
         <span className={styles.category}>
           <CategoryTag category={question.category.description} />
         </span>
-        {type === 'questionView' && (
+        {type === 'questionView' && question.isScrapped && (
           <ScrapButton isScrapped={question.isScrapped} />
         )}
       </div>
