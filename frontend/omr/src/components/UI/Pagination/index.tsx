@@ -1,25 +1,27 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import Pagination from 'react-js-pagination';
 
 import './index.scss';
 
 type PagingProps = {
-  // page: number;
-  // setPage: React.Dispatch<React.SetStateAction<number>>;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
   countPerPage: number;
   totalCount: number;
   pageRange: number;
 };
 
-const Paging = ({ countPerPage, totalCount, pageRange }: PagingProps) => {
-  const [page, setPage] = useState(1);
-
+const Paging = ({
+  page,
+  setPage,
+  countPerPage,
+  totalCount,
+  pageRange,
+}: PagingProps) => {
   const handlePageChange = (page: number) => {
-    console.log(page);
-
     setPage(page);
   };
 
