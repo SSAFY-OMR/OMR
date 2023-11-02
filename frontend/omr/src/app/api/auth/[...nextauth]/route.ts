@@ -1,37 +1,62 @@
 import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
+import { login } from '@/service/auth';
+
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
-      // The name to display on the sign in form (e.g. "Sign in with...")
+      id: 'credentials',
       name: 'Credentials',
-      // `credentials` is used to generate a form on the sign in page.
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        username: { label: 'Username', type: 'text', placeholder: 'jsmith' },
-        password: { label: 'Password', type: 'password' },
+        loginId: {
+          label: 'loginId',
+          type: 'text',
+          placeholder: '아이디를 입력하세요.',
+        },
+        password: { label: 'password', type: 'password' },
       },
       async authorize(credentials, req) {
-        // Add logic here to look up the user from the credentials supplied
-        const user = { id: '1', name: 'J Smith', email: 'jsmith@example.com' };
+        const res = await login({
+          loginId: credentials?.loginId!,
+          password: credentials?.password!,
+        });
 
-        // 여기에서 로그인 API 호출
+        const data = res.data.data;
+        const user = {
+          id: credentials?.loginId as string,
+          accessToken: data.accessToken,
+          refreshToken: data.refreshToken,
+        };
 
-        if (user) {
-          // Any object returned will be saved in `user` property of the JWT
+        if (res.status === 200) {
           return user;
         } else {
-          // If you return null then an error will be displayed advising the user to check their details.
+          // eslint-disable-next-line no-null/no-null
           return null;
-
-          // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
         }
       },
     }),
   ],
+  callbacks: {
+    async jwt({ user, token }) {
+      if (user) {
+        token.accessToken = user.accessToken;
+        token.refreshToken = user.refreshToken;
+      }
+
+      return token;
+    },
+    async session({ token, session }) {
+      session.user.accessToken = token.accessToken as string;
+      session.user.refreshToken = token.refreshToken as string;
+
+      return session;
+    },
+  },
+  pages: {
+    signIn: '/login',
+  },
 });
 
 export { handler as GET, handler as POST };
