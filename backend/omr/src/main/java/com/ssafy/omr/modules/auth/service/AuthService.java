@@ -51,7 +51,6 @@ public class AuthService {
     @Transactional
     public TokenResponse reissue(String token) {
 
-
         Long id = tokenProvider.parseRefreshToken(token);
         Member member = memberRepository.findById(id).orElseThrow(InvalidRefreshTokenException::new);
 
@@ -85,9 +84,7 @@ public class AuthService {
 
     @Transactional(readOnly = true)
     public ExistLoginIdResponse isExistLoginId(String loginId) {
-        if(memberRepository.existsByLoginId(loginId)) {
-            return AuthMapper.supplyExistLoginIdResponseFrom(true);
-        }
-        return AuthMapper.supplyExistLoginIdResponseFrom(false);
+
+        return AuthMapper.supplyExistLoginIdResponseFrom(memberRepository.existsByLoginId(loginId));
     }
 }
