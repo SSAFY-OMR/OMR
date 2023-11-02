@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -63,8 +62,7 @@ public class MemberController {
     @Operation(summary = "나의 프로필 조회", description = "나의 프로필 조회 API입니다.")
     @ApiResponse(
             responseCode = "200",
-            description = "나의 프로필 조회 성공",
-            content = @Content(schema = @Schema(implementation = MemberProfileResponse.class))
+            description = "나의 프로필 조회 성공"
     )
     @GetMapping("/my-profile")
     public BaseResponse<MemberProfileResponse> getMyProfileInformation(
@@ -105,8 +103,7 @@ public class MemberController {
                     @Parameter(name = "year", description = "년도", required = true)})
     @ApiResponse(
             responseCode = "200",
-            description = "스트릭 조회 성공",
-            content = @Content(schema = @Schema(implementation = MemberStreakResponse.class))
+            description = "스트릭 조회 성공"
     )
     @GetMapping("/streak/{month}/{year}")
     public BaseResponse<MemberStreakResponse> getStreaksByMonth(
