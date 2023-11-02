@@ -46,8 +46,7 @@ public class AnswerController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "201",
-                    description = "답변 작성 성공",
-                    content = @Content(schema = @Schema(implementation = CreateAnswerResponse.class))
+                    description = "답변 작성 성공"
             )
     })
     @PostMapping("/create")
@@ -118,8 +117,7 @@ public class AnswerController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "답변 목록 및 페이징 정보",
-                    content = @Content(schema = @Schema(implementation = QuestionAnswerResponse.class))
+                    description = "답변 목록 및 페이징 정보"
             )
     })
     @GetMapping("/question/{questionId}")
