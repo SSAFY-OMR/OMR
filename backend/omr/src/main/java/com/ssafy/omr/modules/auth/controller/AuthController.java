@@ -10,9 +10,6 @@ import com.ssafy.omr.modules.auth.token.LoginUser;
 import com.ssafy.omr.modules.util.base.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -35,11 +32,6 @@ public class AuthController {
     private final AuthService authService;
 
     @Operation(summary = "로그인", description = "id, password 를 통한 로그인")
-    @ApiResponse(
-            responseCode = "200",
-            description = "로그인 성공",
-            content = @Content(schema = @Schema(implementation = TokenResponse.class))
-    )
     @PostMapping("/login")
     public BaseResponse<TokenResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         return BaseResponse.<TokenResponse>builder()
@@ -48,11 +40,6 @@ public class AuthController {
     }
 
     @Operation(summary = "리이슈", description = "액세스 토큰 재발급")
-    @ApiResponse(
-            responseCode = "200",
-            description = "리이슈 성공",
-            content = @Content(schema = @Schema(implementation = TokenResponse.class))
-    )
     @PostMapping("/reissue")
     public BaseResponse<TokenResponse> reissue(HttpServletRequest request) {
         return BaseResponse.<TokenResponse>builder()
@@ -61,10 +48,6 @@ public class AuthController {
     }
 
     @Operation(summary = "로그아웃", description = "로그아웃")
-    @ApiResponse(
-            responseCode = "200",
-            description = "로그아웃 성공"
-    )
     @PostMapping("/logout")
     public BaseResponse<Void> logout(@Parameter(hidden = true) @LoginUser AuthInfo authInfo,
                                      HttpServletRequest request) {
@@ -78,16 +61,11 @@ public class AuthController {
     }
 
     @Operation(summary = "아이디 중복 검사", description = "아이디 중복 검사")
-    @ApiResponse(
-            responseCode = "200",
-            description = "아이디 중복 검사 성공",
-            content = @Content(schema = @Schema(implementation = ExistLoginIdResponse.class))
-    )
     @GetMapping("/existence")
     public BaseResponse<ExistLoginIdResponse> isExistLoginId(@NotNull
-                                                                 @Length(min = 8, max = 16, message = "올바르지 않은 아이디 형식입니다.")
-                                                                 @Pattern(regexp = "^[a-z]+[a-z0-9]{8,16}$", message = "올바르지 않은 아이디 형식입니다.")
-                                                                 String loginId) {
+                                                             @Length(min = 8, max = 16, message = "올바르지 않은 아이디 형식입니다.")
+                                                             @Pattern(regexp = "^[a-z]+[a-z0-9]{8,16}$", message = "올바르지 않은 아이디 형식입니다.")
+                                                             String loginId) {
         return BaseResponse.<ExistLoginIdResponse>builder()
                 .data(authService.isExistLoginId(loginId))
                 .build();
