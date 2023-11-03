@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class DailyQuestionResponse {
     @Schema(description = "문제 id")
-    private Long id;
+    private Long questionId;
 
     @Schema(description = "카테고리", allowableValues = {"DATA_STRUCTURE", "NETWORK"})
     private InterviewCategory category;
