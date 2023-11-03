@@ -5,7 +5,6 @@ import React, { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
 import { BookmarkIcon, ProfileIcon } from 'public/icons';
 
 import styles from './index.module.scss';
@@ -15,16 +14,11 @@ import { userTokenState } from '@/states/auth';
 import { BLACK } from '@/styles/color';
 
 const Header = () => {
-  const { data: session, status } = useSession();
   const router = useRouter();
   const [userToken, setUserToken] = useSSRRecoilState(userTokenState, '');
 
-  if (status === 'authenticated' && typeof window !== 'undefined') {
-    setUserToken(session?.user.accessToken);
-  }
-
   const handleClickProfile = () => {
-    if (status === 'authenticated' || userToken) {
+    if (userToken) {
       router.push('/profile');
     } else {
       router.push('/login');
@@ -32,7 +26,7 @@ const Header = () => {
   };
 
   const handleClickBookmark = () => {
-    if (status === 'authenticated' || userToken) {
+    if (userToken) {
       router.push('/bookmark');
     } else {
       router.push('/login');

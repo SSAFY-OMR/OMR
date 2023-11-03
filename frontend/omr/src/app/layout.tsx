@@ -2,7 +2,6 @@ import React from 'react';
 
 import type { Metadata } from 'next';
 
-import Providers from '@/components/Providers';
 import RecoilRootProvider from '@/components/RecoilRootProvider';
 import Header from '@/components/UI/Header';
 import { pretendard } from '@/styles/font';
@@ -28,14 +27,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={pretendard.className}>
       <body className={pretendard.className} suppressHydrationWarning={true}>
-        <Providers>
-          <RecoilRootProvider>
-            <div id="rootDiv" className="fixed-width">
-              <Header />
-              {children}
-            </div>
-          </RecoilRootProvider>
-        </Providers>
+        <RecoilRootProvider>
+          <div id="rootDiv" className="fixed-width">
+            <Header />
+            {children}
+          </div>
+        </RecoilRootProvider>
       </body>
     </html>
   );

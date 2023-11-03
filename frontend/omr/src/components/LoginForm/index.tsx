@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 
-import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 import styles from './index.module.scss';
@@ -11,14 +11,9 @@ import Button from '../UI/Button';
 
 import type { FieldValues } from 'react-hook-form';
 
-const handleLogin = async (data: FieldValues) => {
-  await signIn('credentials', {
-    loginId: data.loginId,
-    password: data.password,
-    redirect: true,
-    callbackUrl: '/',
-  });
-};
+import { useSSRRecoilState } from '@/hooks/useSSRRecoilState';
+import { login } from '@/service/auth';
+import { userTokenState } from '@/states/auth';
 
 const LoginForm = () => {
   const {
@@ -27,8 +22,22 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm({ mode: 'onChange' });
 
+  const router = useRouter();
+
   const [isLoginTried, setIsLoginTried] = useState(false);
   const [isLoginSucceed, setIsLoginSucceed] = useState(false);
+  const [userToken, setUserToken] = useSSRRecoilState(userTokenState, '');
+
+  const handleLogin = async (data: FieldValues) => {
+    const res = await login({ loginId: data.loginId, password: data.password });
+    console.log(res);
+
+    if (res.status === 200 && typeof window !== 'undefined') {
+      setUserToken(res.data.data.accessToken);
+    }
+
+    router.replace('/');
+  };
 
   return (
     <form className={styles.LoginForm}>
