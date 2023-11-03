@@ -24,19 +24,18 @@ const LoginForm = () => {
 
   const router = useRouter();
 
-  const [isLoginTried, setIsLoginTried] = useState(false);
-  const [isLoginSucceed, setIsLoginSucceed] = useState(false);
+  const [isLoginSucceed, setIsLoginSucceed] = useState(true);
   const [userToken, setUserToken] = useSSRRecoilState(userTokenState, '');
 
   const handleLogin = async (data: FieldValues) => {
     const res = await login({ loginId: data.loginId, password: data.password });
-    console.log(res);
 
-    if (res.status === 200 && typeof window !== 'undefined') {
+    if (res?.status === 200) {
       setUserToken(res.data.data.accessToken);
+      router.replace('/');
+    } else {
+      setIsLoginSucceed(false);
     }
-
-    router.replace('/');
   };
 
   return (
@@ -98,7 +97,7 @@ const LoginForm = () => {
               },
             })}
           />
-          {isLoginTried && !isLoginSucceed && (
+          {!isLoginSucceed && !errors.password && (
             <FeedbackMessage type="error">
               아이디 또는 비밀번호가 일치하지 않습니다.
             </FeedbackMessage>
