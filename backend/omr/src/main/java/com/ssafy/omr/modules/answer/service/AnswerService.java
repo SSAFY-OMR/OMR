@@ -150,21 +150,21 @@ public class AnswerService {
   }
 
   @Transactional(readOnly = true)
-  public QuestionAnswerListResponse getOthersAnswerList(Long questionId, AuthInfo authInfo) {
+  public AnswerListResponse getOthersAnswerList(Long questionId, AuthInfo authInfo) {
     InterviewQuestion interviewQuestion = interViewQuestionRepository.getReferenceById(questionId);
     Member member = memberRepository.getReferenceById(authInfo.id());
 
-    List<Answer> answers = answerRepository.findOthersAnswerListByQuestion(interviewQuestion, member);
+    List<Answer> answers = answerRepository.findOthersAnswerListByQuestionAndMember(interviewQuestion, member);
     List<AnswerResponse> answerResponses = answers.stream().map(AnswerMapper::supplyAnswerResponseOf).toList();
 
     return AnswerMapper.supplyQuestionAnswerResponseFrom(answerResponses);
   }
 
   @Transactional(readOnly = true)
-  public QuestionAnswerListResponse getMyAnswer(Long questionId, AuthInfo authInfo) {
+  public AnswerListResponse getMyAnswer(Long questionId, AuthInfo authInfo) {
     InterviewQuestion interviewQuestion = interViewQuestionRepository.getReferenceById(questionId);
     Member member = memberRepository.getReferenceById(authInfo.id());
-    List<Answer> answers = answerRepository.findByInterviewQuestionAndMember(interviewQuestion, member);
+    List<Answer> answers = answerRepository.findMyAnswerListByInterviewQuestionAndMember(interviewQuestion, member);
     List<AnswerResponse> answerResponses = answers.stream().map(AnswerMapper::supplyAnswerResponseOf).toList();
     return AnswerMapper.supplyQuestionAnswerResponseFrom(answerResponses);
   }

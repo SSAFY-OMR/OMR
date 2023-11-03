@@ -38,12 +38,12 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
                 where a.interviewQuestion = :question and a.member <> :member
                 
             """)
-    List<Answer> findOthersAnswerListByQuestion(InterviewQuestion question, Member member);
+    List<Answer> findOthersAnswerListByQuestionAndMember(InterviewQuestion question, Member member);
 
     @Query(value = """
                 select a
                 from Answer a inner join a.member m
                 where a.interviewQuestion = :question and a.member = :member
             """)
-    List<Answer> findByInterviewQuestionAndMember(InterviewQuestion question, Member member);
+    List<Answer> findMyAnswerListByInterviewQuestionAndMember(InterviewQuestion question, Member member);
 }

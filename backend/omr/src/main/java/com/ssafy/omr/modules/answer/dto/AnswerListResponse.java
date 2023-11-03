@@ -2,7 +2,7 @@ package com.ssafy.omr.modules.answer.dto;
 
 import java.util.List;
 
-public record QuestionAnswerListResponse(
+public record AnswerListResponse(
         List<AnswerResponse> answerResponses
 ) {
 }

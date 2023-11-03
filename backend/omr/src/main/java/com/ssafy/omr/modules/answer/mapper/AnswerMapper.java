@@ -47,8 +47,8 @@ public class AnswerMapper {
         return new QuestionAnswerResponse(questionId, answerList);
     }
 
-    public static QuestionAnswerListResponse supplyQuestionAnswerResponseFrom(List<AnswerResponse> responseList){
-        return new QuestionAnswerListResponse(responseList);
+    public static AnswerListResponse supplyQuestionAnswerResponseFrom(List<AnswerResponse> responseList){
+        return new AnswerListResponse(responseList);
     }
 
 }

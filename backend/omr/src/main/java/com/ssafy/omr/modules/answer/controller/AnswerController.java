@@ -121,22 +121,42 @@ public class AnswerController {
             .build();
   }
 
+  @Operation(
+          summary = "특정 문제에 대한 남의 답변 목록 조회",
+          description = "내 답변을 제외한 타인의 답변만 조회."
+  )
+  @ApiResponses(value = {
+          @ApiResponse(
+                  responseCode = "200",
+                  description = "답변 목록"
+          )
+  })
   @GetMapping("/question/{questionId}/others")
-  public BaseResponse<QuestionAnswerListResponse> getOtherAnswerList(
+  public BaseResponse<AnswerListResponse> getOtherAnswerList(
           @PathVariable("questionId") Long questionId,
           @Parameter(hidden = true) @LoginUser AuthInfo authInfo
   ) {
-    return BaseResponse.<QuestionAnswerListResponse>builder()
+    return BaseResponse.<AnswerListResponse>builder()
             .data(answerService.getOthersAnswerList(questionId, authInfo))
             .build();
   }
 
+  @Operation(
+          summary = "특정 문제에 대한 나의 답변 목록 조회",
+          description = "내가 제출한 답변만 조회한다."
+  )
+  @ApiResponses(value = {
+          @ApiResponse(
+                  responseCode = "200",
+                  description = "답변 목록"
+          )
+  })
   @GetMapping("/question/{questionId}/mine")
-  public BaseResponse<QuestionAnswerListResponse> getMyAnswer(
+  public BaseResponse<AnswerListResponse> getMyAnswer(
           @PathVariable("questionId") Long questionId,
           @Parameter(hidden = true) @LoginUser AuthInfo authInfo
   ) {
-    return BaseResponse.<QuestionAnswerListResponse>builder()
+    return BaseResponse.<AnswerListResponse>builder()
             .data(answerService.getMyAnswer(questionId, authInfo))
             .build();
   }
