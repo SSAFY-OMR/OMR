@@ -11,20 +11,19 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 @Repository
 public interface InterviewQuestionRepository extends JpaRepository<InterviewQuestion, Long> {
     @Query(value = """
-       select new com.ssafy.omr.modules.question.dto.QuestionElement(q.interviewCategory, q.content)
+       select new com.ssafy.omr.modules.question.dto.QuestionElement(q.id, q.interviewCategory, q.content)
        from InterviewQuestion q
        where q.interviewCategory=:category
     """)
     Page<QuestionElement> findQuestionsByCategory(@Param("category") InterviewCategory category, Pageable pageable);
 
     @Query(value = """
-        select new com.ssafy.omr.modules.question.dto.QuestionElement(q.interviewCategory, q.content)
+        select new com.ssafy.omr.modules.question.dto.QuestionElement(q.id, q.interviewCategory, q.content)
         from InterviewQuestion q
     """)
     Page<QuestionElement> findQuestions(PageRequest pageRequest);

@@ -9,6 +9,7 @@ import com.querydsl.core.types.ConstructorExpression;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.EnumPath;
+import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.StringPath;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -63,6 +64,7 @@ public class MemberQuestionHistoryRepository {
 		return jpaQueryFactory
 			.select(
 				getQuestionElement(
+					interviewQuestion.id,
 					interviewQuestion.interviewCategory,
 					interviewQuestion.content
 				)
@@ -75,9 +77,11 @@ public class MemberQuestionHistoryRepository {
 	}
 
 	private ConstructorExpression<QuestionElement> getQuestionElement(
+		NumberPath<Long> questionId,
 		EnumPath<InterviewCategory> interviewCategory, StringPath content) {
 		return Projections.constructor(
 			QuestionElement.class,
+			questionId,
 			interviewCategory,
 			content);
 	}
