@@ -29,7 +29,7 @@ export default function useQuestionList({
 
   const { data, isLoading, isError } = useFetcher<
     AxiosResponse<QuestionListResponse>
-  >(`/questions`, params);
+  >(`/questions`, true, params);
 
   return {
     res: data as AxiosResponse<QuestionListResponse>,
