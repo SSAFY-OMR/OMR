@@ -2,7 +2,15 @@ package com.ssafy.omr.modules.answer.service;
 
 import com.ssafy.omr.modules.answer.domain.Answer;
 import com.ssafy.omr.modules.answer.domain.AnswerLike;
-import com.ssafy.omr.modules.answer.dto.*;
+import com.ssafy.omr.modules.answer.dto.AnswerListResponse;
+import com.ssafy.omr.modules.answer.dto.AnswerResponse;
+import com.ssafy.omr.modules.answer.dto.CreateAnswerRequest;
+import com.ssafy.omr.modules.answer.dto.CreateAnswerResponse;
+import com.ssafy.omr.modules.answer.dto.DeleteAnswerRequest;
+import com.ssafy.omr.modules.answer.dto.QuestionAnswerResponse;
+import com.ssafy.omr.modules.answer.dto.ToggleLikeAnswerRequest;
+import com.ssafy.omr.modules.answer.dto.ToggleLikeAnswerResponse;
+import com.ssafy.omr.modules.answer.dto.UpdateAnswerRequest;
 import com.ssafy.omr.modules.answer.exception.AnswerForbiddenException;
 import com.ssafy.omr.modules.answer.exception.AnswerNotFoundException;
 import com.ssafy.omr.modules.answer.mapper.AnswerMapper;

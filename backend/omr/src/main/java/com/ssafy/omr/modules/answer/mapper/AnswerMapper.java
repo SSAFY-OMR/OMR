@@ -1,7 +1,12 @@
 package com.ssafy.omr.modules.answer.mapper;
 
 import com.ssafy.omr.modules.answer.domain.Answer;
-import com.ssafy.omr.modules.answer.dto.*;
+import com.ssafy.omr.modules.answer.dto.AnswerListResponse;
+import com.ssafy.omr.modules.answer.dto.AnswerResponse;
+import com.ssafy.omr.modules.answer.dto.CreateAnswerRequest;
+import com.ssafy.omr.modules.answer.dto.CreateAnswerResponse;
+import com.ssafy.omr.modules.answer.dto.QuestionAnswerResponse;
+import com.ssafy.omr.modules.answer.dto.ToggleLikeAnswerResponse;
 import com.ssafy.omr.modules.member.domain.Member;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
 import org.springframework.data.domain.Page;
