@@ -1,11 +1,13 @@
 package com.ssafy.omr.modules.meta.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ssafy.omr.modules.meta.exception.InterviewCategoryBadRequestException;
 import lombok.Getter;
 
 import java.util.Arrays;
 
 @Getter
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum InterviewCategory implements MetaData {
     DATA_STRUCTURE(1, "DATA_STRUCTURE", "자료구조"),
     ALGORITHM(2, "ALGORITHM", "알고리즘"),

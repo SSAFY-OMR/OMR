@@ -7,10 +7,12 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class QuestionElement {
+    private Long questionId;
     private InterviewCategory category;
     private String content;
 
-    public QuestionElement(InterviewCategory category, String content) {
+    public QuestionElement(Long questionId, InterviewCategory category, String content) {
+        this.questionId = questionId;
         this.category = category;
         this.content = content;
     }
