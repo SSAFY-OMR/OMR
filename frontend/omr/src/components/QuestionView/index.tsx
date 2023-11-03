@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import { useRouter } from 'next/navigation';
 import { ArrowIcon } from 'public/icons';
 
 import styles from './index.module.scss';
@@ -18,8 +19,12 @@ type QuestionProps = {
 };
 
 const QuestionView = ({ question, type }: QuestionProps) => {
+  const router = useRouter();
+
   const handleClickQuestion = () => {
-    console.log(question);
+    if (type === 'listItem') {
+      router.push(`/question/${question.questionId}`);
+    }
   };
 
   return (
