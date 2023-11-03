@@ -1,11 +1,18 @@
 import { axiosInstance } from './utils';
 
-export const login = async (user: { loginId: string; password: string }) => {
-  const res = await axiosInstance.post(`/login`, user, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+import type { APIResponse } from '@/interface/response';
 
-  return res;
+export const login = async (user: { loginId: string; password: string }) => {
+  try {
+    const res = await axiosInstance.post<
+      APIResponse<{ accessToken: string; refreshToken: string }>
+    >(`/login`, user, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return res;
+  } catch (e) {
+    console.error(e);
+  }
 };
