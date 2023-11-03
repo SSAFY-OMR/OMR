@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -29,4 +30,20 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
                 where a.interviewQuestion = :question
             """)
     Page<Answer> findAnswerListByQuestion(InterviewQuestion question, Pageable pageRequest);
+
+
+    @Query(value = """
+                select a
+                from Answer a inner join a.member m
+                where a.interviewQuestion = :question and a.member <> :member
+                
+            """)
+    List<Answer> findOthersAnswerListByQuestion(InterviewQuestion question, Member member);
+
+    @Query(value = """
+                select a
+                from Answer a inner join a.member m
+                where a.interviewQuestion = :question and a.member = :member
+            """)
+    List<Answer> findByInterviewQuestionAndMember(InterviewQuestion question, Member member);
 }
