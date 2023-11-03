@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class DailyQuestionResponse {
+    @Schema(description = "문제 id")
+    private Long id;
+
     @Schema(description = "카테고리", allowableValues = {"DATA_STRUCTURE", "NETWORK"})
     private InterviewCategory category;
 
