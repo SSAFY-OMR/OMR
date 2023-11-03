@@ -45,16 +45,16 @@ public class MemberService {
     @Transactional
     public MemberStreakResponse getStreaksByMonth(Long memberId, int year, int month) {
         List<StreakElement> streakElements = memberDynamicRepository.getStreaksByMemberId(memberId, year, month);
-        MemberStreak memberStreak = memberStreakRepository.findById(memberId)
+        Member member = memberRepository.findMemberWithMemberStreakByMemberId(memberId)
                 .orElseThrow(MemberNotFoundException::new);
         Map<LocalDate, Integer> map = new HashMap<>();
 
         for(StreakElement streakElement : streakElements) {
             map.put(streakElement.getLocalDate(), streakElement.getCount());
         }
-        updateCurrentStreak(memberStreak);
-        Integer currentStreak = memberStreak.getCurrentStreak();
-        Integer longestStreak = memberStreak.getLongestStreak();
+        updateCurrentStreak(member.getMemberStreak());
+        Integer currentStreak = member.getMemberStreak().getCurrentStreak();
+        Integer longestStreak = member.getMemberStreak().getLongestStreak();
 
 
         return MemberMapper.supplyMemberStreakResponseOf(
