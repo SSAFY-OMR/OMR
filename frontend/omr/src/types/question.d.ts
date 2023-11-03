@@ -1,6 +1,5 @@
-import type { User } from './user';
-
 export type Question = {
+  questionId: number;
   category: Category;
   content: string;
   isScrapped?: boolean;
@@ -14,8 +13,14 @@ export type Category = {
 };
 
 export type Answer = {
-  user: User;
+  answerId: number;
+  nickname: string;
+  emoji: string;
   content: string;
   likeCount: number;
-  isLiked: boolean;
+};
+
+export type CategoryCount = {
+  interviewCategory: Category;
+  count: number;
 };
