@@ -3,26 +3,30 @@
 import React, { useState } from 'react';
 
 import Image from 'next/image';
-import { useSession } from 'next-auth/react';
 
 import styles from './index.module.scss';
 import BeforeLogin from '../BeforeLogin';
 import Calendar from '../Calendar';
 
+import { useSSRRecoilState } from '@/hooks/useSSRRecoilState';
 import useStreaks from '@/hooks/useStreaks';
+import { userTokenState } from '@/states/auth';
 
 const CalendarStreak = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const { status } = useSession();
+  const [userToken, setUserToken] = useSSRRecoilState<string>(
+    userTokenState,
+    '',
+  );
   const { res, isLoading, isError } = useStreaks({
     month: currentMonth.getMonth() + 1,
     year: currentMonth.getFullYear(),
-    isTriggered: status === 'authenticated',
+    isTriggered: userToken !== '',
   });
 
   return (
     <div className={styles.CalendarStreak}>
-      {status === 'authenticated' ? (
+      {userToken ? (
         <>
           <div className={styles.streakMessage}>
             현재{' '}
