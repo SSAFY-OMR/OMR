@@ -15,11 +15,12 @@ const UserAnswerView = ({ answer }: UserAnswerViewProps) => {
       <div className={styles.header}>
         <div className={styles.profile}>
           <div className={styles.profileEmojiContainer}>
-            <div className={styles.profileEmoji}>{answer.user.emoji}</div>
+            <div className={styles.profileEmoji}>{answer.emoji}</div>
           </div>
-          <div className={styles.nickname}>{answer.user.nickname}</div>
+          <div className={styles.nickname}>{answer.nickname}</div>
         </div>
-        <LikeButton isLiked={answer.isLiked} likeCount={answer.likeCount} />
+        {/* dummy data */}
+        <LikeButton isLiked={true} likeCount={answer.likeCount} />
       </div>
       <div className={styles.content}>{answer.content}</div>
     </div>
