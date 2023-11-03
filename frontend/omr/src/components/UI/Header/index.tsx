@@ -24,6 +24,14 @@ const Header = () => {
     }
   };
 
+  const handleClickBookmark = () => {
+    if (status === 'authenticated') {
+      router.push('/bookmark');
+    } else {
+      router.push('/login');
+    }
+  };
+
   return (
     <div className={styles.Header}>
       <div className={styles.logo}>
@@ -38,7 +46,7 @@ const Header = () => {
         </Link>
       </div>
       <div className={styles.buttons}>
-        <button>
+        <button onClick={handleClickBookmark}>
           <BookmarkIcon width={24} height={24} fill={BLACK} />
         </button>
         <button onClick={handleClickProfile}>

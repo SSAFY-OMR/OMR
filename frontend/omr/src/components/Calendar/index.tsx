@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+'use client';
+
+import React from 'react';
 
 import { addMonths, subMonths } from 'date-fns';
 import { NextIcon, PrevIcon } from 'public/icons';
@@ -12,12 +14,16 @@ import { DAYS } from '@/constants/calendar';
 import { NEUTRAL_500 } from '@/styles/color';
 
 type CalendarProps = {
+  currentMonth: Date;
+  setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
   streaks: Streak;
 };
 
-const Calendar = ({ streaks }: CalendarProps) => {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
-
+const Calendar = ({
+  currentMonth,
+  setCurrentMonth,
+  streaks,
+}: CalendarProps) => {
   const handleClickPrevMonth = () => {
     setCurrentMonth(subMonths(currentMonth, 1));
   };
