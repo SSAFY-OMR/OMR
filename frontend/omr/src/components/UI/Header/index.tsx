@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,14 +10,21 @@ import { BookmarkIcon, ProfileIcon } from 'public/icons';
 
 import styles from './index.module.scss';
 
+import { useSSRRecoilState } from '@/hooks/useSSRRecoilState';
+import { userTokenState } from '@/states/auth';
 import { BLACK } from '@/styles/color';
 
 const Header = () => {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
+  const [userToken, setUserToken] = useSSRRecoilState(userTokenState, '');
+
+  if (status === 'authenticated' && typeof window !== 'undefined') {
+    setUserToken(session?.user.accessToken);
+  }
 
   const handleClickProfile = () => {
-    if (status === 'authenticated') {
+    if (status === 'authenticated' || userToken) {
       router.push('/profile');
     } else {
       router.push('/login');
@@ -25,7 +32,7 @@ const Header = () => {
   };
 
   const handleClickBookmark = () => {
-    if (status === 'authenticated') {
+    if (status === 'authenticated' || userToken) {
       router.push('/bookmark');
     } else {
       router.push('/login');

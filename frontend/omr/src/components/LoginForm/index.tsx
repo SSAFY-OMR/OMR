@@ -12,14 +12,12 @@ import Button from '../UI/Button';
 import type { FieldValues } from 'react-hook-form';
 
 const handleLogin = async (data: FieldValues) => {
-  const res = await signIn('credentials', {
+  await signIn('credentials', {
     loginId: data.loginId,
     password: data.password,
     redirect: true,
     callbackUrl: '/',
   });
-
-  console.log(res);
 };
 
 const LoginForm = () => {
