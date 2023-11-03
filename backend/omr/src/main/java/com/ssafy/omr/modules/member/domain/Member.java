@@ -32,7 +32,7 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_streak_id", nullable = false)
     private MemberStreak memberStreak;
 
