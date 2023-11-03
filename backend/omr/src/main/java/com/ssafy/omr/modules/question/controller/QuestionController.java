@@ -2,6 +2,7 @@ package com.ssafy.omr.modules.question.controller;
 
 import com.ssafy.omr.modules.auth.dto.AuthInfo;
 import com.ssafy.omr.modules.question.dto.CreateQuestionsRequest;
+import com.ssafy.omr.modules.question.dto.QuestionCategoryCountResponse;
 import com.ssafy.omr.modules.question.dto.QuestionsResponse;
 import com.ssafy.omr.modules.question.dto.QuestionsRequest;
 import com.ssafy.omr.modules.question.dto.DailyQuestionResponse;
@@ -91,5 +92,14 @@ public class QuestionController {
         questionService.createQuestions(createQuestionsRequest);
         return BaseResponse.<Void>builder()
                 .build();
+    }
+
+    @Operation(summary = "카테고리별 문제 개수 조회",
+        description = "카테고리별로 문제개 몇개 존재하는지 개수를 조회합니다")
+    @GetMapping("/count")
+    public BaseResponse<QuestionCategoryCountResponse> getProblemCountsGroupByCategory() {
+        return BaseResponse.<QuestionCategoryCountResponse>builder()
+            .data(questionService.getProblemCountsGroupByCategory())
+            .build();
     }
 }

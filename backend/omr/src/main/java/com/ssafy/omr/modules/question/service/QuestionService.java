@@ -114,4 +114,10 @@ public class QuestionService {
         String seed = localDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         return Integer.valueOf(seed);
     }
+
+    @Transactional(readOnly = true)
+    public QuestionCategoryCountResponse getProblemCountsGroupByCategory() {
+        List<QuestionCategoryCountElement> problemCounts = interviewQuestionRepository.findCategoryCount();
+        return new QuestionCategoryCountResponse(problemCounts);
+    }
 }
