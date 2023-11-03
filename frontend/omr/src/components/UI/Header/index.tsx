@@ -10,12 +10,25 @@ import { BookmarkIcon, ProfileIcon } from 'public/icons';
 import styles from './index.module.scss';
 
 import { useSSRRecoilState } from '@/hooks/useSSRRecoilState';
-import { userTokenState } from '@/states/auth';
+import { getUserInfo } from '@/service/member';
+import { userInfoState, userTokenState } from '@/states/auth';
 import { BLACK } from '@/styles/color';
 
 const Header = () => {
   const router = useRouter();
   const [userToken, setUserToken] = useSSRRecoilState(userTokenState, '');
+  const [userInfo, setUserInfo] = useSSRRecoilState(userInfoState, {});
+
+  useEffect(() => {
+    if (userToken) {
+      (async () => {
+        const res = await getUserInfo();
+        if (res?.status === 200) {
+          setUserInfo(res.data.data);
+        }
+      })();
+    }
+  }, [setUserInfo, userToken]);
 
   const handleClickProfile = () => {
     if (userToken) {
