@@ -34,6 +34,7 @@ public class QuestionMapper {
 
     public static DailyQuestionResponse supplyDailyQuestionResponse(InterviewQuestion interviewQuestion) {
         return DailyQuestionResponse.builder()
+                .id(interviewQuestion.getId())
                 .category(interviewQuestion.getInterviewCategory())
                 .content(interviewQuestion.getContent())
                 .build();
@@ -41,6 +42,7 @@ public class QuestionMapper {
 
     public static DailyQuestionResponse supplyDailyQuestionResponse(DailyQuestion dailyQuestion) {
         return DailyQuestionResponse.builder()
+                .id(dailyQuestion.getInterviewQuestionId())
                 .category(dailyQuestion.getInterviewCategory())
                 .content(dailyQuestion.getContent())
                 .build();
@@ -49,6 +51,7 @@ public class QuestionMapper {
     public static DailyQuestion supplyDailyQuestion(Integer seed, InterviewQuestion interviewQuestion) {
         return DailyQuestion.builder()
                 .id(seed)
+                .interviewQuestionId(interviewQuestion.getId())
                 .interviewCategory(interviewQuestion.getInterviewCategory())
                 .content(interviewQuestion.getContent())
                 .build();

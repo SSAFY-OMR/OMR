@@ -13,6 +13,8 @@ public class DailyQuestion {
     @Id
     private Integer id;
 
+    private Long interviewQuestionId;
+
     private InterviewCategory interviewCategory;
 
     private String content;
