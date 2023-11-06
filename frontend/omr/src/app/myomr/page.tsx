@@ -5,12 +5,13 @@ import { useEffect, useState } from 'react';
 import { type AxiosResponse } from 'axios';
 
 import CategoryRadioGroup from '@/components/CategoryRadioGroup';
+import QuestionListView from '@/components/QuestionList/QuestionListView';
+import Paging from '@/components/UI/Pagination';
 import useCategoryList from '@/hooks/useCategoryList';
 import useFetcher from '@/hooks/useFetcher';
 import { type Question } from '@/types/question';
 
 import styles from './index.module.scss';
-import QuestionListView from '@/components/QuestionList/QuestionListView';
 
 type SubHeader = {
   name: string;
@@ -22,6 +23,9 @@ type QuestionList = {
   currentPage: number;
   totalPageCount: number;
 };
+
+const COUNT_PER_PAGE = 5;
+const PAGE_RANGE = 5;
 
 const MyOmr = () => {
   const { categoryList } = useCategoryList();
@@ -50,8 +54,6 @@ const MyOmr = () => {
     return text;
   };
 
-  const size = 10;
-
   /**
    * 모드 및 카테고리 선택 변경 감지시 서버에서 유관 데이터 로드
    * 페이지네이션은 1페이지로 초기화한다.
@@ -66,12 +68,12 @@ const MyOmr = () => {
   const { data } = useFetcher<AxiosResponse<QuestionList>>(
     `/history/questions/${mode}`,
     true,
-    `?page=${page}&size=${size}&category=${selectedCategory}`,
+    `?page=${page}&size=${COUNT_PER_PAGE}&category=${selectedCategory}`,
   );
   console.log('data  = ', data);
 
   return (
-    <>
+    <div className={styles.wrapper}>
       <div className={styles.subheader}>
         {/* place header here */}
         {/* subheader */}
@@ -99,17 +101,29 @@ const MyOmr = () => {
           />
         )}
       </div>
-      {/* question list */}
       {data && data.data.questions.length ? (
-        <QuestionListView questions={data.data.questions} />
+        <div>
+          <div className={styles.questionList}>
+            {/* question list */}
+            <QuestionListView questions={data.data.questions} />
+          </div>
+          {/* pagenation */}
+          <div className={styles.paging}>
+            <Paging
+              page={data.data.currentPage}
+              setPage={setPage}
+              countPerPage={COUNT_PER_PAGE}
+              pageRange={PAGE_RANGE}
+              totalCount={data.data.totalPageCount}
+            />
+          </div>
+        </div>
       ) : (
         <div className={styles.nodata}>
           <h3>{noDataText()} 문제가 없습니다!</h3>
         </div>
       )}
-      {/* pagenation */}
-      
-    </>
+    </div>
   );
 };
 

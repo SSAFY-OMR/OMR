@@ -1,3 +1,9 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 50px);
+}
+
 .subheader {
   display: flex;
   justify-content: space-around;
@@ -18,6 +24,13 @@
 
 .category {
   margin: 15px 0px;
+}
+
+.questionList {
+  flex-grow: 0;
+}
+.paging{
+  margin-top: 10px;
 }
 
 .nodata {
