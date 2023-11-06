@@ -18,8 +18,8 @@ public class BasePageRequest {
     @Builder.Default
     private Integer page = 1;
 
-    @Schema(description = "페이지 크기", defaultValue = "10", minimum = "10")
-    @Min(value = 10, message = "size가 너무 작습니다.")
+    @Schema(description = "페이지 크기", defaultValue = "5", minimum = "5")
+    @Min(value = 5, message = "size가 너무 작습니다.")
     @Builder.Default
     private Integer size = 10;
 
