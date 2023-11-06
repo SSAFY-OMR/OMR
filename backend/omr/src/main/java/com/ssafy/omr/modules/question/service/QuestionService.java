@@ -64,7 +64,11 @@ public class QuestionService {
         boolean isScrapped = false;
         String answer = null;
 
-        Optional<Member> optionalMember = memberRepository.findById(authInfo.id());
+        Optional<Member> optionalMember = Optional.empty();
+        if (authInfo.id() != null) {
+            optionalMember = memberRepository.findById(authInfo.id());
+        }
+        
         if (optionalMember.isPresent()) {
             isScrapped = interviewQuestionScrapRepository.existsByInterviewQuestionAndMember(interviewQuestion, optionalMember.get());
 

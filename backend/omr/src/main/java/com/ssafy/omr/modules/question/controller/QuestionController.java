@@ -37,7 +37,7 @@ public class QuestionController {
     @Operation(summary = "문제 상세 조회",
             description = "id에 해당하는 단건 문제를 조회합니다.")
     @GetMapping("/{questionId}")
-    public BaseResponse<QuestionDetailResponse> getQuestionById(@PathVariable Long questionId, @LoginUser AuthInfo authInfo) {
+    public BaseResponse<QuestionDetailResponse> getQuestionById(@LoginUser AuthInfo authInfo, @PathVariable Long questionId) {
         return BaseResponse.<QuestionDetailResponse>builder()
                 .data(questionService.getQuestionById(authInfo, questionId))
                 .build();
