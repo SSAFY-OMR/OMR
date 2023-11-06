@@ -1,0 +1,102 @@
+.ProfilePage {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding-top: 100px;
+}
+
+.profileEmojiContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.emoji {
+    padding: 10px;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--font-size-xxlarge);
+}
+
+.editButton {
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 5px;
+    right: -2.5px;
+}
+
+.nickname {
+    font-weight: 600;
+    font-size: var(--font-size-medium);
+}
+
+.profileContainer {
+    width: 90%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profileContents {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.profileContent {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.loginId {
+    font-weight: 400;
+    font-size: var(--font-size-medium);
+    padding: 15px 0px;
+}
+
+.label {
+    min-width: 80px;
+    width: 20%;
+    text-align: right;
+    font-weight: 600;
+    font-size: var(--font-size-small);
+}
+
+.labelContent {
+    min-width: 150px;
+    width: calc(80% - 10px);
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px 20px;
+    border: none;
+    outline: none;
+}
+
+.btnGroup {
+    justify-content: center;
+    display: flex;
+    gap: 10px;
+}
