@@ -18,7 +18,7 @@ export default function useQuestionList({
   size: number;
   categoryName: string | undefined;
 }): {
-  res: AxiosResponse<QuestionListResponse>;
+  data: QuestionListResponse;
   isLoading: boolean;
   isError: boolean;
 } {
@@ -27,12 +27,14 @@ export default function useQuestionList({
       ? `?page=${page}&size=${size}`
       : `?page=${page}&size=${size}&category=${categoryName}`;
 
-  const { data, isLoading, isError } = useFetcher<
-    AxiosResponse<QuestionListResponse>
-  >(`/questions`, true, params);
+  const { data, isLoading, isError } = useFetcher<QuestionListResponse>(
+    `/questions`,
+    true,
+    params,
+  );
 
   return {
-    res: data as AxiosResponse<QuestionListResponse>,
+    data: data as QuestionListResponse,
     isLoading,
     isError,
   };
