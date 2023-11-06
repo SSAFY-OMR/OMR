@@ -17,6 +17,19 @@ export const login = async (user: { loginId: string; password: string }) => {
   }
 };
 
+export const reissue = async () => {
+  try {
+    const res =
+      await axiosInstance.get<
+        APIResponse<{ accessToken: string; refreshToken: string }>
+      >(`/reissue`);
+
+    return res;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 export const getExistence = async (id: string) => {
   try {
     const res = await axiosInstance.get<APIResponse<{ isExist: boolean }>>(
