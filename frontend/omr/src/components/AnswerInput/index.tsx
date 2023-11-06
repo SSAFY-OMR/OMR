@@ -38,7 +38,6 @@ const AnswerInput = ({ questionId, type, content }: AnswerInputProps) => {
       questionId: questionId,
       content: answerContent,
     });
-    console.log(res);
 
     if (res?.status === 200) {
       setToastMessage('답안을 저장했어요.');

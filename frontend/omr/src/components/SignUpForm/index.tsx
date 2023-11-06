@@ -33,7 +33,6 @@ const SignUpForm = () => {
     const existRes = await getExistence(data.loginId);
     const exist = existRes?.data.data.isExist!;
     setIsExists(exist);
-    console.log(existRes);
 
     if (exist) return;
 
@@ -45,7 +44,6 @@ const SignUpForm = () => {
 
     if (res?.status === 200) {
       setToastMessage('회원가입에 성공했어요. 환영합니다! 🤗');
-      console.log(res);
 
       router.replace('/login');
     } else {

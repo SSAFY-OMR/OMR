@@ -40,7 +40,7 @@ const Header = () => {
 
   const handleClickBookmark = () => {
     if (userToken) {
-      router.push('/bookmark');
+      router.push('/myomr');
     } else {
       router.push('/login');
     }
