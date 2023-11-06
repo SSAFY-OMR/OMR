@@ -18,7 +18,7 @@ const CalendarStreak = () => {
     userTokenState,
     '',
   );
-  const { res, isLoading, isError } = useStreaks({
+  const { data: streaks, isLoading, isError } = useStreaks({
     month: currentMonth.getMonth() + 1,
     year: currentMonth.getFullYear(),
     isTriggered: userToken !== '',
@@ -31,21 +31,21 @@ const CalendarStreak = () => {
           <div className={styles.streakMessage}>
             현재{' '}
             <span className={styles.streakDays}>
-              {isLoading ? '-' : res.data.currentStreak}일
+              {isLoading ? '-' : streaks.currentStreak}일
             </span>{' '}
             연속 OMR 중이에요.
           </div>
           <div className={styles.streakMessage}>
             최장 OMR 기록은{' '}
             <span className={styles.streakDays}>
-              {isLoading ? '-' : res.data.longestStreak}일
+              {isLoading ? '-' : streaks.longestStreak}일
             </span>
             이에요.
           </div>
           <Calendar
             currentMonth={currentMonth}
             setCurrentMonth={setCurrentMonth}
-            streaks={isLoading ? {} : res.data.streaks}
+            streaks={isLoading ? {} : streaks.streaks}
           />
         </>
       ) : (
