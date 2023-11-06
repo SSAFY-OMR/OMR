@@ -1,7 +1,7 @@
 package com.ssafy.omr.modules.question.mapper;
 
 import com.ssafy.omr.modules.meta.domain.InterviewCategory;
-import com.ssafy.omr.modules.question.domain.DailyQuestion;
+import com.ssafy.omr.modules.question.domain.DailyQuestionRedis;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
 import com.ssafy.omr.modules.question.dto.QuestionDetailResponse;
 import com.ssafy.omr.modules.question.dto.QuestionResponse;
@@ -59,17 +59,17 @@ public class QuestionMapper {
                 .build();
     }
 
-    public static QuestionResponse supplyDailyQuestionResponse(DailyQuestion dailyQuestion) {
+    public static QuestionResponse supplyDailyQuestionResponse(DailyQuestionRedis dailyQuestionRedis) {
         return QuestionResponse.builder()
-                .questionId(dailyQuestion.getInterviewQuestionId())
-                .category(dailyQuestion.getInterviewCategory())
-                .content(dailyQuestion.getContent())
-                .corporationTypes(dailyQuestion.getCorporationTypes())
+                .questionId(dailyQuestionRedis.getInterviewQuestionId())
+                .category(dailyQuestionRedis.getInterviewCategory())
+                .content(dailyQuestionRedis.getContent())
+                .corporationTypes(dailyQuestionRedis.getCorporationTypes())
                 .build();
     }
 
-    public static DailyQuestion supplyDailyQuestion(Integer seed, InterviewQuestion interviewQuestion) {
-        return DailyQuestion.builder()
+    public static DailyQuestionRedis supplyDailyQuestion(Integer seed, InterviewQuestion interviewQuestion) {
+        return DailyQuestionRedis.builder()
                 .id(seed)
                 .interviewQuestionId(interviewQuestion.getId())
                 .interviewCategory(interviewQuestion.getInterviewCategory())

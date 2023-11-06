@@ -6,7 +6,7 @@ import com.ssafy.omr.modules.auth.dto.AuthInfo;
 import com.ssafy.omr.modules.member.domain.Member;
 import com.ssafy.omr.modules.member.repository.MemberRepository;
 import com.ssafy.omr.modules.meta.domain.InterviewCategory;
-import com.ssafy.omr.modules.question.domain.DailyQuestion;
+import com.ssafy.omr.modules.question.domain.DailyQuestionRedis;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
 import com.ssafy.omr.modules.question.dto.*;
 import com.ssafy.omr.modules.question.exception.DailyQuestionNotFoundException;
@@ -85,7 +85,7 @@ public class QuestionService {
     public QuestionResponse getDailyQuestion() {
         Integer seed = generateRandomSeed();
 
-        Optional<DailyQuestion> cachedData = dailyQuestionRepository.findById(seed);
+        Optional<DailyQuestionRedis> cachedData = dailyQuestionRepository.findById(seed);
         if (cachedData.isPresent()) {
             return QuestionMapper.supplyDailyQuestionResponse(cachedData.get());
         }
@@ -93,8 +93,8 @@ public class QuestionService {
         InterviewQuestion interviewQuestion = interviewQuestionRepository.findRandomQuestion(seed)
                 .orElseThrow(DailyQuestionNotFoundException::new);
 
-        DailyQuestion dailyQuestion = QuestionMapper.supplyDailyQuestion(seed, interviewQuestion);
-        dailyQuestionRepository.save(dailyQuestion);
+        DailyQuestionRedis dailyQuestionRedis = QuestionMapper.supplyDailyQuestion(seed, interviewQuestion);
+        dailyQuestionRepository.save(dailyQuestionRedis);
 
         return QuestionMapper.supplyDailyQuestionResponse(interviewQuestion);
 
