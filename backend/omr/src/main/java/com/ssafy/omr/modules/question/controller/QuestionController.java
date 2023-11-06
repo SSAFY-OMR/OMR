@@ -8,9 +8,6 @@ import com.ssafy.omr.modules.util.base.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,8 +43,8 @@ public class QuestionController {
     @Operation(summary = "데일리 문제 조회",
             description = "매일 오전 9시마다 랜덤으로 정해지는 문제를 조회합니다.")
     @GetMapping("/daily")
-    public BaseResponse<QuestionElement> getDailyQuestion() {
-        return BaseResponse.<QuestionElement>builder()
+    public BaseResponse<QuestionResponse> getDailyQuestion() {
+        return BaseResponse.<QuestionResponse>builder()
                 .data(questionService.getDailyQuestion())
                 .build();
     }

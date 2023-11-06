@@ -4,7 +4,7 @@ import com.ssafy.omr.modules.meta.domain.InterviewCategory;
 import com.ssafy.omr.modules.question.domain.DailyQuestion;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
 import com.ssafy.omr.modules.question.dto.QuestionDetailResponse;
-import com.ssafy.omr.modules.question.dto.QuestionElement;
+import com.ssafy.omr.modules.question.dto.QuestionResponse;
 import com.ssafy.omr.modules.question.dto.QuestionsResponse;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -20,7 +20,7 @@ public class QuestionMapper {
     public static QuestionsResponse supplyQuestionsResponseTemp(Page<InterviewQuestion> interviewQuestions) {
         return QuestionsResponse.builder()
                 .questions(interviewQuestions.getContent().stream()
-                        .map(interviewQuestion -> QuestionElement.builder()
+                        .map(interviewQuestion -> QuestionResponse.builder()
                                 .questionId(interviewQuestion.getId())
                                 .category(interviewQuestion.getInterviewCategory())
                                 .content(interviewQuestion.getContent())
@@ -32,7 +32,7 @@ public class QuestionMapper {
                 .build();
     }
 
-    public static QuestionsResponse supplyQuestionsResponse(Page<QuestionElement> questionElements) {
+    public static QuestionsResponse supplyQuestionsResponse(Page<QuestionResponse> questionElements) {
         return QuestionsResponse.builder()
                 .questions(questionElements.getContent())
                 .currentPage(questionElements.getNumber())
@@ -50,8 +50,8 @@ public class QuestionMapper {
                 .build();
     }
 
-    public static QuestionElement supplyDailyQuestionResponse(InterviewQuestion interviewQuestion) {
-        return QuestionElement.builder()
+    public static QuestionResponse supplyDailyQuestionResponse(InterviewQuestion interviewQuestion) {
+        return QuestionResponse.builder()
                 .questionId(interviewQuestion.getId())
                 .category(interviewQuestion.getInterviewCategory())
                 .content(interviewQuestion.getContent())
@@ -59,8 +59,8 @@ public class QuestionMapper {
                 .build();
     }
 
-    public static QuestionElement supplyDailyQuestionResponse(DailyQuestion dailyQuestion) {
-        return QuestionElement.builder()
+    public static QuestionResponse supplyDailyQuestionResponse(DailyQuestion dailyQuestion) {
+        return QuestionResponse.builder()
                 .questionId(dailyQuestion.getInterviewQuestionId())
                 .category(dailyQuestion.getInterviewCategory())
                 .content(dailyQuestion.getContent())

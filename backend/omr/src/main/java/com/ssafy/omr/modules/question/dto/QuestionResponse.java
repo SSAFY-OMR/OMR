@@ -11,7 +11,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class QuestionElement {
+public class QuestionResponse {
     @Schema(description = "문제 id")
     private Long questionId;
 
