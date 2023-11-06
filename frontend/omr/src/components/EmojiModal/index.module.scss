@@ -1,0 +1,45 @@
+.emojiSelector {
+    width: 500px;
+    @media (max-width: 500px) {
+      width: 100%;
+    }  
+    background: none;
+    position: absolute;
+    height: 100dvh;
+    overflow: auto;
+}
+
+.emojiModalWrapper {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background: none;
+}
+
+.emojiModal {
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    background-color: white;
+    border: solid 1px;
+    border-radius: 10px;
+    margin-top: 90px;
+}
+
+.emojiModalHeader {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.emojiModalExit {
+    border-radius: 10px;
+    font-size: var(--font-size-xlarge);
+    padding: 10px 15px;
+    color: red;
+    cursor: pointer;
+}
+
+.emojiModalExit:hover {
+    background-color: gainsboro;
+}
