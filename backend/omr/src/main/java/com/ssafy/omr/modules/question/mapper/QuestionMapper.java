@@ -3,7 +3,6 @@ package com.ssafy.omr.modules.question.mapper;
 import com.ssafy.omr.modules.meta.domain.InterviewCategory;
 import com.ssafy.omr.modules.question.domain.DailyQuestion;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
-import com.ssafy.omr.modules.question.dto.DailyQuestionResponse;
 import com.ssafy.omr.modules.question.dto.QuestionDetailResponse;
 import com.ssafy.omr.modules.question.dto.QuestionElement;
 import com.ssafy.omr.modules.question.dto.QuestionsResponse;
@@ -50,19 +49,21 @@ public class QuestionMapper {
                 .build();
     }
 
-    public static DailyQuestionResponse supplyDailyQuestionResponse(InterviewQuestion interviewQuestion) {
-        return DailyQuestionResponse.builder()
+    public static QuestionElement supplyDailyQuestionResponse(InterviewQuestion interviewQuestion) {
+        return QuestionElement.builder()
                 .questionId(interviewQuestion.getId())
                 .category(interviewQuestion.getInterviewCategory())
                 .content(interviewQuestion.getContent())
+                .corporationTypes(interviewQuestion.getCorporationTypes())
                 .build();
     }
 
-    public static DailyQuestionResponse supplyDailyQuestionResponse(DailyQuestion dailyQuestion) {
-        return DailyQuestionResponse.builder()
+    public static QuestionElement supplyDailyQuestionResponse(DailyQuestion dailyQuestion) {
+        return QuestionElement.builder()
                 .questionId(dailyQuestion.getInterviewQuestionId())
                 .category(dailyQuestion.getInterviewCategory())
                 .content(dailyQuestion.getContent())
+                .corporationTypes(dailyQuestion.getCorporationTypes())
                 .build();
     }
 
@@ -72,6 +73,7 @@ public class QuestionMapper {
                 .interviewQuestionId(interviewQuestion.getId())
                 .interviewCategory(interviewQuestion.getInterviewCategory())
                 .content(interviewQuestion.getContent())
+                .corporationTypes(interviewQuestion.getCorporationTypes())
                 .build();
     }
 

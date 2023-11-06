@@ -78,7 +78,7 @@ public class QuestionService {
     }
 
     @Transactional()
-    public DailyQuestionResponse getDailyQuestion() {
+    public QuestionElement getDailyQuestion() {
         Integer seed = generateRandomSeed();
 
         Optional<DailyQuestion> cachedData = dailyQuestionRepository.findById(seed);

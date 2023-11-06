@@ -55,11 +55,11 @@ public class QuestionController {
             description = "매일 오전 9시마다 랜덤으로 정해지는 문제를 조회합니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "데일리 문제 조회 성공",
-                    content = @Content(schema = @Schema(implementation = DailyQuestionResponse.class)))
+                    content = @Content(schema = @Schema(implementation = QuestionElement.class)))
     })
     @GetMapping("/daily")
-    public BaseResponse<DailyQuestionResponse> getDailyQuestion() {
-        return BaseResponse.<DailyQuestionResponse>builder()
+    public BaseResponse<QuestionElement> getDailyQuestion() {
+        return BaseResponse.<QuestionElement>builder()
                 .data(questionService.getDailyQuestion())
                 .build();
     }
