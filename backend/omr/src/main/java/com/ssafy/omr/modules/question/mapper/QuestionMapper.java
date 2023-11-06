@@ -3,16 +3,35 @@ package com.ssafy.omr.modules.question.mapper;
 import com.ssafy.omr.modules.meta.domain.InterviewCategory;
 import com.ssafy.omr.modules.question.domain.DailyQuestion;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
-import com.ssafy.omr.modules.question.dto.*;
+import com.ssafy.omr.modules.question.dto.DailyQuestionResponse;
+import com.ssafy.omr.modules.question.dto.QuestionDetailResponse;
+import com.ssafy.omr.modules.question.dto.QuestionElement;
+import com.ssafy.omr.modules.question.dto.QuestionsResponse;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class QuestionMapper {
+
+    public static QuestionsResponse supplyQuestionsResponseTemp(Page<InterviewQuestion> interviewQuestions) {
+        return QuestionsResponse.builder()
+                .questions(interviewQuestions.getContent().stream()
+                        .map(interviewQuestion -> QuestionElement.builder()
+                                .questionId(interviewQuestion.getId())
+                                .category(interviewQuestion.getInterviewCategory())
+                                .content(interviewQuestion.getContent())
+                                .corporationTypes(interviewQuestion.getCorporationTypes())
+                                .build())
+                        .collect(Collectors.toList()))
+                .currentPage(interviewQuestions.getNumber())
+                .totalPageCount(interviewQuestions.getTotalPages())
+                .build();
+    }
 
     public static QuestionsResponse supplyQuestionsResponse(Page<QuestionElement> questionElements) {
         return QuestionsResponse.builder()

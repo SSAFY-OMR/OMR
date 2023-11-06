@@ -48,12 +48,12 @@ public class QuestionService {
 
         String category = questionsRequest.getCategory();
         if (category == null) {
-            Page<QuestionElement> questionElements = interviewQuestionRepository.findQuestions(pageRequest);
-            return QuestionMapper.supplyQuestionsResponse(questionElements);
+            Page<InterviewQuestion> interviewQuestions = interviewQuestionRepository.findQuestions(pageRequest);
+            return QuestionMapper.supplyQuestionsResponseTemp(interviewQuestions);
         }
 
-        Page<QuestionElement> questionElements = interviewQuestionRepository.findQuestionsByCategory(InterviewCategory.ofName(category), pageRequest);
-        return QuestionMapper.supplyQuestionsResponse(questionElements);
+        Page<InterviewQuestion> interviewQuestions = interviewQuestionRepository.findQuestionByCategory(InterviewCategory.ofName(category), pageRequest);
+        return QuestionMapper.supplyQuestionsResponseTemp(interviewQuestions);
     }
 
     @Transactional(readOnly = true)
