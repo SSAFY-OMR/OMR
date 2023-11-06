@@ -3,11 +3,8 @@ package com.ssafy.omr.modules.question.repository;
 import com.ssafy.omr.modules.meta.domain.InterviewCategory;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
 import com.ssafy.omr.modules.question.dto.QuestionCategoryCountElement;
-import com.ssafy.omr.modules.question.dto.QuestionElement;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,10 +17,10 @@ import java.util.Optional;
 public interface InterviewQuestionRepository extends JpaRepository<InterviewQuestion, Long> {
 
     @Query(value = """
-        select q
-        from InterviewQuestion q
-        where q.interviewCategory =:category
-    """)
+                select q
+                from InterviewQuestion q
+                where q.interviewCategory =:category
+            """)
     Page<InterviewQuestion> findQuestionByCategory(@Param("category") InterviewCategory category, Pageable pageable);
 
     @Query(value = """
@@ -48,4 +45,12 @@ public interface InterviewQuestionRepository extends JpaRepository<InterviewQues
                 group by q.interviewCategory
             """)
     List<QuestionCategoryCountElement> findCategoryCount();
+
+    @Query(value = """
+                select q
+                from InterviewQuestion q
+                left join fetch q.interviewQuestionOfCorporations
+                where q.id =:id
+            """)
+    Optional<InterviewQuestion> findByIdWithInterviewQuestionOfCorporations(Long id);
 }

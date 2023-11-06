@@ -46,6 +46,7 @@ public class QuestionMapper {
                 .content(interviewQuestion.getContent())
                 .isScrapped(isScrapped)
                 .answer(answer)
+                .corporationTypes(interviewQuestion.getCorporationTypes())
                 .build();
     }
 

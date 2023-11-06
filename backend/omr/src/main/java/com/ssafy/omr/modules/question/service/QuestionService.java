@@ -58,7 +58,7 @@ public class QuestionService {
 
     @Transactional(readOnly = true)
     public QuestionDetailResponse getQuestionById(AuthInfo authInfo, Long questionId) {
-        InterviewQuestion interviewQuestion = interviewQuestionRepository.findById(questionId)
+        InterviewQuestion interviewQuestion = interviewQuestionRepository.findByIdWithInterviewQuestionOfCorporations(questionId)
                 .orElseThrow(InterviewQuestionNotFoundException::new);
 
         boolean isScrapped = false;
@@ -68,7 +68,7 @@ public class QuestionService {
         if (authInfo.id() != null) {
             optionalMember = memberRepository.findById(authInfo.id());
         }
-        
+
         if (optionalMember.isPresent()) {
             isScrapped = interviewQuestionScrapRepository.existsByInterviewQuestionAndMember(interviewQuestion, optionalMember.get());
 
