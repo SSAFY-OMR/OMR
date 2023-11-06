@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 
-import { getUserInfo, updateUserPassword } from '@/service/member';
+import { getUserInfo, updateUserPassword, updateUserEmoji } from '@/service/member';
 import { BLACK } from '@/styles/color';
 import { EditIcon } from 'public/icons';
 
@@ -13,7 +13,7 @@ import FeedbackMessage from '../../components/FeedbackMessage';
 import Button from '../../components/UI/Button';
 
 import type { User } from '@/types/user';
-import type { FieldValues} from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
 
 const ProfilePage = () => {
   const [user, setUser] = useState<User | undefined>(undefined);
