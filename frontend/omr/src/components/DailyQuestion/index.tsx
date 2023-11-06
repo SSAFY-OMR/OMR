@@ -14,7 +14,7 @@ const DailyQuestion = async () => {
 
   return (
     <div className={styles.DailyQuestion}>
-      <div className={styles.title}>오늘의 문제가 도착했어요.</div>
+      <div className={styles.title}>오늘의 문제</div>
       {question && <QuestionView question={question} type="listItem" />}
     </div>
   );

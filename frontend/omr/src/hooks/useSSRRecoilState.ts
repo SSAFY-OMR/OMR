@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 
 export function useSSRRecoilState<T>(recoilState: any, defaultValue: T) {
   const [isInitial, setIsInitial] = useState(true);
-  const [value, setValue] = useRecoilState(recoilState);
+  const [value, setValue] = useRecoilState<T>(recoilState);
 
   useEffect(() => {
     setIsInitial(false);

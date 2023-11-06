@@ -17,12 +17,14 @@ type CalendarProps = {
   currentMonth: Date;
   setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
   streaks: Streak;
+  longestStreak: number;
 };
 
 const Calendar = ({
   currentMonth,
   setCurrentMonth,
   streaks,
+  longestStreak,
 }: CalendarProps) => {
   const handleClickPrevMonth = () => {
     setCurrentMonth(subMonths(currentMonth, 1));
@@ -54,6 +56,12 @@ const Calendar = ({
       </div>
       <div className={styles.body}>
         <DateCells currentMonth={currentMonth} streaks={streaks} />
+      </div>
+      <div className={styles.longestStreak}>
+        최장 기록 :{' '}
+        <span className={styles.streakDays}>
+          {longestStreak === -1 ? '-' : longestStreak}일
+        </span>
       </div>
     </div>
   );

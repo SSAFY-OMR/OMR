@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 
 import styles from './index.module.scss';
 import QuestionListView from './QuestionListView';
@@ -24,6 +25,14 @@ const QuestionList = () => {
     categoryName: selectedCategory === 'ALL' ? undefined : selectedCategory,
   });
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory]);
+
+  if (data) {
+    console.log(data);
+  }
+
   return (
     <div className={styles.QuestionList}>
       <div className={styles.categoryList}>
@@ -42,7 +51,7 @@ const QuestionList = () => {
             page={currentPage}
             setPage={setCurrentPage}
             countPerPage={PAGE_SIZE}
-            totalCount={data.totalPageCount}
+            totalCount={data.totalPageCount * PAGE_SIZE}
             pageRange={5}
           />
         </>

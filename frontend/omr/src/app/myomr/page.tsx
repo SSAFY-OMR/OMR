@@ -30,7 +30,7 @@ const MyOmr = () => {
 
   const [mode, setMode] = useState<string>('scraped'); // scraped || solved
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
-  const [page, setPage] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
   const subHeader: Array<SubHeader> = [
     { name: '보관한 문제', stringId: 'scraped' },
     { name: '내가 푼 문제', stringId: 'solved' },
@@ -57,7 +57,7 @@ const MyOmr = () => {
    * 페이지네이션은 1페이지로 초기화한다.
    */
   useEffect(() => {
-    setPage(0);
+    setPage(1);
     // load from server
     //
   }, [mode, selectedCategory]);
@@ -98,7 +98,7 @@ const MyOmr = () => {
         )}
       </div>
       {questionList && questionList.questions.length ? (
-        <div>
+        <>
           <div className={styles.questionList}>
             {/* question list */}
             <QuestionListView questions={questionList.questions} />
@@ -106,14 +106,14 @@ const MyOmr = () => {
           {/* pagenation */}
           <div className={styles.paging}>
             <Paging
-              page={questionList.currentPage}
+              page={page}
               setPage={setPage}
               countPerPage={COUNT_PER_PAGE}
               pageRange={PAGE_RANGE}
               totalCount={questionList.totalPageCount}
             />
           </div>
-        </div>
+        </>
       ) : (
         <div className={styles.nodata}>
           <h3>{noDataText()} 문제가 없습니다!</h3>
