@@ -57,7 +57,6 @@ const MyOmr = () => {
    * 페이지네이션은 1페이지로 초기화한다.
    */
   useEffect(() => {
-    console.log('SUBMODE ENGAGE!', mode, 'cat = ', selectedCategory);
     setPage(0);
     // load from server
     //

@@ -3,8 +3,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: 40px;
   padding-top: 100px;
+  transition: all 0.5s;
 }
 
 .QuestionContainer {
@@ -19,4 +20,18 @@
   justify-content: center;
   display: flex;
   gap: 10px;
+}
+
+.answerListPage {
+  padding-top: 10px;
+  gap: 10px;
+}
+
+.answerInput {
+  height: 240px;
+  transition: all 1s;
+}
+
+.hideAnswerInput {
+  height: 0;
 }
