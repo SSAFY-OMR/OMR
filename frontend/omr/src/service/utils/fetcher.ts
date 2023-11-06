@@ -8,7 +8,7 @@ export const fetcher = async (url: string, params: any) => {
   }
 
   let res = await axiosInstance.get(reqUrl);
-  if (res.status === 200) return res.data;
+  if (res.status === 200) return res.data.data;
 
   throw new Error(`HTTP error! Status: ${res.status}`);
 };

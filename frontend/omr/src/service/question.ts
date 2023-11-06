@@ -25,3 +25,17 @@ export const getQuestionDetail = async (questionId: string) => {
     console.error(e);
   }
 };
+
+export const updateScrap = async (questionId: string) => {
+  try {
+    const res = await axiosInstance.post<
+      APIResponse<{
+        isScrapped: boolean;
+      }>
+    >(`questions/${questionId}/scrap`);
+
+    return res;
+  } catch (e) {
+    console.error(e);
+  }
+};
