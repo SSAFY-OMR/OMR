@@ -12,7 +12,7 @@ import com.ssafy.omr.modules.question.dto.*;
 import com.ssafy.omr.modules.question.exception.DailyQuestionNotFoundException;
 import com.ssafy.omr.modules.question.exception.InterviewQuestionNotFoundException;
 import com.ssafy.omr.modules.question.mapper.QuestionMapper;
-import com.ssafy.omr.modules.question.repository.DailyQuestionRepository;
+import com.ssafy.omr.modules.question.repository.DailyQuestionRedisRepository;
 import com.ssafy.omr.modules.question.repository.InterviewQuestionRepository;
 import com.ssafy.omr.modules.scrap.repository.InterviewQuestionScrapRepository;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +40,7 @@ public class QuestionService {
     private final InterviewQuestionScrapRepository interviewQuestionScrapRepository;
     private final MemberRepository memberRepository;
     private final AnswerRepository answerRepository;
-    private final DailyQuestionRepository dailyQuestionRepository;
+    private final DailyQuestionRedisRepository dailyQuestionRedisRepository;
 
     @Transactional(readOnly = true)
     public QuestionsResponse getQuestionsByCategory(QuestionsRequest questionsRequest) {
@@ -85,7 +85,7 @@ public class QuestionService {
     public QuestionResponse getDailyQuestion() {
         Integer seed = generateRandomSeed();
 
-        Optional<DailyQuestionRedis> cachedData = dailyQuestionRepository.findById(seed);
+        Optional<DailyQuestionRedis> cachedData = dailyQuestionRedisRepository.findById(seed);
         if (cachedData.isPresent()) {
             return QuestionMapper.supplyDailyQuestionResponse(cachedData.get());
         }
@@ -94,7 +94,7 @@ public class QuestionService {
                 .orElseThrow(DailyQuestionNotFoundException::new);
 
         DailyQuestionRedis dailyQuestionRedis = QuestionMapper.supplyDailyQuestion(seed, interviewQuestion);
-        dailyQuestionRepository.save(dailyQuestionRedis);
+        dailyQuestionRedisRepository.save(dailyQuestionRedis);
 
         return QuestionMapper.supplyDailyQuestionResponse(interviewQuestion);
 

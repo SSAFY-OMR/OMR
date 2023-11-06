@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DailyQuestionRepository extends CrudRepository<DailyQuestionRedis, Integer> {
+public interface DailyQuestionRedisRepository extends CrudRepository<DailyQuestionRedis, Integer> {
 }
