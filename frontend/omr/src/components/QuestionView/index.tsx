@@ -16,9 +16,16 @@ import { BLUE_600 } from '@/styles/color';
 type QuestionProps = {
   question: Question;
   type: 'listItem' | 'questionView';
+  toggleScrap: (questionId: string) => Promise<void>;
+  questionId?: string;
 };
 
-const QuestionView = ({ question, type }: QuestionProps) => {
+const QuestionView = ({
+  question,
+  type,
+  toggleScrap,
+  questionId,
+}: QuestionProps) => {
   const router = useRouter();
 
   const handleClickQuestion = () => {
@@ -27,15 +34,23 @@ const QuestionView = ({ question, type }: QuestionProps) => {
     }
   };
 
+  const handleClickScrap = () => {
+    toggleScrap(questionId!);
+  };
+
   return (
     <div className={styles.QuestionView} onClick={handleClickQuestion}>
       <div className={styles.header}>
         <span className={styles.category}>
           <CategoryTag category={question.category.description} />
         </span>
-        {type === 'questionView' && question.isScrapped && (
-          <ScrapButton isScrapped={question.isScrapped} />
-        )}
+        {type === 'questionView' &&
+          typeof question.isScrapped !== 'undefined' && (
+            <ScrapButton
+              isScrapped={question.isScrapped}
+              onClick={handleClickScrap}
+            />
+          )}
       </div>
       <div className={`${styles.questionContent} ${styles[type]}`}>
         {question.content}

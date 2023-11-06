@@ -13,10 +13,10 @@ export default function useCategoryCount(): {
   isError: boolean;
 } {
   const { data, isLoading, isError } =
-    useFetcher<AxiosResponse<CategoryCountResponse>>(`/questions/count`);
+    useFetcher<CategoryCountResponse>(`/questions/count`);
 
   return {
-    categoryCount: data?.data.categoriesCount as CategoryCount[],
+    categoryCount: data?.categoriesCount as CategoryCount[],
     isLoading,
     isError,
   };

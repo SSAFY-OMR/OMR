@@ -15,6 +15,8 @@ import Tooltip from '../Tooltip';
 
 import type { Streak } from '@/types/streak';
 
+import { STREAK_COLORS } from '@/constants/calendar';
+
 type DateCellsProps = {
   currentMonth: Date;
   streaks: Streak;
@@ -36,15 +38,13 @@ const DateCells = ({ currentMonth, streaks }: DateCellsProps) => {
 
   const setCountColor = (count: number | undefined): string => {
     if (count === undefined) {
-      return 'neutral40';
-    } else if (count < 3) {
-      return 'blue100';
-    } else if (count < 5) {
-      return 'blue300';
-    } else if (count < 7) {
-      return 'blue500';
-    } else if (count >= 7) {
-      return 'blue700';
+      return 'var(--color-neutral-40)';
+    }
+
+    for (const colors of STREAK_COLORS) {
+      if (count <= colors.count) {
+        return colors.color;
+      }
     }
     return '';
   };
@@ -63,7 +63,8 @@ const DateCells = ({ currentMonth, streaks }: DateCellsProps) => {
       dates.push(
         <div
           key={date.toISOString()}
-          className={`${styles.dateCell} ${styles[color]}`}
+          style={{ backgroundColor: `${color}` }}
+          className={styles.dateCell}
           onMouseOver={(e) => handleClickDate(e, count)}
           onMouseOut={() => setTooltipContent('')}
         ></div>,
