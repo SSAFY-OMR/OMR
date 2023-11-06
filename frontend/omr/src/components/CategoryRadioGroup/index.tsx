@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useRef, type WheelEvent } from 'react';
 
 import CategoryRadioButton from './CategoryRadioButton';
 import styles from './index.module.scss';
@@ -18,12 +18,25 @@ const CategoryRadioGroup = ({
   setSelectedCategory,
   categoryList,
 }: CategoryRadioGroupProps) => {
+  /*eslint-disable*/
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const handleChangeCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedCategory(e.target.value);
   };
 
+  const handleScrollEvent = (e: WheelEvent<HTMLDivElement>) => {
+    if(containerRef.current){
+      containerRef.current.scrollLeft += e.deltaY;
+    }
+  };
+
   return (
-    <div className={styles.CategoryRadioGroup}>
+    <div
+      className={styles.CategoryRadioGroup}
+      onWheel={handleScrollEvent}
+      ref={containerRef}
+    >
       <CategoryRadioButton
         key={0}
         category={{ id: 0, name: 'ALL', description: '전체' }}
