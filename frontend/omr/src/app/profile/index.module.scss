@@ -28,6 +28,38 @@
     font-size: var(--font-size-xxlarge);
 }
 
+.emojiModal {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    background-color: white;
+    border: solid 1px;
+    border-radius: 10px;
+}
+
+.emojiSelector {
+    bottom: 10px;
+    z-index: 20;
+    position:absolute;
+}
+
+.emojiModalHeader {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.emojiModalExit {
+    border-radius: 10px;
+    font-size: var(--font-size-xlarge);
+    padding: 10px 15px;
+    color: red;
+    cursor: pointer;
+}
+
+.emojiModalExit:hover {
+    background-color: gainsboro;
+}
+
 .editButton {
     width: 30px;
     height: 30px;
