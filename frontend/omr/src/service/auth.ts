@@ -16,3 +16,15 @@ export const login = async (user: { loginId: string; password: string }) => {
     console.error(e);
   }
 };
+
+export const getExistence = async (id: string) => {
+  try {
+    const res = await axiosInstance.get<APIResponse<{ isExist: boolean }>>(
+      `/existence?loginId=${id}`,
+    );
+
+    return res;
+  } catch (e) {
+    console.error(e);
+  }
+};

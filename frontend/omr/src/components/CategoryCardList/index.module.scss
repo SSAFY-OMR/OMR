@@ -6,6 +6,12 @@
   max-width: 400px;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .title {
   font-weight: 700;
 }
@@ -15,4 +21,8 @@
   gap: 7px;
   width: 100%;
   overflow: auto;
+}
+
+.viewAllBtn {
+  font-weight: 700;
 }

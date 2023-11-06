@@ -32,6 +32,7 @@ export default function RootLayout({
             <Header />
             {children}
           </div>
+          <div id="portal" />
         </RecoilRootProvider>
       </body>
     </html>
