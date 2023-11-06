@@ -1,12 +1,8 @@
 package com.ssafy.omr.modules.question.controller;
 
 import com.ssafy.omr.modules.auth.dto.AuthInfo;
-import com.ssafy.omr.modules.question.dto.CreateQuestionsRequest;
-import com.ssafy.omr.modules.question.dto.QuestionCategoryCountResponse;
-import com.ssafy.omr.modules.question.dto.QuestionsResponse;
-import com.ssafy.omr.modules.question.dto.QuestionsRequest;
-import com.ssafy.omr.modules.question.dto.DailyQuestionResponse;
-import com.ssafy.omr.modules.question.dto.QuestionDetailResponse;
+import com.ssafy.omr.modules.auth.token.LoginUser;
+import com.ssafy.omr.modules.question.dto.*;
 import com.ssafy.omr.modules.question.service.QuestionService;
 import com.ssafy.omr.modules.util.base.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,8 +45,7 @@ public class QuestionController {
                     content = @Content(schema = @Schema(implementation = QuestionDetailResponse.class)))
     })
     @GetMapping("/{questionId}")
-    public BaseResponse<QuestionDetailResponse> getQuestionById(@PathVariable Long questionId) {
-        AuthInfo authInfo = new AuthInfo(1L, "user", "싸피");
+    public BaseResponse<QuestionDetailResponse> getQuestionById(@PathVariable Long questionId, @LoginUser AuthInfo authInfo) {
         return BaseResponse.<QuestionDetailResponse>builder()
                 .data(questionService.getQuestionById(authInfo, questionId))
                 .build();
@@ -95,11 +90,11 @@ public class QuestionController {
     }
 
     @Operation(summary = "카테고리별 문제 개수 조회",
-        description = "카테고리별로 문제개 몇개 존재하는지 개수를 조회합니다")
+            description = "카테고리별로 문제개 몇개 존재하는지 개수를 조회합니다")
     @GetMapping("/count")
     public BaseResponse<QuestionCategoryCountResponse> getProblemCountsGroupByCategory() {
         return BaseResponse.<QuestionCategoryCountResponse>builder()
-            .data(questionService.getProblemCountsGroupByCategory())
-            .build();
+                .data(questionService.getProblemCountsGroupByCategory())
+                .build();
     }
 }
