@@ -18,7 +18,7 @@ const QuestionList = () => {
 
   const { categoryList } = useCategoryList();
 
-  const { res } = useQuestionList({
+  const { data } = useQuestionList({
     page: currentPage,
     size: PAGE_SIZE,
     categoryName: selectedCategory === 'ALL' ? undefined : selectedCategory,
@@ -35,14 +35,14 @@ const QuestionList = () => {
           />
         )}
       </div>
-      {res && (
+      {data && (
         <>
-          <QuestionListView questions={res.data.questions} />
+          <QuestionListView questions={data.questions} />
           <Paging
             page={currentPage}
             setPage={setCurrentPage}
             countPerPage={PAGE_SIZE}
-            totalCount={res.data.totalPageCount}
+            totalCount={data.totalPageCount}
             pageRange={5}
           />
         </>
