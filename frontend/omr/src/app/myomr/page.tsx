@@ -1,13 +1,16 @@
 'use client';
 // this is the compont that will be rendered as a page
 import { useEffect, useState } from 'react';
-import useCategoryList from '@/hooks/useCategoryList';
+
+import { type AxiosResponse } from 'axios';
+
 import CategoryRadioGroup from '@/components/CategoryRadioGroup';
+import useCategoryList from '@/hooks/useCategoryList';
+import useFetcher from '@/hooks/useFetcher';
 import { type Question } from '@/types/question';
 
 import styles from './index.module.scss';
-import useFetcher from '@/hooks/useFetcher';
-import { AxiosResponse } from 'axios';
+import QuestionListView from '@/components/QuestionList/QuestionListView';
 
 type SubHeader = {
   name: string;
@@ -15,12 +18,10 @@ type SubHeader = {
 };
 
 type QuestionList = {
-  data: any;
-  questions: Array<Question>;
+  questions: Question[];
   currentPage: number;
   totalPageCount: number;
 };
-
 
 const MyOmr = () => {
   const { categoryList } = useCategoryList();
@@ -36,6 +37,18 @@ const MyOmr = () => {
   const handleSubheaderClick = (stringId: string) => {
     setMode(stringId);
   };
+  const noDataText = (): string => {
+    let text = '';
+    switch (mode) {
+      case 'scraped':
+        text = '스크랩된 ';
+        break;
+      case 'solved':
+        text = '해결한';
+        break;
+    }
+    return text;
+  };
 
   const size = 10;
 
@@ -50,12 +63,12 @@ const MyOmr = () => {
     //
   }, [mode, selectedCategory]);
 
-  const {data} = useFetcher<AxiosResponse<QuestionList>>(
+  const { data } = useFetcher<AxiosResponse<QuestionList>>(
     `/history/questions/${mode}`,
     true,
     `?page=${page}&size=${size}&category=${selectedCategory}`,
   );
-  console.log('data  = ', data?.data);
+  console.log('data  = ', data);
 
   return (
     <>
@@ -87,8 +100,15 @@ const MyOmr = () => {
         )}
       </div>
       {/* question list */}
-
+      {data && data.data.questions.length ? (
+        <QuestionListView questions={data.data.questions} />
+      ) : (
+        <div className={styles.nodata}>
+          <h3>{noDataText()} 문제가 없습니다!</h3>
+        </div>
+      )}
       {/* pagenation */}
+      
     </>
   );
 };

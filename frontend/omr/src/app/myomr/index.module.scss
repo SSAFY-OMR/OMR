@@ -1,22 +1,28 @@
-.subheader{
+.subheader {
   display: flex;
   justify-content: space-around;
   align-items: center;
 
   font-weight: 800;
   font-size: var(--font-size-xlarge);
-
 }
 
-.text{
-  cursor:pointer;
+.text {
+  cursor: pointer;
   user-select: none;
 }
 
-.active{
-  color:var(--color-blue-700);
+.active {
+  color: var(--color-blue-700);
 }
 
-.category{
+.category {
   margin: 15px 0px;
+}
+
+.nodata {
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
