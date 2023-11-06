@@ -1,7 +1,6 @@
 package com.ssafy.omr.modules.question.mapper;
 
 import com.ssafy.omr.modules.meta.domain.InterviewCategory;
-import com.ssafy.omr.modules.meta.domain.MetaData;
 import com.ssafy.omr.modules.question.domain.DailyQuestion;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
 import com.ssafy.omr.modules.question.dto.*;
@@ -27,7 +26,7 @@ public class QuestionMapper {
         return QuestionDetailResponse.builder()
                 .category(interviewQuestion.getInterviewCategory())
                 .content(interviewQuestion.getContent())
-                .isScraped(isScrapped)
+                .isScrapped(isScrapped)
                 .answer(answer)
                 .build();
     }
