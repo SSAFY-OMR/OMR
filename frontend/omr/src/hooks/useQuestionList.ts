@@ -1,7 +1,6 @@
 import useFetcher from './useFetcher';
 
 import type { Question } from '@/types/question';
-import type { AxiosResponse } from 'axios';
 
 type QuestionListResponse = {
   questions: Question[];

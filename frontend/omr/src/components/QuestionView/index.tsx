@@ -16,7 +16,7 @@ import { BLUE_600 } from '@/styles/color';
 type QuestionProps = {
   question: Question;
   type: 'listItem' | 'questionView';
-  toggleScrap: (questionId: string) => Promise<void>;
+  toggleScrap?: (questionId: string) => Promise<void>;
   questionId?: string;
 };
 
@@ -35,7 +35,9 @@ const QuestionView = ({
   };
 
   const handleClickScrap = () => {
-    toggleScrap(questionId!);
+    if (typeof toggleScrap === 'function') {
+      toggleScrap(questionId!);
+    }
   };
 
   return (

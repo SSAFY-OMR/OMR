@@ -2,7 +2,7 @@
 // this is the compont that will be rendered as a page
 import { useEffect, useState } from 'react';
 
-import { type AxiosResponse } from 'axios';
+import styles from './index.module.scss';
 
 import CategoryRadioGroup from '@/components/CategoryRadioGroup';
 import QuestionListView from '@/components/QuestionList/QuestionListView';
@@ -10,8 +10,6 @@ import Paging from '@/components/UI/Pagination';
 import useCategoryList from '@/hooks/useCategoryList';
 import useFetcher from '@/hooks/useFetcher';
 import { type Question } from '@/types/question';
-
-import styles from './index.module.scss';
 
 type SubHeader = {
   name: string;
@@ -65,12 +63,11 @@ const MyOmr = () => {
     //
   }, [mode, selectedCategory]);
 
-  const { data } = useFetcher<AxiosResponse<QuestionList>>(
+  const { data: questionList } = useFetcher<QuestionList>(
     `/history/questions/${mode}`,
     true,
     `?page=${page}&size=${COUNT_PER_PAGE}&category=${selectedCategory}`,
   );
-  console.log('data  = ', data);
 
   return (
     <div className={styles.wrapper}>
@@ -101,20 +98,20 @@ const MyOmr = () => {
           />
         )}
       </div>
-      {data && data.data.questions.length ? (
+      {questionList && questionList.questions.length ? (
         <div>
           <div className={styles.questionList}>
             {/* question list */}
-            <QuestionListView questions={data.data.questions} />
+            <QuestionListView questions={questionList.questions} />
           </div>
           {/* pagenation */}
           <div className={styles.paging}>
             <Paging
-              page={data.data.currentPage}
+              page={questionList.currentPage}
               setPage={setPage}
               countPerPage={COUNT_PER_PAGE}
               pageRange={PAGE_RANGE}
-              totalCount={data.data.totalPageCount}
+              totalCount={questionList.totalPageCount}
             />
           </div>
         </div>

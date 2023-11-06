@@ -36,8 +36,6 @@ const QuestionDetailPage = ({ params }: { params: { id: string } }) => {
       });
       const res = await updateScrap(questionId);
       if (res?.status === 200) {
-        console.log(res);
-
         if (question.isScrapped) {
           setToastMessage('문제 스크랩을 취소했어요.');
         } else {

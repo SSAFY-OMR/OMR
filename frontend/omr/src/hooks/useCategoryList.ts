@@ -1,7 +1,6 @@
 import useFetcher from './useFetcher';
 
 import type { Category } from '@/types/question';
-import type { AxiosResponse } from 'axios';
 
 type CategoryListResponse = {
   metaData: Category[];

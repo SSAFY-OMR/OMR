@@ -1,7 +1,6 @@
 import useFetcher from './useFetcher';
 
 import type { CategoryCount } from '@/types/question';
-import type { AxiosResponse } from 'axios';
 
 type CategoryCountResponse = {
   categoriesCount: CategoryCount[];
