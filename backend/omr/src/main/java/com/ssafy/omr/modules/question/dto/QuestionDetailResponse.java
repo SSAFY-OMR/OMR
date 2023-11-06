@@ -15,7 +15,7 @@ public class QuestionDetailResponse {
     private String content;
     
     @Schema(description = "로그인 사용자가 스크랩 했는지 여부")
-    private Boolean isScraped;
+    private Boolean isScrapped;
 
     @Schema(description = "나의 답변")
     private String answer;
