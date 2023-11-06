@@ -8,39 +8,54 @@ import { useForm } from 'react-hook-form';
 import styles from './index.module.scss';
 import FeedbackMessage from '../FeedbackMessage';
 import Button from '../UI/Button';
+import Toast from '../UI/Toast';
 
 import type { FieldValues } from 'react-hook-form';
 
-import { useSSRRecoilState } from '@/hooks/useSSRRecoilState';
-import { login } from '@/service/auth';
-import { userTokenState } from '@/states/auth';
+import { getExistence } from '@/service/auth';
+import { signUp } from '@/service/member';
 
-const LoginForm = () => {
+const SignUpForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm({ mode: 'onChange' });
 
   const router = useRouter();
 
   const [isLoginSucceed, setIsLoginSucceed] = useState(true);
-  const [userToken, setUserToken] = useSSRRecoilState(userTokenState, '');
+  const [ixExists, setIsExists] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
-  const handleLogin = async (data: FieldValues) => {
-    const res = await login({ loginId: data.loginId, password: data.password });
+  const handleSignUp = async (data: FieldValues) => {
+    const existRes = await getExistence(data.loginId);
+    const exist = existRes?.data.data.isExist!;
+    setIsExists(exist);
+    console.log(existRes);
+
+    if (exist) return;
+
+    const res = await signUp({
+      loginId: data.loginId,
+      password: data.password,
+      emoji: '😀',
+    });
 
     if (res?.status === 200) {
-      setUserToken(res.data.data.accessToken);
-      router.replace('/');
+      setToastMessage('회원가입에 성공했어요. 환영합니다! 🤗');
+      console.log(res);
+
+      router.replace('/login');
     } else {
       setIsLoginSucceed(false);
     }
   };
 
-  const hadleClickJoin = () => {
-    router.push('/signup')
-  }
+  const handleCloseToast = () => {
+    setToastMessage('');
+  };
 
   return (
     <form className={styles.LoginForm}>
@@ -57,7 +72,7 @@ const LoginForm = () => {
             {...register('loginId', {
               required: '아이디를 입력해주세요.',
               pattern: {
-                value: /^[a-z][a-z0-9]*$/,
+                value: /^[a-z][a-z0-9]*[0-9][a-z0-9]*$/,
                 message: '아이디는 영문과 숫자로 구성되어야 합니다.',
               },
               minLength: {
@@ -75,6 +90,11 @@ const LoginForm = () => {
               {errors.loginId.message?.toString()}
             </FeedbackMessage>
           )}
+          {!errors.loginId && ixExists && (
+            <FeedbackMessage type="error">
+              이미 가입된 아이디입니다.
+            </FeedbackMessage>
+          )}
         </div>
         <div className={styles.inputItem}>
           <label htmlFor="password" className={styles.label}>
@@ -88,7 +108,7 @@ const LoginForm = () => {
             {...register('password', {
               required: '비밀번호를 입력해주세요.',
               pattern: {
-                value: /^[A-Za-z0-9]+$/,
+                value: /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]+$/,
                 message: '비밀번호는 영문과 숫자로 구성되어야 합니다.',
               },
               minLength: {
@@ -101,16 +121,39 @@ const LoginForm = () => {
               },
             })}
           />
-          {!isLoginSucceed && !errors.password && (
-            <FeedbackMessage type="error">
-              아이디 또는 비밀번호가 일치하지 않습니다.
-            </FeedbackMessage>
-          )}
           {errors.password && (
             <FeedbackMessage type="error">
               {errors.password.message?.toString()}
             </FeedbackMessage>
           )}
+        </div>
+        <div className={styles.inputItem}>
+          <label htmlFor="confirmPassword" className={styles.label}>
+            비밀번호 확인
+          </label>
+          <input
+            id="confirmPassword"
+            type="password"
+            placeholder="비밀번호를 한 번 더 입력해주세요."
+            className={styles.loginInput}
+            {...register('confirmPassword', {
+              required: '비밀번호를 한 번 더 입력해주세요.',
+              validate: (value) =>
+                value === watch('password') || '비밀번호가 일치하지 않습니다.',
+            })}
+          />
+          {errors.confirmPassword && (
+            <FeedbackMessage type="error">
+              {errors.confirmPassword.message?.toString()}
+            </FeedbackMessage>
+          )}
+          {!errors.confirmPassword &&
+            watch('password') &&
+            watch('confirmPassword') === watch('password') && (
+              <FeedbackMessage type="success">
+                비밀번호가 일치합니다.
+              </FeedbackMessage>
+            )}
         </div>
       </div>
       <div className={styles.btnGroup}>
@@ -120,23 +163,18 @@ const LoginForm = () => {
           type="submit"
           width="full"
           iconType="complete"
-          onClick={handleSubmit(handleLogin)}
-        >
-          로그인
-        </Button>
-        <Button
-          color="secondary"
-          size="medium"
-          type="button"
-          width="full"
-          iconType="arrow"
-          onClick={hadleClickJoin}
+          onClick={handleSubmit(handleSignUp)}
         >
           회원가입
         </Button>
       </div>
+      <Toast
+        message={toastMessage}
+        isShown={toastMessage !== ''}
+        onClose={handleCloseToast}
+      />
     </form>
   );
 };
 
-export default LoginForm;
+export default SignUpForm;
