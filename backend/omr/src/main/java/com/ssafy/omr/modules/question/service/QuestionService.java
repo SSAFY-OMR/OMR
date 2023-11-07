@@ -95,7 +95,7 @@ public class QuestionService {
 
         Optional<DailyQuestionRedis> cachedData = dailyQuestionRedisRepository.findById(seed);
         if (cachedData.isPresent()) {
-            return QuestionMapper.supplyDailyQuestionResponse(cachedData.get());
+            return QuestionMapper.supplyQuestionResponse(cachedData.get());
         }
 
         InterviewQuestion interviewQuestion = interviewQuestionRepository.findRandomQuestion(seed)
@@ -104,7 +104,7 @@ public class QuestionService {
         DailyQuestionRedis dailyQuestionRedis = QuestionMapper.supplyDailyQuestion(seed, interviewQuestion);
         dailyQuestionRedisRepository.save(dailyQuestionRedis);
 
-        return QuestionMapper.supplyDailyQuestionResponse(interviewQuestion);
+        return QuestionMapper.supplyQuestionResponse(interviewQuestion);
 
     }
 

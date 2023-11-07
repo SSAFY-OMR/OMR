@@ -54,7 +54,7 @@ public class QuestionMapper {
                 .build();
     }
 
-    public static QuestionResponse supplyDailyQuestionResponse(InterviewQuestion interviewQuestion) {
+    public static QuestionResponse supplyQuestionResponse(InterviewQuestion interviewQuestion) {
         return QuestionResponse.builder()
                 .questionId(interviewQuestion.getId())
                 .category(interviewQuestion.getInterviewCategory())
@@ -62,7 +62,7 @@ public class QuestionMapper {
                 .build();
     }
 
-    public static QuestionResponse supplyDailyQuestionResponse(DailyQuestionRedis dailyQuestionRedis) {
+    public static QuestionResponse supplyQuestionResponse(DailyQuestionRedis dailyQuestionRedis) {
         return QuestionResponse.builder()
                 .questionId(dailyQuestionRedis.getInterviewQuestionId())
                 .category(dailyQuestionRedis.getInterviewCategory())
