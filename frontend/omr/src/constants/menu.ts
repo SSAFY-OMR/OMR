@@ -22,7 +22,7 @@ export type MyOmrTabItem = {
 export const myOmrTabMenuList: MyOmrTabItem[] = [
   {
     menuType: 'scraped',
-    title: '보관한 문제',
+    title: '스크랩한 문제',
   },
   {
     menuType: 'solved',

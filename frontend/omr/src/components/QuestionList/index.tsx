@@ -11,7 +11,7 @@ import Paging from '../UI/Pagination';
 import useCategoryList from '@/hooks/useCategoryList';
 import useQuestionList from '@/hooks/useQuestionList';
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 5;
 
 const QuestionList = () => {
   const [selectedCategory, setSelectedCategory] = useState('ALL');
