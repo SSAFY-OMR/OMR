@@ -45,12 +45,13 @@ public class QuestionMapper {
     }
 
 
-    public static QuestionDetailResponse supplyQuestionDetailResponse(InterviewQuestion interviewQuestion, Boolean isScrapped, String answer) {
+    public static QuestionDetailResponse supplyQuestionDetailResponse(InterviewQuestion interviewQuestion, Boolean isScrapped, String answer, InterviewQuestion nextQuestion) {
         return QuestionDetailResponse.builder()
                 .category(interviewQuestion.getInterviewCategory())
                 .content(interviewQuestion.getContent())
                 .isScrapped(isScrapped)
                 .answer(answer)
+                .nextQuestionId(nextQuestion != null ? nextQuestion.getId() : null)
                 .build();
     }
 

@@ -1,12 +1,9 @@
 package com.ssafy.omr.modules.question.dto;
 
-import com.ssafy.omr.modules.meta.domain.CorporationType;
 import com.ssafy.omr.modules.meta.domain.InterviewCategory;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.util.List;
 
 @Getter
 @Builder
@@ -22,4 +19,7 @@ public class QuestionDetailResponse {
 
     @Schema(description = "나의 답변")
     private String answer;
+
+    @Schema(description = "다음 문제 번호")
+    private Long nextQuestionId;
 }

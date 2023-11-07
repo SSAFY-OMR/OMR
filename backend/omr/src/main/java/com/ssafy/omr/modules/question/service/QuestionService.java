@@ -68,6 +68,7 @@ public class QuestionService {
         InterviewQuestion interviewQuestion = interviewQuestionRepository.findById(questionId)
                 .orElseThrow(InterviewQuestionNotFoundException::new);
 
+        InterviewQuestion nextQuestion = interviewQuestionRepository.findNextQuestion(interviewQuestion);
 
         boolean isScrapped = false;
         String answer = null;
@@ -86,7 +87,7 @@ public class QuestionService {
             }
         }
 
-        return QuestionMapper.supplyQuestionDetailResponse(interviewQuestion, isScrapped, answer);
+        return QuestionMapper.supplyQuestionDetailResponse(interviewQuestion, isScrapped, answer, nextQuestion);
     }
 
     @Transactional()
