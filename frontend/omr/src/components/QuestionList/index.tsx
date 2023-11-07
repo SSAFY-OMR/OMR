@@ -13,8 +13,8 @@ import useQuestionList from '@/hooks/useQuestionList';
 
 const PAGE_SIZE = 5;
 
-const QuestionList = () => {
-  const [selectedCategory, setSelectedCategory] = useState('ALL');
+const QuestionList = ({ category }: { category: string }) => {
+  const [selectedCategory, setSelectedCategory] = useState(category);
   const [currentPage, setCurrentPage] = useState(1);
 
   const { categoryList } = useCategoryList();
@@ -42,7 +42,10 @@ const QuestionList = () => {
       </div>
       {data && (
         <>
-          <QuestionListView questions={data.questions} />
+          <QuestionListView
+            questions={data.questions}
+            listCategory={selectedCategory}
+          />
           <Paging
             page={currentPage}
             setPage={setCurrentPage}

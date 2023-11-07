@@ -14,6 +14,7 @@ import type { Question } from '@/types/question';
 import { BLUE_600 } from '@/styles/color';
 
 type QuestionProps = {
+  listCategory: string;
   question: Question;
   type: 'listItem' | 'questionView';
   toggleScrap?: (questionId: string) => Promise<void>;
@@ -21,6 +22,7 @@ type QuestionProps = {
 };
 
 const QuestionView = ({
+  listCategory,
   question,
   type,
   toggleScrap,
@@ -30,7 +32,11 @@ const QuestionView = ({
 
   const handleClickQuestion = () => {
     if (type === 'listItem') {
-      router.push(`/question/${question.questionId}`);
+      router.push(
+        `/question/${
+          listCategory === 'ALL' ? listCategory : question.category.name
+        }/${question.questionId}`,
+      );
     }
   };
 
