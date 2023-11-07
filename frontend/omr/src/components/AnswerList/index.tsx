@@ -8,68 +8,44 @@ import useAnswerList from '@/hooks/useAnswerList';
 
 const PAGE_SIZE = 5;
 
-const AnswerList = () => {
+type AnswerListProps = {
+  questionId: string;
+  answerType: 'mine' | 'others';
+};
+
+const AnswerList = ({ questionId, answerType }: AnswerListProps) => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  // const { data: answers } = useAnswerList({
-  //   page: currentPage,
-  //   size: PAGE_SIZE,
-  // });
-
-  const answers = {
-    answers: [
-      {
-        content: '모르겠는데요',
-        likeCount: 30,
-        answerId: 1,
-        nickname: '배고픈 토끼',
-        emoji: '🐰',
-      },
-      {
-        content: '모르겠는데요',
-        likeCount: 30,
-        answerId: 1,
-        nickname: '배고픈 토끼',
-        emoji: '🐰',
-      },
-      {
-        content: '모르겠는데요',
-        likeCount: 30,
-        answerId: 1,
-        nickname: '배고픈 토끼',
-        emoji: '🐰',
-      },
-      {
-        content: '모르겠는데요',
-        likeCount: 30,
-        answerId: 1,
-        nickname: '배고픈 토끼',
-        emoji: '🐰',
-      },
-      {
-        content: '모르겠는데요',
-        likeCount: 30,
-        answerId: 1,
-        nickname: '배고픈 토끼',
-        emoji: '🐰',
-      },
-    ],
-    totalPageCount: 10,
-  };
+  const { data: answers } = useAnswerList({
+    questionId: questionId,
+    type: answerType,
+    page: currentPage,
+    size: PAGE_SIZE,
+  });
 
   return (
-    <div className={styles.AnswerList}>
-      {answers.answers.map((answer) => (
-        <UserAnswerView key={answer.answerId} answer={answer} />
-      ))}
-      <Paging
-        page={currentPage}
-        setPage={setCurrentPage}
-        countPerPage={PAGE_SIZE}
-        totalCount={answers.totalPageCount}
-        pageRange={5}
-      />
-    </div>
+    <>
+      {answers && (
+        <>
+          {answers.answerResponses.length > 0 ? (
+            <div className={styles.AnswerList}>
+              {answers.answerResponses.map((answer) => (
+                <UserAnswerView key={answer.answerId} answer={answer} />
+              ))}
+              <Paging
+                page={currentPage}
+                setPage={setCurrentPage}
+                countPerPage={PAGE_SIZE}
+                totalCount={answers.totalPageCount * PAGE_SIZE}
+                pageRange={5}
+              />
+            </div>
+          ) : (
+            <div className={styles.nodata}>아직 입력된 답변이 없어요.</div>
+          )}
+        </>
+      )}
+    </>
   );
 };
 

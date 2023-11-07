@@ -40,7 +40,7 @@ const AnswerInput = ({ questionId, type, content }: AnswerInputProps) => {
     });
 
     if (res?.status === 200) {
-      setToastMessage('답안을 저장했어요.');
+      setToastMessage('답을 저장했어요.');
     }
   };
 
