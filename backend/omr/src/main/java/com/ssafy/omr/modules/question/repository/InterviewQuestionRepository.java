@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface InterviewQuestionRepository extends JpaRepository<InterviewQuestion, Long> {
+public interface InterviewQuestionRepository extends JpaRepository<InterviewQuestion, Long>, InterviewQuestionRepositoryCustom {
 
     @Query(value = """
                 select q
