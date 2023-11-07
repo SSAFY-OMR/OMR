@@ -10,13 +10,16 @@ import type { Category } from '../../types/question';
 type CategoryCardButtonProps = {
   category: Category;
   count: number;
+  onClick: React.MouseEventHandler<HTMLDivElement>;
 };
 
-const CategoryCardButton = ({ category, count }: CategoryCardButtonProps) => {
-  const handleClickCategoryCard = () => {};
-
+const CategoryCardButton = ({
+  category,
+  count,
+  onClick,
+}: CategoryCardButtonProps) => {
   return (
-    <div className={styles.CategoryCardButton}>
+    <div className={styles.CategoryCardButton} onClick={onClick}>
       <div className={styles.info}>
         <div className={styles.title}>{category.description}</div>
         <div className={styles.count}>총 {count}문제</div>
@@ -26,7 +29,6 @@ const CategoryCardButton = ({ category, count }: CategoryCardButtonProps) => {
         color="secondary"
         iconType="arrow"
         width="fitContent"
-        onClick={handleClickCategoryCard}
       >
         문제 풀러 가기
       </Button>
