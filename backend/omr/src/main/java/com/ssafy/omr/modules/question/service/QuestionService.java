@@ -58,7 +58,7 @@ public class QuestionService {
 
     @Transactional(readOnly = true)
     public QuestionDetailResponse getQuestionById(AuthInfo authInfo, Long questionId) {
-        InterviewQuestion interviewQuestion = interviewQuestionRepository.findByIdWithInterviewQuestionOfCorporations(questionId)
+        InterviewQuestion interviewQuestion = interviewQuestionRepository.findById(questionId)
                 .orElseThrow(InterviewQuestionNotFoundException::new);
 
         boolean isScrapped = false;

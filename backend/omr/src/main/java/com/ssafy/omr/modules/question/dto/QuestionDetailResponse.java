@@ -22,7 +22,4 @@ public class QuestionDetailResponse {
 
     @Schema(description = "나의 답변")
     private String answer;
-
-    @Schema(description = "문제 기업 정보")
-    private List<CorporationType> corporationTypes;
 }

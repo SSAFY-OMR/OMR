@@ -45,12 +45,4 @@ public interface InterviewQuestionRepository extends JpaRepository<InterviewQues
                 group by q.interviewCategory
             """)
     List<QuestionCategoryCountElement> findCategoryCount();
-
-    @Query(value = """
-                select q
-                from InterviewQuestion q
-                left join fetch q.interviewQuestionOfCorporations
-                where q.id =:id
-            """)
-    Optional<InterviewQuestion> findByIdWithInterviewQuestionOfCorporations(Long id);
 }

@@ -22,12 +22,4 @@ public class DailyQuestionRedis {
     private InterviewCategory interviewCategory;
 
     private String content;
-
-    private List<CorporationType> corporationTypes;
-
-    public List<CorporationType> getCorporationTypes() {
-        if (corporationTypes != null)
-            return corporationTypes;
-        return new ArrayList<>();
-    }
 }

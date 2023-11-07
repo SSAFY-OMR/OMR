@@ -24,7 +24,6 @@ public class QuestionMapper {
                                 .questionId(interviewQuestion.getId())
                                 .category(interviewQuestion.getInterviewCategory())
                                 .content(interviewQuestion.getContent())
-                                .corporationTypes(interviewQuestion.getCorporationTypes())
                                 .build())
                         .collect(Collectors.toList()))
                 .currentPage(interviewQuestions.getNumber())
@@ -46,7 +45,6 @@ public class QuestionMapper {
                 .content(interviewQuestion.getContent())
                 .isScrapped(isScrapped)
                 .answer(answer)
-                .corporationTypes(interviewQuestion.getCorporationTypes())
                 .build();
     }
 
@@ -55,7 +53,6 @@ public class QuestionMapper {
                 .questionId(interviewQuestion.getId())
                 .category(interviewQuestion.getInterviewCategory())
                 .content(interviewQuestion.getContent())
-                .corporationTypes(interviewQuestion.getCorporationTypes())
                 .build();
     }
 
@@ -64,7 +61,6 @@ public class QuestionMapper {
                 .questionId(dailyQuestionRedis.getInterviewQuestionId())
                 .category(dailyQuestionRedis.getInterviewCategory())
                 .content(dailyQuestionRedis.getContent())
-                .corporationTypes(dailyQuestionRedis.getCorporationTypes())
                 .build();
     }
 
@@ -74,7 +70,6 @@ public class QuestionMapper {
                 .interviewQuestionId(interviewQuestion.getId())
                 .interviewCategory(interviewQuestion.getInterviewCategory())
                 .content(interviewQuestion.getContent())
-                .corporationTypes(interviewQuestion.getCorporationTypes())
                 .build();
     }
 

@@ -31,11 +31,4 @@ public class InterviewQuestion extends BaseEntity {
     @Builder.Default
     @OneToMany(mappedBy = "interviewQuestion")
     private List<InterviewQuestionOfCorporation> interviewQuestionOfCorporations = new ArrayList<>();
-
-    public List<CorporationType> getCorporationTypes(){
-        return this.getInterviewQuestionOfCorporations().stream()
-                .map(InterviewQuestionOfCorporation::getCorporationType)
-                .collect(Collectors.toList());
-
-    }
 }
