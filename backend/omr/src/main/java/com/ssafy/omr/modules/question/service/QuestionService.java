@@ -137,4 +137,10 @@ public class QuestionService {
         List<QuestionCategoryCountElement> problemCounts = interviewQuestionRepository.findCategoryCount();
         return new QuestionCategoryCountResponse(problemCounts);
     }
+
+    @Transactional(readOnly = true)
+    public QuestionCorporationCountResponse getQuestionCountsByCorporation(){
+        List<QuestionCorporationCountElement> questionCorporationCountElements = interviewQuestionOfCorporationRepository.findCorporationTypeCount();
+        return QuestionMapper.supplyQuestionCorporationCountResponse(questionCorporationCountElements);
+    }
 }

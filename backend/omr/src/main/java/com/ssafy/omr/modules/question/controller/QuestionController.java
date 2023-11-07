@@ -92,4 +92,13 @@ public class QuestionController {
                 .data(questionService.getProblemCountsGroupByCategory())
                 .build();
     }
+
+    @Operation(summary = "기업별 문제 개수 조회",
+            description = "기업별로 문제의 개수를 조회합니다")
+    @GetMapping("/corporation/count")
+    public BaseResponse<QuestionCorporationCountResponse> getQuestionCountsByCorporation() {
+        return BaseResponse.<QuestionCorporationCountResponse>builder()
+                .data(questionService.getQuestionCountsByCorporation())
+                .build();
+    }
 }

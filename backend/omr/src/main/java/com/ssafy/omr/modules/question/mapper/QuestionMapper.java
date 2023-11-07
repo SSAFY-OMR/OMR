@@ -4,9 +4,7 @@ import com.ssafy.omr.modules.meta.domain.InterviewCategory;
 import com.ssafy.omr.modules.question.domain.DailyQuestionRedis;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
 import com.ssafy.omr.modules.question.domain.InterviewQuestionOfCorporation;
-import com.ssafy.omr.modules.question.dto.QuestionDetailResponse;
-import com.ssafy.omr.modules.question.dto.QuestionResponse;
-import com.ssafy.omr.modules.question.dto.QuestionsResponse;
+import com.ssafy.omr.modules.question.dto.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -93,5 +91,11 @@ public class QuestionMapper {
         }
 
         return interviewQuestions;
+    }
+
+    public static QuestionCorporationCountResponse supplyQuestionCorporationCountResponse(List<QuestionCorporationCountElement> questionCorporationCountElements) {
+        return QuestionCorporationCountResponse.builder()
+                .corporations(questionCorporationCountElements)
+                .build();
     }
 }
