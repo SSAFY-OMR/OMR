@@ -4,15 +4,20 @@ import React from 'react';
 
 import EmojiPicker from 'emoji-picker-react';
 
+import { updateUserEmoji } from '@/service/member';
+
 import styles from './index.module.scss';
 
+import type { User } from '@/types/user';
+
+
+
 type EmojiModalProps = {
-    updateUserEmoji: any,
-    handleEmojiModalClose: any,
-    setUser: any,
+    handleEmojiModalClose: () => void,
+    setUser: React.Dispatch<React.SetStateAction<User | undefined>>,
 };
 
-const EmojiModal = ({ updateUserEmoji, handleEmojiModalClose, setUser }:EmojiModalProps) => {
+const EmojiModal = ({ handleEmojiModalClose, setUser }:EmojiModalProps) => {
 
   return (
     <div className={styles.emojiSelector} onClick={handleEmojiModalClose}>

@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 
-import EmojiModal from '@/components/EmojiModal/index';
 import ChangePasswordForm from '@/components/ChangePasswordForm';
-import { getUserInfo, updateUserEmoji } from '@/service/member';
+import EmojiModal from '@/components/EmojiModal/index';
+import { getUserInfo } from '@/service/member';
 import { BLACK } from '@/styles/color';
 import { EditIcon } from 'public/icons';
 
@@ -39,7 +39,6 @@ const ProfilePage = () => {
     <>
     {
       modalOpen && <EmojiModal 
-        updateUserEmoji={updateUserEmoji}
         handleEmojiModalClose={handleEmojiModalClose}
         setUser={setUser}
       />
