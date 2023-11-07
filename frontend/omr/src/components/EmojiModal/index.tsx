@@ -20,12 +20,12 @@ type EmojiModalProps = {
 const EmojiModal = ({ handleEmojiModalClose, setUser }:EmojiModalProps) => {
 
   return (
-    <div className={styles.emojiSelector} onClick={handleEmojiModalClose}>
+    <div className={styles.EmojiModal} onClick={handleEmojiModalClose}>
 
-      <div className={styles.emojiModalWrapper}>
-        <div className={styles.emojiModal} onClick={(e)=>{e.stopPropagation()}}>
-          <div className={styles.emojiModalHeader}>
-            <span className={styles.emojiModalExit} onClick={handleEmojiModalClose}>X</span>
+      <div className={styles.modalWrapper}>
+        <div className={styles.modal} onClick={(e)=>{e.stopPropagation()}}>
+          <div className={styles.modalHeader}>
+            <span className={styles.modalExitButton} onClick={handleEmojiModalClose}>X</span>
           </div>
           <EmojiPicker width={'100%'} onEmojiClick={async (selected, e)=>{
             e.stopPropagation();

@@ -1,4 +1,4 @@
-.emojiSelector {
+.EmojiModal {
     width: 500px;
     @media (max-width: 500px) {
       width: 100%;
@@ -9,7 +9,7 @@
     overflow: auto;
 }
 
-.emojiModalWrapper {
+.modalWrapper {
     display: flex;
     height: 100%;
     align-items: center;
@@ -17,7 +17,7 @@
     background: none;
 }
 
-.emojiModal {
+.modal {
     display: flex;
     width: 80%;
     flex-direction: column;
@@ -27,12 +27,12 @@
     margin-top: 90px;
 }
 
-.emojiModalHeader {
+.modalHeader {
     display: flex;
     flex-direction: row-reverse;
 }
 
-.emojiModalExit {
+.modalExitButton {
     border-radius: 10px;
     font-size: var(--font-size-xlarge);
     padding: 10px 15px;
@@ -40,6 +40,6 @@
     cursor: pointer;
 }
 
-.emojiModalExit:hover {
+.modalExitButton:hover {
     background-color: gainsboro;
 }
