@@ -7,7 +7,7 @@ import styles from './index.module.scss';
 import type { Question } from '@/types/question';
 
 import AnswerInput from '@/components/AnswerInput';
-import AnswerList from '@/components/AnswerList';
+import AnswerListView from '@/components/AnswerListView';
 import QuestionView from '@/components/QuestionView';
 import Button from '@/components/UI/Button';
 import Toast from '@/components/UI/Toast';
@@ -75,15 +75,15 @@ const QuestionDetailPage = ({ params }: { params: { id: string } }) => {
           />
           {!viewAnswer && (
             <>
-              {question.answer ? (
+              {/* {question.answer ? (
                 <AnswerInput
                   questionId={id}
                   type={'read'}
                   content={question.answer}
                 />
-              ) : (
-                <AnswerInput questionId={id} type={'edit'} />
-              )}
+              ) : ( */}
+              <AnswerInput questionId={id} type={'edit'} />
+              {/* )} */}
             </>
           )}
         </div>
@@ -107,7 +107,7 @@ const QuestionDetailPage = ({ params }: { params: { id: string } }) => {
             iconType={'community'}
             onClick={handleClickAnswerList}
           >
-            다른 사람 답변 보기
+            답변 보기
           </Button>
         )}
         <Button
@@ -116,10 +116,10 @@ const QuestionDetailPage = ({ params }: { params: { id: string } }) => {
           width={'fitContent'}
           iconType={'arrow'}
         >
-          다음 문제 풀기
+          다음 문제
         </Button>
       </div>
-      {viewAnswer && <AnswerList />}
+      {viewAnswer && <AnswerListView questionId={id} />}
       <Toast
         message={toastMessage}
         isShown={toastMessage !== ''}

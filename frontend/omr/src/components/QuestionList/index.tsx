@@ -29,10 +29,6 @@ const QuestionList = () => {
     setCurrentPage(1);
   }, [selectedCategory]);
 
-  if (data) {
-    console.log(data);
-  }
-
   return (
     <div className={styles.QuestionList}>
       <div className={styles.categoryList}>

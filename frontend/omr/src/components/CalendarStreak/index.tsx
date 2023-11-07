@@ -39,7 +39,7 @@ const CalendarStreak = () => {
     <div className={styles.CalendarStreak}>
       {userToken ? (
         <>
-          {userInfo.nickname !== '' && (
+          {userInfo && userInfo.nickname !== '' && (
             <div className={styles.title}>{userInfo.nickname}님의 기록</div>
           )}
           <div className={styles.streakMessage}>

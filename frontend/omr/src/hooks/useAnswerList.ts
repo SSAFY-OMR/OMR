@@ -3,15 +3,19 @@ import useFetcher from './useFetcher';
 import type { Answer } from '@/types/question';
 
 type AnswerListResponse = {
-  answers: Answer[];
+  answerResponses: Answer[];
   currentPage: number;
   totalPageCount: number;
 };
 
 export default function useAnswerList({
+  questionId,
+  type,
   page,
   size,
 }: {
+  questionId: string;
+  type: 'mine' | 'others';
   page: number;
   size: number;
 }): {
@@ -23,7 +27,7 @@ export default function useAnswerList({
 
   const { data, isLoading, isError } = useFetcher<AnswerListResponse>(
     // TODO: URL 수정 필요
-    `/answers/question/`,
+    `/answers/question/${questionId}/${type}`,
     true,
     params,
   );
