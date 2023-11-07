@@ -7,7 +7,7 @@ import Image from 'next/image';
 import styles from './index.module.scss';
 import BeforeLogin from '../BeforeLogin';
 import Calendar from '../Calendar';
-import LoadingCalendar from '../Calendar/LoadingCalendar';
+import CalendarLoading from '../Calendar/CalendarLoading';
 
 import type { User } from '@/types/user';
 
@@ -52,7 +52,7 @@ const CalendarStreak = () => {
   return (
     <div className={styles.CalendarStreak}>
       {loadingUserToken ? (
-        <LoadingCalendar />
+        <CalendarLoading />
       ) : (
         <>
           {userToken ? (

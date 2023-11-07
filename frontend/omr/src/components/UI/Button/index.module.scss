@@ -35,6 +35,11 @@
   color: var(--color-blue-600);
 }
 
+.disabled {
+  background-color: var(--color-neutral-40);
+  color: var(--color-neutral-100);
+}
+
 .fitContent {
   width: fit-content;
 }

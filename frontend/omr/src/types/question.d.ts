@@ -4,6 +4,7 @@ export type Question = {
   content: string;
   isScrapped?: boolean;
   answer?: string;
+  nextQuestionId: number | null;
 };
 
 export type Category = {

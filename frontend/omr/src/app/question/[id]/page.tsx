@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import styles from './index.module.scss';
 
 import type { Question } from '@/types/question';
@@ -9,6 +11,7 @@ import type { Question } from '@/types/question';
 import AnswerInput from '@/components/AnswerInput';
 import AnswerListView from '@/components/AnswerListView';
 import QuestionView from '@/components/QuestionView';
+import QuestionViewLoading from '@/components/QuestionView/QuestionViewLoading';
 import Button from '@/components/UI/Button';
 import Toast from '@/components/UI/Toast';
 import useFetcher from '@/hooks/useFetcher';
@@ -16,6 +19,8 @@ import { updateScrap } from '@/service/question';
 
 const QuestionDetailPage = ({ params }: { params: { id: string } }) => {
   const id = params.id;
+
+  const router = useRouter();
 
   const [toastMessage, setToastMessage] = useState('');
   const [viewAnswer, setViewAnswer] = useState(false);
@@ -55,6 +60,14 @@ const QuestionDetailPage = ({ params }: { params: { id: string } }) => {
     setViewAnswer(false);
   };
 
+  const handleClickNextBtn = () => {
+    if (!question?.nextQuestionId) {
+      setToastMessage('마지막 문제예요. 😥');
+      return;
+    }
+    router.push(`/question/${question?.nextQuestionId}`);
+  };
+
   const handleCloseToast = () => {
     setToastMessage('');
   };
@@ -65,29 +78,32 @@ const QuestionDetailPage = ({ params }: { params: { id: string } }) => {
         viewAnswer ? styles.answerListPage : ''
       }`}
     >
-      {question && (
-        <div className={styles.QuestionContainer}>
+      <div className={styles.QuestionContainer}>
+        {question ? (
           <QuestionView
             questionId={id}
             question={question}
             type="questionView"
             toggleScrap={toggleScrap}
           />
-          {!viewAnswer && (
-            <>
-              {/* {question.answer ? (
-                <AnswerInput
-                  questionId={id}
-                  type={'read'}
-                  content={question.answer}
-                />
-              ) : ( */}
-              <AnswerInput questionId={id} type={'edit'} />
-              {/* )} */}
-            </>
-          )}
-        </div>
-      )}
+        ) : (
+          <QuestionViewLoading />
+        )}
+        {!viewAnswer && (
+          <AnswerInput questionId={id} type={'edit'} />
+          // <>
+          //   {/* {question.answer ? (
+          //     <AnswerInput
+          //       questionId={id}
+          //       type={'read'}
+          //       content={question.answer}
+          //     />
+          //   ) : ( */}
+          //   <AnswerInput questionId={id} type={'edit'} />
+          //   {/* )} */}
+          // </>
+        )}
+      </div>
       <div className={styles.btnGroup}>
         {viewAnswer ? (
           <Button
@@ -112,9 +128,10 @@ const QuestionDetailPage = ({ params }: { params: { id: string } }) => {
         )}
         <Button
           size={'medium'}
-          color={'secondary'}
+          color={question?.nextQuestionId ? 'secondary' : 'disabled'}
           width={'fitContent'}
           iconType={'arrow'}
+          onClick={handleClickNextBtn}
         >
           다음 문제
         </Button>

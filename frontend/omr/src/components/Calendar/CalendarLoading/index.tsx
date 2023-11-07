@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './index.module.scss';
 
-const LoadingCalendar = () => {
+const CalendarLoading = () => {
   return (
     <div className={styles.container}>
       <div className={`${styles.title} ${styles.blinking}`}></div>
@@ -12,4 +12,4 @@ const LoadingCalendar = () => {
   );
 };
 
-export default LoadingCalendar;
+export default CalendarLoading;

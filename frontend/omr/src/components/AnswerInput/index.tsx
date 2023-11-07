@@ -34,6 +34,10 @@ const AnswerInput = ({ questionId, type, content }: AnswerInputProps) => {
   };
 
   const handleClickSaveBtn = async () => {
+    if (!answerContent) {
+      setToastMessage('답을 입력해주세요.');
+      return;
+    }
     const res = await createAnswer({
       questionId: questionId,
       content: answerContent,
