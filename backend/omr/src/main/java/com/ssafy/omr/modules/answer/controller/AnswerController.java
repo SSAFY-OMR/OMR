@@ -3,7 +3,6 @@ package com.ssafy.omr.modules.answer.controller;
 import com.ssafy.omr.modules.answer.dto.AnswerListResponse;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerRequest;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerResponse;
-import com.ssafy.omr.modules.answer.dto.DeleteAnswerRequest;
 import com.ssafy.omr.modules.answer.dto.QuestionAnswerResponse;
 import com.ssafy.omr.modules.answer.dto.ToggleLikeAnswerRequest;
 import com.ssafy.omr.modules.answer.dto.ToggleLikeAnswerResponse;
@@ -83,9 +82,9 @@ public class AnswerController {
                     content = @Content()
             )
     })
-    @DeleteMapping("/delete")
-    public BaseResponse<Void> deleteAnswer(@Parameter(hidden = true) @LoginUser AuthInfo authInfo, @RequestBody DeleteAnswerRequest deleteAnswerRequest) {
-        answerService.deleteAnswer(authInfo, deleteAnswerRequest);
+    @DeleteMapping("/delete/{answerId}")
+    public BaseResponse<Void> deleteAnswer(@Parameter(hidden = true) @LoginUser AuthInfo authInfo, @PathVariable("answerId") Long answerId) {
+        answerService.deleteAnswer(authInfo, answerId);
         return BaseResponse.<Void>builder().build();
     }
 
