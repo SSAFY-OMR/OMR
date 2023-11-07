@@ -57,8 +57,12 @@ public class AnswerMapper {
         );
     }
 
-    public static AnswerListResponse supplyQuestionAnswerResponseFrom(List<AnswerResponse> responseList) {
-        return new AnswerListResponse(responseList);
+    public static AnswerListResponse supplyQuestionAnswerResponseOf(
+            List<AnswerResponse> responseList,
+            int currentPage,
+            int totalPageCount
+    ) {
+        return new AnswerListResponse(responseList,currentPage,totalPageCount);
     }
 
 }

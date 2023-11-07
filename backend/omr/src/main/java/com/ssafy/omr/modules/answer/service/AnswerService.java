@@ -14,6 +14,7 @@ import com.ssafy.omr.modules.answer.dto.UpdateAnswerRequest;
 import com.ssafy.omr.modules.answer.exception.AnswerForbiddenException;
 import com.ssafy.omr.modules.answer.exception.AnswerNotFoundException;
 import com.ssafy.omr.modules.answer.mapper.AnswerMapper;
+import com.ssafy.omr.modules.answer.repository.AnswerDynamicRepository;
 import com.ssafy.omr.modules.answer.repository.AnswerLikeRepository;
 import com.ssafy.omr.modules.answer.repository.AnswerRepository;
 import com.ssafy.omr.modules.auth.dto.AuthInfo;
@@ -41,8 +42,10 @@ public class AnswerService {
   private final ApplicationEventPublisher applicationEventPublisher;
   private final AnswerRepository answerRepository;
   private final AnswerLikeRepository answerLikeRepository;
+  private final AnswerDynamicRepository answerDynamicRepository;
   private final MemberRepository memberRepository;
   private final InterviewQuestionRepository interViewQuestionRepository;
+
 
   /**
    * 특정 문제에 답변을 작성한다.
@@ -158,22 +161,22 @@ public class AnswerService {
   }
 
   @Transactional(readOnly = true)
-  public AnswerListResponse getOthersAnswerList(Long questionId, AuthInfo authInfo) {
+  public AnswerListResponse getOthersAnswerList(Long questionId, AuthInfo authInfo, Pageable pageable) {
     InterviewQuestion interviewQuestion = interViewQuestionRepository.getReferenceById(questionId);
     Member member = memberRepository.getReferenceById(authInfo.id());
 
-    List<Answer> answers = answerRepository.findOthersAnswerListByQuestionAndMember(interviewQuestion, member);
+    Page<Answer> answers = answerDynamicRepository.findOthersAnswerListByQuestionAndMember(interviewQuestion, member, pageable);
     List<AnswerResponse> answerResponses = answers.stream().map(AnswerMapper::supplyAnswerResponseOf).toList();
-
-    return AnswerMapper.supplyQuestionAnswerResponseFrom(answerResponses);
+    return AnswerMapper.supplyQuestionAnswerResponseOf(answerResponses, answers.getNumber(), answers.getTotalPages());
   }
 
   @Transactional(readOnly = true)
-  public AnswerListResponse getMyAnswer(Long questionId, AuthInfo authInfo) {
+  public AnswerListResponse getMyAnswer(Long questionId, AuthInfo authInfo, Pageable pageable) {
     InterviewQuestion interviewQuestion = interViewQuestionRepository.getReferenceById(questionId);
     Member member = memberRepository.getReferenceById(authInfo.id());
-    List<Answer> answers = answerRepository.findMyAnswerListByInterviewQuestionAndMember(interviewQuestion, member);
+
+    Page<Answer> answers = answerDynamicRepository.findMyAnswerListByInterviewQuestionAndMember(interviewQuestion, member, pageable);
     List<AnswerResponse> answerResponses = answers.stream().map(AnswerMapper::supplyAnswerResponseOf).toList();
-    return AnswerMapper.supplyQuestionAnswerResponseFrom(answerResponses);
+    return AnswerMapper.supplyQuestionAnswerResponseOf(answerResponses, answers.getNumber(),answers.getTotalPages());
   }
 }
