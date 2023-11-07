@@ -6,7 +6,6 @@ import com.ssafy.omr.modules.answer.dto.AnswerListResponse;
 import com.ssafy.omr.modules.answer.dto.AnswerResponse;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerRequest;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerResponse;
-import com.ssafy.omr.modules.answer.dto.DeleteAnswerRequest;
 import com.ssafy.omr.modules.answer.dto.QuestionAnswerResponse;
 import com.ssafy.omr.modules.answer.dto.ToggleLikeAnswerRequest;
 import com.ssafy.omr.modules.answer.dto.ToggleLikeAnswerResponse;
@@ -94,12 +93,12 @@ public class AnswerService {
      * 내부적으로 권환 확인을 진행한다.
      *
      * @param authInfo            권한 객체
-     * @param deleteAnswerRequest 삭제 답변의 정보가 담긴 객체
+     * @param answerId 삭제 답변의 정보가 담긴 객체
      */
     @Transactional
-    public void deleteAnswer(AuthInfo authInfo, DeleteAnswerRequest deleteAnswerRequest) {
+    public void deleteAnswer(AuthInfo authInfo, Long answerId) {
         Answer answer = answerRepository
-                .findById(deleteAnswerRequest.answerId())
+                .findById(answerId)
                 .orElseThrow(AnswerNotFoundException::new);
 
         if (checkEditable(authInfo, answer.getMember().getId())) {
