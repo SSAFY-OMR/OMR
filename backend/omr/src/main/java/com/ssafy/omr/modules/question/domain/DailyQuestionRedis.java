@@ -9,7 +9,7 @@ import org.springframework.data.redis.core.RedisHash;
 @Getter
 @Builder
 @RedisHash(value = "dailyQuestion", timeToLive = 24 * 60 * 60)
-public class DailyQuestion {
+public class DailyQuestionRedis {
     @Id
     private Integer id;
 

@@ -6,13 +6,13 @@ import com.ssafy.omr.modules.auth.dto.AuthInfo;
 import com.ssafy.omr.modules.member.domain.Member;
 import com.ssafy.omr.modules.member.repository.MemberRepository;
 import com.ssafy.omr.modules.meta.domain.InterviewCategory;
-import com.ssafy.omr.modules.question.domain.DailyQuestion;
+import com.ssafy.omr.modules.question.domain.DailyQuestionRedis;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
 import com.ssafy.omr.modules.question.dto.*;
 import com.ssafy.omr.modules.question.exception.DailyQuestionNotFoundException;
 import com.ssafy.omr.modules.question.exception.InterviewQuestionNotFoundException;
 import com.ssafy.omr.modules.question.mapper.QuestionMapper;
-import com.ssafy.omr.modules.question.repository.DailyQuestionRepository;
+import com.ssafy.omr.modules.question.repository.DailyQuestionRedisRepository;
 import com.ssafy.omr.modules.question.repository.InterviewQuestionRepository;
 import com.ssafy.omr.modules.scrap.repository.InterviewQuestionScrapRepository;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +40,7 @@ public class QuestionService {
     private final InterviewQuestionScrapRepository interviewQuestionScrapRepository;
     private final MemberRepository memberRepository;
     private final AnswerRepository answerRepository;
-    private final DailyQuestionRepository dailyQuestionRepository;
+    private final DailyQuestionRedisRepository dailyQuestionRedisRepository;
 
     @Transactional(readOnly = true)
     public QuestionsResponse getQuestionsByCategory(QuestionsRequest questionsRequest) {
@@ -48,12 +48,12 @@ public class QuestionService {
 
         String category = questionsRequest.getCategory();
         if (category == null) {
-            Page<QuestionElement> questionElements = interviewQuestionRepository.findQuestions(pageRequest);
-            return QuestionMapper.supplyQuestionsResponse(questionElements);
+            Page<InterviewQuestion> interviewQuestions = interviewQuestionRepository.findQuestions(pageRequest);
+            return QuestionMapper.supplyQuestionsResponseTemp(interviewQuestions);
         }
 
-        Page<QuestionElement> questionElements = interviewQuestionRepository.findQuestionsByCategory(InterviewCategory.ofName(category), pageRequest);
-        return QuestionMapper.supplyQuestionsResponse(questionElements);
+        Page<InterviewQuestion> interviewQuestions = interviewQuestionRepository.findQuestionByCategory(InterviewCategory.ofName(category), pageRequest);
+        return QuestionMapper.supplyQuestionsResponseTemp(interviewQuestions);
     }
 
     @Transactional(readOnly = true)
@@ -64,7 +64,11 @@ public class QuestionService {
         boolean isScrapped = false;
         String answer = null;
 
-        Optional<Member> optionalMember = memberRepository.findById(authInfo.id());
+        Optional<Member> optionalMember = Optional.empty();
+        if (authInfo.id() != null) {
+            optionalMember = memberRepository.findById(authInfo.id());
+        }
+
         if (optionalMember.isPresent()) {
             isScrapped = interviewQuestionScrapRepository.existsByInterviewQuestionAndMember(interviewQuestion, optionalMember.get());
 
@@ -78,10 +82,10 @@ public class QuestionService {
     }
 
     @Transactional()
-    public DailyQuestionResponse getDailyQuestion() {
+    public QuestionResponse getDailyQuestion() {
         Integer seed = generateRandomSeed();
 
-        Optional<DailyQuestion> cachedData = dailyQuestionRepository.findById(seed);
+        Optional<DailyQuestionRedis> cachedData = dailyQuestionRedisRepository.findById(seed);
         if (cachedData.isPresent()) {
             return QuestionMapper.supplyDailyQuestionResponse(cachedData.get());
         }
@@ -89,8 +93,8 @@ public class QuestionService {
         InterviewQuestion interviewQuestion = interviewQuestionRepository.findRandomQuestion(seed)
                 .orElseThrow(DailyQuestionNotFoundException::new);
 
-        DailyQuestion dailyQuestion = QuestionMapper.supplyDailyQuestion(seed, interviewQuestion);
-        dailyQuestionRepository.save(dailyQuestion);
+        DailyQuestionRedis dailyQuestionRedis = QuestionMapper.supplyDailyQuestion(seed, interviewQuestion);
+        dailyQuestionRedisRepository.save(dailyQuestionRedis);
 
         return QuestionMapper.supplyDailyQuestionResponse(interviewQuestion);
 

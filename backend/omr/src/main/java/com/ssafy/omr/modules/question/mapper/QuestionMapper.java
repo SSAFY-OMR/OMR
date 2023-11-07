@@ -1,20 +1,37 @@
 package com.ssafy.omr.modules.question.mapper;
 
 import com.ssafy.omr.modules.meta.domain.InterviewCategory;
-import com.ssafy.omr.modules.question.domain.DailyQuestion;
+import com.ssafy.omr.modules.question.domain.DailyQuestionRedis;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
-import com.ssafy.omr.modules.question.dto.*;
+import com.ssafy.omr.modules.question.dto.QuestionDetailResponse;
+import com.ssafy.omr.modules.question.dto.QuestionResponse;
+import com.ssafy.omr.modules.question.dto.QuestionsResponse;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class QuestionMapper {
 
-    public static QuestionsResponse supplyQuestionsResponse(Page<QuestionElement> questionElements) {
+    public static QuestionsResponse supplyQuestionsResponseTemp(Page<InterviewQuestion> interviewQuestions) {
+        return QuestionsResponse.builder()
+                .questions(interviewQuestions.getContent().stream()
+                        .map(interviewQuestion -> QuestionResponse.builder()
+                                .questionId(interviewQuestion.getId())
+                                .category(interviewQuestion.getInterviewCategory())
+                                .content(interviewQuestion.getContent())
+                                .build())
+                        .collect(Collectors.toList()))
+                .currentPage(interviewQuestions.getNumber())
+                .totalPageCount(interviewQuestions.getTotalPages())
+                .build();
+    }
+
+    public static QuestionsResponse supplyQuestionsResponse(Page<QuestionResponse> questionElements) {
         return QuestionsResponse.builder()
                 .questions(questionElements.getContent())
                 .currentPage(questionElements.getNumber())
@@ -31,24 +48,24 @@ public class QuestionMapper {
                 .build();
     }
 
-    public static DailyQuestionResponse supplyDailyQuestionResponse(InterviewQuestion interviewQuestion) {
-        return DailyQuestionResponse.builder()
+    public static QuestionResponse supplyDailyQuestionResponse(InterviewQuestion interviewQuestion) {
+        return QuestionResponse.builder()
                 .questionId(interviewQuestion.getId())
                 .category(interviewQuestion.getInterviewCategory())
                 .content(interviewQuestion.getContent())
                 .build();
     }
 
-    public static DailyQuestionResponse supplyDailyQuestionResponse(DailyQuestion dailyQuestion) {
-        return DailyQuestionResponse.builder()
-                .questionId(dailyQuestion.getInterviewQuestionId())
-                .category(dailyQuestion.getInterviewCategory())
-                .content(dailyQuestion.getContent())
+    public static QuestionResponse supplyDailyQuestionResponse(DailyQuestionRedis dailyQuestionRedis) {
+        return QuestionResponse.builder()
+                .questionId(dailyQuestionRedis.getInterviewQuestionId())
+                .category(dailyQuestionRedis.getInterviewCategory())
+                .content(dailyQuestionRedis.getContent())
                 .build();
     }
 
-    public static DailyQuestion supplyDailyQuestion(Integer seed, InterviewQuestion interviewQuestion) {
-        return DailyQuestion.builder()
+    public static DailyQuestionRedis supplyDailyQuestion(Integer seed, InterviewQuestion interviewQuestion) {
+        return DailyQuestionRedis.builder()
                 .id(seed)
                 .interviewQuestionId(interviewQuestion.getId())
                 .interviewCategory(interviewQuestion.getInterviewCategory())
