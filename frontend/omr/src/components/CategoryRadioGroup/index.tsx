@@ -26,6 +26,7 @@ const CategoryRadioGroup = ({
   };
 
   const handleScrollEvent = (e: WheelEvent<HTMLDivElement>) => {
+    
     if(containerRef.current){
       containerRef.current.scrollLeft += e.deltaY;
     }
