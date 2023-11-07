@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.omr.modules.history.repository.MemberQuestionHistoryRepository;
-import com.ssafy.omr.modules.question.dto.QuestionResponse;
+import com.ssafy.omr.modules.question.domain.InterviewQuestion;
 import com.ssafy.omr.modules.question.dto.QuestionsRequest;
 import com.ssafy.omr.modules.question.dto.QuestionsResponse;
 import com.ssafy.omr.modules.question.mapper.QuestionMapper;
@@ -22,7 +22,7 @@ public class MemberHistoryService {
 
 	@Transactional(readOnly = true)
 	public QuestionsResponse findScrapedQuestion(Long memberId, QuestionsRequest questionsRequest) {
-		Page<QuestionResponse> scrapedQuestions = memberQuestionHistoryRepository.findByScrapedQuestion(memberId,
+		Page<InterviewQuestion> scrapedQuestions = memberQuestionHistoryRepository.findByScrapedQuestion(memberId,
 			questionsRequest.getCategory(), questionsRequest.toPageRequest());
 
 		return QuestionMapper.supplyQuestionsResponse(scrapedQuestions);
@@ -30,7 +30,7 @@ public class MemberHistoryService {
 
 	@Transactional(readOnly = true)
 	public QuestionsResponse findSolvedQuestion(Long memberId, QuestionsRequest questionsRequest) {
-		Page<QuestionResponse> solvedQuestions = memberQuestionHistoryRepository.findBySolvedQuestion(memberId,
+		Page<InterviewQuestion> solvedQuestions = memberQuestionHistoryRepository.findBySolvedQuestion(memberId,
 			questionsRequest.getCategory(), questionsRequest.toPageRequest());
 
 		return QuestionMapper.supplyQuestionsResponse(solvedQuestions);
