@@ -6,7 +6,6 @@ import com.ssafy.omr.modules.auth.dto.AuthInfo;
 import com.ssafy.omr.modules.member.domain.Member;
 import com.ssafy.omr.modules.member.repository.MemberRepository;
 import com.ssafy.omr.modules.meta.domain.CorporationType;
-import com.ssafy.omr.modules.meta.domain.InterviewCategory;
 import com.ssafy.omr.modules.question.domain.DailyQuestionRedis;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
 import com.ssafy.omr.modules.question.domain.InterviewQuestionOfCorporation;
@@ -51,12 +50,7 @@ public class QuestionService {
         PageRequest pageRequest = questionsRequest.toPageRequest();
 
         String category = questionsRequest.getCategory();
-        if (category == null) {
-            Page<InterviewQuestion> interviewQuestions = interviewQuestionRepository.findQuestions(pageRequest);
-            return QuestionMapper.supplyQuestionsResponse(interviewQuestions);
-        }
-
-        Page<InterviewQuestion> interviewQuestions = interviewQuestionRepository.findQuestionByCategory(InterviewCategory.ofName(category), pageRequest);
+        Page<InterviewQuestion> interviewQuestions = interviewQuestionRepository.findQuestionsByCategory(pageRequest, category);
         return QuestionMapper.supplyQuestionsResponse(interviewQuestions);
     }
 
@@ -73,6 +67,8 @@ public class QuestionService {
     public QuestionDetailResponse getQuestionById(AuthInfo authInfo, Long questionId) {
         InterviewQuestion interviewQuestion = interviewQuestionRepository.findById(questionId)
                 .orElseThrow(InterviewQuestionNotFoundException::new);
+
+        InterviewQuestion nextQuestion = interviewQuestionRepository.findNextQuestion(interviewQuestion);
 
         boolean isScrapped = false;
         String answer = null;
@@ -91,7 +87,7 @@ public class QuestionService {
             }
         }
 
-        return QuestionMapper.supplyQuestionDetailResponse(interviewQuestion, isScrapped, answer);
+        return QuestionMapper.supplyQuestionDetailResponse(interviewQuestion, isScrapped, answer, nextQuestion);
     }
 
     @Transactional()
@@ -100,16 +96,16 @@ public class QuestionService {
 
         Optional<DailyQuestionRedis> cachedData = dailyQuestionRedisRepository.findById(seed);
         if (cachedData.isPresent()) {
-            return QuestionMapper.supplyDailyQuestionResponse(cachedData.get());
+            return QuestionMapper.supplyQuestionResponse(cachedData.get());
         }
 
         InterviewQuestion interviewQuestion = interviewQuestionRepository.findRandomQuestion(seed)
                 .orElseThrow(DailyQuestionNotFoundException::new);
 
-        DailyQuestionRedis dailyQuestionRedis = QuestionMapper.supplyDailyQuestion(seed, interviewQuestion);
+        DailyQuestionRedis dailyQuestionRedis = QuestionMapper.supplyDailyQuestionRedis(seed, interviewQuestion);
         dailyQuestionRedisRepository.save(dailyQuestionRedis);
 
-        return QuestionMapper.supplyDailyQuestionResponse(interviewQuestion);
+        return QuestionMapper.supplyQuestionResponse(interviewQuestion);
 
     }
 
@@ -139,7 +135,7 @@ public class QuestionService {
     }
 
     @Transactional(readOnly = true)
-    public QuestionCorporationCountResponse getQuestionCountsByCorporation(){
+    public QuestionCorporationCountResponse getQuestionCountsByCorporation() {
         List<QuestionCorporationCountElement> questionCorporationCountElements = interviewQuestionOfCorporationRepository.findCorporationTypeCount();
         return QuestionMapper.supplyQuestionCorporationCountResponse(questionCorporationCountElements);
     }
