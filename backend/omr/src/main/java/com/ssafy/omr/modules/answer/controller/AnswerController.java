@@ -1,5 +1,6 @@
 package com.ssafy.omr.modules.answer.controller;
 
+import com.ssafy.omr.modules.answer.dto.AnswerListResponse;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerRequest;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerResponse;
 import com.ssafy.omr.modules.answer.dto.DeleteAnswerRequest;
@@ -18,7 +19,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -26,10 +26,10 @@ import org.springframework.data.web.SortDefault;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -122,8 +122,7 @@ public class AnswerController {
     })
     @GetMapping("/question/{questionId}")
     public BaseResponse<QuestionAnswerResponse> getAnswerList(
-            @RequestParam("questionId") Long questionId,
-            @PageableDefault(size = PAGE_SIZE)
+            @PathVariable("questionId") Long questionId,
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "likeCount", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
@@ -132,6 +131,56 @@ public class AnswerController {
     ) {
         return BaseResponse.<QuestionAnswerResponse>builder()
                 .data(answerService.getAnswerList(questionId, pageable))
+                .build();
+    }
+
+    @Operation(
+            summary = "특정 문제에 대한 남의 답변 목록 조회",
+            description = "내 답변을 제외한 타인의 답변만 조회."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "답변 목록"
+            )
+    })
+    @GetMapping("/question/{questionId}/others")
+    public BaseResponse<AnswerListResponse> getOtherAnswerList(
+            @PathVariable("questionId") Long questionId,
+            @Parameter(hidden = true) @LoginUser AuthInfo authInfo,
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "likeCount", direction = Sort.Direction.DESC),
+                    @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+            })
+            Pageable pageable
+    ) {
+        return BaseResponse.<AnswerListResponse>builder()
+                .data(answerService.getOthersAnswerList(questionId, authInfo, pageable))
+                .build();
+    }
+
+    @Operation(
+            summary = "특정 문제에 대한 나의 답변 목록 조회",
+            description = "내가 제출한 답변만 조회한다."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "답변 목록"
+            )
+    })
+    @GetMapping("/question/{questionId}/mine")
+    public BaseResponse<AnswerListResponse> getMyAnswer(
+            @PathVariable("questionId") Long questionId,
+            @Parameter(hidden = true) @LoginUser AuthInfo authInfo,
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "likeCount", direction = Sort.Direction.DESC),
+                    @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+            })
+            Pageable pageable
+    ) {
+        return BaseResponse.<AnswerListResponse>builder()
+                .data(answerService.getMyAnswer(questionId, authInfo, pageable))
                 .build();
     }
 

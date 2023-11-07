@@ -29,4 +29,6 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
                 where a.interviewQuestion = :question
             """)
     Page<Answer> findAnswerListByQuestion(InterviewQuestion question, Pageable pageRequest);
+
+
 }

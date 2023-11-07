@@ -2,11 +2,9 @@ package com.ssafy.omr.modules.answer.dto;
 
 import java.util.List;
 
-public record QuestionAnswerResponse(
-        long questionId,
+public record AnswerListResponse(
         List<AnswerResponse> answerResponses,
         int currentPage,
         int totalPageCount
-
 ) {
 }
