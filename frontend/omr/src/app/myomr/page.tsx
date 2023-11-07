@@ -61,11 +61,13 @@ const MyOmr = () => {
     // load from server
     //
   }, [mode, selectedCategory]);
-
+  console.log(selectedCategory);
   const { data: questionList } = useFetcher<QuestionList>(
     `/history/questions/${mode}`,
     true,
-    `?page=${page}&size=${COUNT_PER_PAGE}&category=${selectedCategory}`,
+    selectedCategory === 'ALL'
+      ? `?page=${page}&size=${COUNT_PER_PAGE}`
+      : `?page=${page}&size=${COUNT_PER_PAGE}&category=${selectedCategory}`,
   );
 
   return (
@@ -110,7 +112,7 @@ const MyOmr = () => {
               setPage={setPage}
               countPerPage={COUNT_PER_PAGE}
               pageRange={PAGE_RANGE}
-              totalCount={questionList.totalPageCount}
+              totalCount={questionList.totalPageCount*COUNT_PER_PAGE}
             />
           </div>
         </>
