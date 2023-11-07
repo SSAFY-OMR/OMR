@@ -19,6 +19,7 @@ export const Default: Story = {
       category: { id: 3, name: 'NETWORK', description: '네트워크' },
       content: 'OSI 7계층에 대해 설명해보세요.',
       isScrapped: false,
+      nextQuestionId: 1,
     },
     type: 'questionView',
   },
@@ -31,6 +32,7 @@ export const ListItem: Story = {
       category: { id: 3, name: 'NETWORK', description: '네트워크' },
       content: 'OSI 7계층에 대해 설명해보세요.',
       isScrapped: false,
+      nextQuestionId: 1,
     },
     type: 'listItem',
   },
@@ -44,6 +46,7 @@ export const LongQuestion: Story = {
       content:
         'OSI 7계층에 대해 설명해보세요.OSI 7계층에 대해 설명해보세요.OSI 7계층에 대해 설명해보세요.OSI 7계층에 대해 설명해보세요.OSI 7계층에 대해 설명해보세요.OSI 7계층에 대해 설명해보세요.',
       isScrapped: true,
+      nextQuestionId: 1,
     },
     type: 'questionView',
   },
@@ -57,6 +60,7 @@ export const LongQuestionListItem: Story = {
       content:
         'OSI 7계층에 대해 설명해보세요.OSI 7계층에 대해 설명해보세요.OSI 7계층에 대해 설명해보세요.OSI 7계층에 대해 설명해보세요.OSI 7계층에 대해 설명해보세요.OSI 7계층에 대해 설명해보세요.',
       isScrapped: false,
+      nextQuestionId: 1,
     },
     type: 'listItem',
   },

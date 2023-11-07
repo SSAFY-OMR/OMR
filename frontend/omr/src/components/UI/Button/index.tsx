@@ -4,12 +4,12 @@ import { ArrowIcon, CheckIcon, CommunityIcon, EditIcon } from 'public/icons';
 
 import styles from './index.module.scss';
 
-import { BLUE_600, WHITE } from '@/styles/color';
+import { BLUE_600, NEUTRAL_100, WHITE } from '@/styles/color';
 
 type ButtonProps = {
   children: React.ReactNode;
   size: 'small' | 'medium' | 'large';
-  color: 'primary' | 'secondary';
+  color: 'primary' | 'secondary' | 'disabled';
   width: 'fitContent' | 'full';
   iconType: 'complete' | 'arrow' | 'edit' | 'community';
   type?: 'button' | 'submit';
@@ -34,6 +34,7 @@ const Button = ({
   const iconColor = {
     primary: WHITE,
     secondary: BLUE_600,
+    disabled: NEUTRAL_100,
   };
 
   let Icon: any = undefined;
