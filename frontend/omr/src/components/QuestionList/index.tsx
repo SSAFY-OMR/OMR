@@ -13,8 +13,8 @@ import useQuestionList from '@/hooks/useQuestionList';
 
 const PAGE_SIZE = 5;
 
-const QuestionList = () => {
-  const [selectedCategory, setSelectedCategory] = useState('ALL');
+const QuestionList = ({ category }: { category: string }) => {
+  const [selectedCategory, setSelectedCategory] = useState(category);
   const [currentPage, setCurrentPage] = useState(1);
 
   const { categoryList } = useCategoryList();
@@ -42,14 +42,23 @@ const QuestionList = () => {
       </div>
       {data && (
         <>
-          <QuestionListView questions={data.questions} />
-          <Paging
-            page={currentPage}
-            setPage={setCurrentPage}
-            countPerPage={PAGE_SIZE}
-            totalCount={data.totalPageCount * PAGE_SIZE}
-            pageRange={5}
-          />
+          {data.questions.length > 0 ? (
+            <>
+              <QuestionListView
+                questions={data.questions}
+                listCategory={selectedCategory}
+              />
+              <Paging
+                page={currentPage}
+                setPage={setCurrentPage}
+                countPerPage={PAGE_SIZE}
+                totalCount={data.totalPageCount * PAGE_SIZE}
+                pageRange={5}
+              />
+            </>
+          ) : (
+            <div className={styles.nodata}>아직 등록된 문제가 없어요.</div>
+          )}
         </>
       )}
     </div>

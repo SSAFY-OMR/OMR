@@ -8,13 +8,22 @@ import QuestionView from '@/components/QuestionView';
 
 type QuestionListViewProps = {
   questions: Question[];
+  listCategory?: string;
 };
 
-const QuestionListView = ({ questions }: QuestionListViewProps) => {
+const QuestionListView = ({
+  questions,
+  listCategory,
+}: QuestionListViewProps) => {
   return (
     <div className={styles.QuestionListView}>
       {questions.map((question, index) => (
-        <QuestionView key={index} question={question} type={'listItem'} />
+        <QuestionView
+          key={index}
+          listCategory={listCategory ? listCategory : question.category.name}
+          question={question}
+          type={'listItem'}
+        />
       ))}
     </div>
   );
