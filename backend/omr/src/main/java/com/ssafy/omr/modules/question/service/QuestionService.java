@@ -49,11 +49,11 @@ public class QuestionService {
         String category = questionsRequest.getCategory();
         if (category == null) {
             Page<InterviewQuestion> interviewQuestions = interviewQuestionRepository.findQuestions(pageRequest);
-            return QuestionMapper.supplyQuestionsResponseTemp(interviewQuestions);
+            return QuestionMapper.supplyQuestionsResponse(interviewQuestions);
         }
 
         Page<InterviewQuestion> interviewQuestions = interviewQuestionRepository.findQuestionByCategory(InterviewCategory.ofName(category), pageRequest);
-        return QuestionMapper.supplyQuestionsResponseTemp(interviewQuestions);
+        return QuestionMapper.supplyQuestionsResponse(interviewQuestions);
     }
 
     @Transactional(readOnly = true)

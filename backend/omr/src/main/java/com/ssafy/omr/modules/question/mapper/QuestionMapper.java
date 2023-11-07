@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class QuestionMapper {
 
-    public static QuestionsResponse supplyQuestionsResponseTemp(Page<InterviewQuestion> interviewQuestions) {
+    public static QuestionsResponse supplyQuestionsResponse(Page<InterviewQuestion> interviewQuestions) {
         return QuestionsResponse.builder()
                 .questions(interviewQuestions.getContent().stream()
                         .map(interviewQuestion -> QuestionResponse.builder()
@@ -28,14 +28,6 @@ public class QuestionMapper {
                         .collect(Collectors.toList()))
                 .currentPage(interviewQuestions.getNumber())
                 .totalPageCount(interviewQuestions.getTotalPages())
-                .build();
-    }
-
-    public static QuestionsResponse supplyQuestionsResponse(Page<QuestionResponse> questionElements) {
-        return QuestionsResponse.builder()
-                .questions(questionElements.getContent())
-                .currentPage(questionElements.getNumber())
-                .totalPageCount(questionElements.getTotalPages())
                 .build();
     }
 
