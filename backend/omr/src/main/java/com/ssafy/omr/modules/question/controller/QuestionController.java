@@ -21,13 +21,23 @@ public class QuestionController {
     private final QuestionService questionService;
 
 
-    @Operation(summary = "카테고리 별 문제 목록 조회",
-            description = "카테고리에 해당 하는 문제의 전체 목록을 조회합니다. 단, 카테고리가 입력되지 않으면 전체 문제 목록을 조회합니다." +
+    @Operation(summary = "카테고리별 문제 목록 조회",
+            description = "카테고리에 해당 하는 문제의 목록을 조회합니다. 단, 카테고리가 입력되지 않으면 전체 문제 목록을 조회합니다." +
                     "(오프셋 기반 페이지네이션이 적용됩니다.)")
     @GetMapping()
     public BaseResponse<QuestionsResponse> getQuestionsByCategory(@Valid @ModelAttribute QuestionsRequest questionsRequest) {
         return BaseResponse.<QuestionsResponse>builder()
                 .data(questionService.getQuestionsByCategory(questionsRequest))
+                .build();
+    }
+
+    @Operation(summary = "기업별 문제 목록 조회",
+            description = "기업에 해당 하는 문제의 목록을 조회합니다. 단, 기업이 입력되지 않으면 예외가 발생합니다." +
+                    "(오프셋 기반 페이지네이션이 적용됩니다.)")
+    @GetMapping("/corporation")
+    public BaseResponse<QuestionsResponse> getQuestionByCorporation(@Valid @ModelAttribute QuestionsCorporationRequest questionsCorporationRequest) {
+        return BaseResponse.<QuestionsResponse>builder()
+                .data(questionService.getQuestionByCorporation(questionsCorporationRequest))
                 .build();
     }
 
@@ -80,6 +90,15 @@ public class QuestionController {
     public BaseResponse<QuestionCategoryCountResponse> getProblemCountsGroupByCategory() {
         return BaseResponse.<QuestionCategoryCountResponse>builder()
                 .data(questionService.getProblemCountsGroupByCategory())
+                .build();
+    }
+
+    @Operation(summary = "기업별 문제 개수 조회",
+            description = "기업별로 문제의 개수를 조회합니다")
+    @GetMapping("/corporation/count")
+    public BaseResponse<QuestionCorporationCountResponse> getQuestionCountsByCorporation() {
+        return BaseResponse.<QuestionCorporationCountResponse>builder()
+                .data(questionService.getQuestionCountsByCorporation())
                 .build();
     }
 }

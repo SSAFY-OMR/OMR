@@ -1,7 +1,7 @@
 package com.ssafy.omr.modules.meta.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.ssafy.omr.modules.meta.exception.InterviewCategoryBadRequestException;
+import com.ssafy.omr.modules.meta.exception.CorporationTypeBadRequestException;
 import lombok.Getter;
 
 import java.util.Arrays;
@@ -29,6 +29,6 @@ public enum CorporationType implements MetaData {
         return Arrays.stream(CorporationType.values())
                 .filter(value -> value.getName().equals(name))
                 .findAny()
-                .orElseThrow(InterviewCategoryBadRequestException::new);
+                .orElseThrow(CorporationTypeBadRequestException::new);
     }
 }
