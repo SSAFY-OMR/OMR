@@ -10,7 +10,7 @@ import java.util.List;
 @Builder
 public class QuestionsResponse {
     @Schema(description = "면접 문제 목록")
-    private List<QuestionElement> questions;
+    private List<QuestionResponse> questions;
 
     @Schema(description = "현재 페이지", defaultValue = "1")
     private Integer currentPage;

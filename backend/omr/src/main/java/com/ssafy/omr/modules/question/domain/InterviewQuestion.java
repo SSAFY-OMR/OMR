@@ -4,11 +4,11 @@ import com.ssafy.omr.modules.meta.converter.InterviewCategoryConverter;
 import com.ssafy.omr.modules.meta.domain.InterviewCategory;
 import com.ssafy.omr.modules.util.base.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
@@ -25,4 +25,8 @@ public class InterviewQuestion extends BaseEntity {
 
     @Column(columnDefinition = "TEXT")
     private String content;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "interviewQuestion")
+    private List<InterviewQuestionOfCorporation> interviewQuestionOfCorporations = new ArrayList<>();
 }

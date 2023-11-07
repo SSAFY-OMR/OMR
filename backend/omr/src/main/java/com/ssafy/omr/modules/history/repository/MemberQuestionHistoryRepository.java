@@ -15,7 +15,7 @@ import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.omr.modules.meta.domain.InterviewCategory;
-import com.ssafy.omr.modules.question.dto.QuestionElement;
+import com.ssafy.omr.modules.question.dto.QuestionResponse;
 
 import static com.ssafy.omr.modules.scrap.domain.QInterviewQuestionScrap.interviewQuestionScrap;
 import static com.ssafy.omr.modules.question.domain.QInterviewQuestion.interviewQuestion;
@@ -31,8 +31,8 @@ public class MemberQuestionHistoryRepository {
 
 	private final JPAQueryFactory jpaQueryFactory;
 
-	public Page<QuestionElement> findByScrapedQuestion(Long memberId, String category, Pageable pageable) {
-		List<QuestionElement> questions = getQuestionPagingBaseQuery(category, pageable)
+	public Page<QuestionResponse> findByScrapedQuestion(Long memberId, String category, Pageable pageable) {
+		List<QuestionResponse> questions = getQuestionPagingBaseQuery(category, pageable)
 			.innerJoin(interviewQuestionScrap)
 			.on(interviewQuestionScrap.interviewQuestion.id.eq(interviewQuestion.id))
 			.where(interviewQuestionScrap.member.id.eq(memberId))
@@ -46,8 +46,8 @@ public class MemberQuestionHistoryRepository {
 		return PageableExecutionUtils.getPage(questions, pageable, countQuery::fetchFirst);
 	}
 
-	public Page<QuestionElement> findBySolvedQuestion(Long memberId, String category, Pageable pageable) {
-		List<QuestionElement> questions = getQuestionPagingBaseQuery(category, pageable)
+	public Page<QuestionResponse> findBySolvedQuestion(Long memberId, String category, Pageable pageable) {
+		List<QuestionResponse> questions = getQuestionPagingBaseQuery(category, pageable)
 			.innerJoin(answer)
 			.on(answer.interviewQuestion.id.eq(interviewQuestion.id))
 			.where(answer.member.id.eq(memberId))
@@ -60,7 +60,7 @@ public class MemberQuestionHistoryRepository {
 		return PageableExecutionUtils.getPage(questions, pageable, countQuery::fetchFirst);
 	}
 
-	private JPAQuery<QuestionElement> getQuestionPagingBaseQuery(String category, Pageable pageable) {
+	private JPAQuery<QuestionResponse> getQuestionPagingBaseQuery(String category, Pageable pageable) {
 		return jpaQueryFactory
 			.select(
 				getQuestionElement(
@@ -76,11 +76,11 @@ public class MemberQuestionHistoryRepository {
 			.orderBy(interviewQuestion.id.desc());
 	}
 
-	private ConstructorExpression<QuestionElement> getQuestionElement(
+	private ConstructorExpression<QuestionResponse> getQuestionElement(
 		NumberPath<Long> questionId,
 		EnumPath<InterviewCategory> interviewCategory, StringPath content) {
 		return Projections.constructor(
-			QuestionElement.class,
+			QuestionResponse.class,
 			questionId,
 			interviewCategory,
 			content);
