@@ -14,11 +14,11 @@ import type { EmojiClickData } from 'emoji-picker-react';
 
 type EmojiModalProps = {
     handleEmojiModalClose: () => void,
+    setToast: React.Dispatch<React.SetStateAction<string>>,
     setUser: React.Dispatch<React.SetStateAction<User | undefined>>,
 };
 
-const EmojiModal = ({ handleEmojiModalClose, setUser }:EmojiModalProps) => {
-
+const EmojiModal = ({ handleEmojiModalClose, setToast, setUser }:EmojiModalProps) => {
   const handleEmojiPicker = async (emojiClickData: EmojiClickData) => {
     const result = await updateUserEmoji(emojiClickData.emoji);
     if(result) {
@@ -30,13 +30,16 @@ const EmojiModal = ({ handleEmojiModalClose, setUser }:EmojiModalProps) => {
           }
         }
       });
+      setToast('이모지를 업데이트 했어요.');
+    } else {
+      setToast('이모지 업데이트에 실패했어요. 관리자에게 문의하세요.');
     }
+    handleEmojiModalClose();
   }
 
   return (
     <div className={styles.EmojiModal}>
       <div className={styles.modalBackGround} onClick={handleEmojiModalClose}></div>
-
       <div className={styles.modalWrapper}>
         <div className={styles.modal}>
           <div className={styles.modalHeader}>

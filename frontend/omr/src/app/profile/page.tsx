@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 import ChangePasswordForm from '@/components/ChangePasswordForm';
 import EmojiModal from '@/components/EmojiModal/index';
+import Toast from '@/components/UI/Toast';
 import { getUserInfo } from '@/service/member';
 import { BLACK } from '@/styles/color';
 import { EditIcon } from 'public/icons';
@@ -12,18 +13,23 @@ import styles from './index.module.scss';
 
 import type { User } from '@/types/user';
 
+
 const ProfilePage = () => {
   const [user, setUser] = useState<User | undefined>(undefined);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [emojiUpdateToastMessage, setEmojiUpdateToastMessage] = useState<string>('');
 
-  const handleEmojiModalOpen = (e: any) => {
-    e.stopPropagation();
+  const handleEmojiModalOpen = () => {
     setModalOpen(true);
   }
 
   const handleEmojiModalClose = () => {
     setModalOpen(false);
   }
+
+  const handleCloseEmojiUpdateResultToast = () => {
+    setEmojiUpdateToastMessage('');
+  };
 
   useEffect(() => {
     (async () => {
@@ -41,12 +47,12 @@ const ProfilePage = () => {
       modalOpen && <EmojiModal 
         handleEmojiModalClose={handleEmojiModalClose}
         setUser={setUser}
+        setToast={setEmojiUpdateToastMessage}
       />
     }
     <div className={styles.ProfilePage}>
       <div className={styles.profileContainer}>
         <div className={styles.profileContents}>
-          {/* 사용자 정보 바인딩  */}
           <div className={styles.profileEmojiContainer} onClick={handleEmojiModalOpen}>
             <div className={styles.emoji}>
               {user?.emoji}
@@ -69,9 +75,14 @@ const ProfilePage = () => {
             </div>
           </div>
         </div>
-
         <ChangePasswordForm />
       </div>
+      
+      <Toast
+        message={emojiUpdateToastMessage}
+        isShown={emojiUpdateToastMessage !== ''}
+        onClose={handleCloseEmojiUpdateResultToast}
+      />
     </div>
     </>
   );
