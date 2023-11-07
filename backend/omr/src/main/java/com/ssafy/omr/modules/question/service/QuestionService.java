@@ -5,14 +5,17 @@ import com.ssafy.omr.modules.answer.repository.AnswerRepository;
 import com.ssafy.omr.modules.auth.dto.AuthInfo;
 import com.ssafy.omr.modules.member.domain.Member;
 import com.ssafy.omr.modules.member.repository.MemberRepository;
+import com.ssafy.omr.modules.meta.domain.CorporationType;
 import com.ssafy.omr.modules.meta.domain.InterviewCategory;
 import com.ssafy.omr.modules.question.domain.DailyQuestionRedis;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
+import com.ssafy.omr.modules.question.domain.InterviewQuestionOfCorporation;
 import com.ssafy.omr.modules.question.dto.*;
 import com.ssafy.omr.modules.question.exception.DailyQuestionNotFoundException;
 import com.ssafy.omr.modules.question.exception.InterviewQuestionNotFoundException;
 import com.ssafy.omr.modules.question.mapper.QuestionMapper;
 import com.ssafy.omr.modules.question.repository.DailyQuestionRedisRepository;
+import com.ssafy.omr.modules.question.repository.InterviewQuestionOfCorporationRepository;
 import com.ssafy.omr.modules.question.repository.InterviewQuestionRepository;
 import com.ssafy.omr.modules.scrap.repository.InterviewQuestionScrapRepository;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +44,7 @@ public class QuestionService {
     private final MemberRepository memberRepository;
     private final AnswerRepository answerRepository;
     private final DailyQuestionRedisRepository dailyQuestionRedisRepository;
+    private final InterviewQuestionOfCorporationRepository interviewQuestionOfCorporationRepository;
 
     @Transactional(readOnly = true)
     public QuestionsResponse getQuestionsByCategory(QuestionsRequest questionsRequest) {
@@ -54,6 +58,15 @@ public class QuestionService {
 
         Page<InterviewQuestion> interviewQuestions = interviewQuestionRepository.findQuestionByCategory(InterviewCategory.ofName(category), pageRequest);
         return QuestionMapper.supplyQuestionsResponse(interviewQuestions);
+    }
+
+    @Transactional(readOnly = true)
+    public QuestionsResponse getQuestionByCorporation(QuestionsCorporationRequest questionsCorporationRequest) {
+        PageRequest pageRequest = questionsCorporationRequest.toPageRequest();
+
+        String corporation = questionsCorporationRequest.getCorporation();
+        Page<InterviewQuestionOfCorporation> interviewQuestionOfCorporations = interviewQuestionOfCorporationRepository.findAllByCorporationType(CorporationType.ofName(corporation), pageRequest);
+        return QuestionMapper.supplyQuestionsCorporationResponse(interviewQuestionOfCorporations);
     }
 
     @Transactional(readOnly = true)
@@ -123,5 +136,11 @@ public class QuestionService {
     public QuestionCategoryCountResponse getProblemCountsGroupByCategory() {
         List<QuestionCategoryCountElement> problemCounts = interviewQuestionRepository.findCategoryCount();
         return new QuestionCategoryCountResponse(problemCounts);
+    }
+
+    @Transactional(readOnly = true)
+    public QuestionCorporationCountResponse getQuestionCountsByCorporation(){
+        List<QuestionCorporationCountElement> questionCorporationCountElements = interviewQuestionOfCorporationRepository.findCorporationTypeCount();
+        return QuestionMapper.supplyQuestionCorporationCountResponse(questionCorporationCountElements);
     }
 }
