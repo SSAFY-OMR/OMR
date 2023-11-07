@@ -1,7 +1,6 @@
 package com.ssafy.omr.modules.question.domain;
 
 import com.ssafy.omr.modules.meta.converter.InterviewCategoryConverter;
-import com.ssafy.omr.modules.meta.domain.CorporationType;
 import com.ssafy.omr.modules.meta.domain.InterviewCategory;
 import com.ssafy.omr.modules.util.base.BaseEntity;
 import jakarta.persistence.*;
@@ -10,7 +9,6 @@ import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Getter
