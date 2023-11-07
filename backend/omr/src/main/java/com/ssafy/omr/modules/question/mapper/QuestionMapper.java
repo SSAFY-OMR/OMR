@@ -70,7 +70,7 @@ public class QuestionMapper {
                 .build();
     }
 
-    public static DailyQuestionRedis supplyDailyQuestion(Integer seed, InterviewQuestion interviewQuestion) {
+    public static DailyQuestionRedis supplyDailyQuestionRedis(Integer seed, InterviewQuestion interviewQuestion) {
         return DailyQuestionRedis.builder()
                 .id(seed)
                 .interviewQuestionId(interviewQuestion.getId())

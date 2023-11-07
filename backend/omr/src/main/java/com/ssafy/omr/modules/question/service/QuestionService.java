@@ -101,7 +101,7 @@ public class QuestionService {
         InterviewQuestion interviewQuestion = interviewQuestionRepository.findRandomQuestion(seed)
                 .orElseThrow(DailyQuestionNotFoundException::new);
 
-        DailyQuestionRedis dailyQuestionRedis = QuestionMapper.supplyDailyQuestion(seed, interviewQuestion);
+        DailyQuestionRedis dailyQuestionRedis = QuestionMapper.supplyDailyQuestionRedis(seed, interviewQuestion);
         dailyQuestionRedisRepository.save(dailyQuestionRedis);
 
         return QuestionMapper.supplyQuestionResponse(interviewQuestion);
