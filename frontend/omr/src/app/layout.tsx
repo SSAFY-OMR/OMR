@@ -3,6 +3,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 
 import RecoilRootProvider from '@/components/RecoilRootProvider';
+import Footer from '@/components/UI/Footer';
 import Header from '@/components/UI/Header';
 import { pretendard } from '@/styles/font';
 
@@ -32,6 +33,7 @@ export default function RootLayout({
             <Header />
             {children}
             <div id="portal" />
+            <Footer />
           </div>
         </RecoilRootProvider>
       </body>
