@@ -3,6 +3,7 @@ package com.ssafy.omr.modules.question.mapper;
 import com.ssafy.omr.modules.meta.domain.InterviewCategory;
 import com.ssafy.omr.modules.question.domain.DailyQuestionRedis;
 import com.ssafy.omr.modules.question.domain.InterviewQuestion;
+import com.ssafy.omr.modules.question.domain.InterviewQuestionOfCorporation;
 import com.ssafy.omr.modules.question.dto.QuestionDetailResponse;
 import com.ssafy.omr.modules.question.dto.QuestionResponse;
 import com.ssafy.omr.modules.question.dto.QuestionsResponse;
@@ -30,6 +31,21 @@ public class QuestionMapper {
                 .totalPageCount(interviewQuestions.getTotalPages())
                 .build();
     }
+
+    public static QuestionsResponse supplyQuestionsCorporationResponse(Page<InterviewQuestionOfCorporation> interviewQuestionOfCorporations) {
+        return QuestionsResponse.builder()
+                .questions(interviewQuestionOfCorporations.getContent().stream()
+                        .map(interviewQuestionOfCorporation -> QuestionResponse.builder()
+                                .questionId(interviewQuestionOfCorporation.getInterviewQuestion().getId())
+                                .category(interviewQuestionOfCorporation.getInterviewQuestion().getInterviewCategory())
+                                .content(interviewQuestionOfCorporation.getInterviewQuestion().getContent())
+                                .build())
+                        .collect(Collectors.toList()))
+                .currentPage(interviewQuestionOfCorporations.getNumber())
+                .totalPageCount(interviewQuestionOfCorporations.getTotalPages())
+                .build();
+    }
+
 
     public static QuestionDetailResponse supplyQuestionDetailResponse(InterviewQuestion interviewQuestion, Boolean isScrapped, String answer) {
         return QuestionDetailResponse.builder()
