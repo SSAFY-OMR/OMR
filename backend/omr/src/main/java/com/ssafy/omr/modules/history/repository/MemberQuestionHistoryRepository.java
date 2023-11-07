@@ -37,7 +37,10 @@ public class MemberQuestionHistoryRepository {
 		JPAQuery<Long> countQuery = jpaQueryFactory
 			.select(Wildcard.count)
 			.from(interviewQuestionScrap)
-			.where(interviewQuestionScrap.member.id.eq(memberId));
+			.where(
+				interviewQuestionScrap.member.id.eq(memberId)
+				, interviewCategoryEq(interviewQuestion.interviewCategory, category)
+			);
 
 		return PageableExecutionUtils.getPage(questions, pageable, countQuery::fetchFirst);
 	}
@@ -51,7 +54,9 @@ public class MemberQuestionHistoryRepository {
 
 		JPAQuery<Long> countQuery = jpaQueryFactory.select(Wildcard.count)
 			.from(answer)
-			.where(answer.member.id.eq(memberId));
+			.where(answer.member.id.eq(memberId)
+				, interviewCategoryEq(interviewQuestion.interviewCategory, category)
+			);
 
 		return PageableExecutionUtils.getPage(questions, pageable, countQuery::fetchFirst);
 	}
@@ -69,6 +74,10 @@ public class MemberQuestionHistoryRepository {
 	}
 
 	private BooleanExpression interviewCategoryEq(EnumPath<com.ssafy.omr.modules.meta.domain.InterviewCategory> categoryEnumPath, String category) {
+		if(category == null) {
+			return null;
+		}
+
 		try {
 			InterviewCategory interviewCategory = InterviewCategory.valueOf(category);
 			return categoryEnumPath.eq(interviewCategory);
