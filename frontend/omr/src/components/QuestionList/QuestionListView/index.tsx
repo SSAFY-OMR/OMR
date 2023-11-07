@@ -8,7 +8,7 @@ import QuestionView from '@/components/QuestionView';
 
 type QuestionListViewProps = {
   questions: Question[];
-  listCategory: string;
+  listCategory?: string;
 };
 
 const QuestionListView = ({
@@ -20,7 +20,7 @@ const QuestionListView = ({
       {questions.map((question, index) => (
         <QuestionView
           key={index}
-          listCategory={listCategory}
+          listCategory={listCategory ? listCategory : question.category.name}
           question={question}
           type={'listItem'}
         />

@@ -42,17 +42,23 @@ const QuestionList = ({ category }: { category: string }) => {
       </div>
       {data && (
         <>
-          <QuestionListView
-            questions={data.questions}
-            listCategory={selectedCategory}
-          />
-          <Paging
-            page={currentPage}
-            setPage={setCurrentPage}
-            countPerPage={PAGE_SIZE}
-            totalCount={data.totalPageCount * PAGE_SIZE}
-            pageRange={5}
-          />
+          {data.questions.length > 0 ? (
+            <>
+              <QuestionListView
+                questions={data.questions}
+                listCategory={selectedCategory}
+              />
+              <Paging
+                page={currentPage}
+                setPage={setCurrentPage}
+                countPerPage={PAGE_SIZE}
+                totalCount={data.totalPageCount * PAGE_SIZE}
+                pageRange={5}
+              />
+            </>
+          ) : (
+            <div className={styles.nodata}>아직 등록된 문제가 없어요.</div>
+          )}
         </>
       )}
     </div>

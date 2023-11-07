@@ -17,7 +17,11 @@ const CategoryCardList = () => {
   const router = useRouter();
 
   const handleClickViewAll = () => {
-    router.push('/questionlist');
+    router.push('/questionlist/ALL');
+  };
+
+  const handleClickCategoryCard = (category: string) => {
+    router.push(`/questionlist/${category}`);
   };
 
   return (
@@ -44,6 +48,7 @@ const CategoryCardList = () => {
                 key={category.id}
                 category={category}
                 count={count}
+                onClick={() => handleClickCategoryCard(category.name)}
               />
             );
           })}
