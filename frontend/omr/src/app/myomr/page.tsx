@@ -1,5 +1,5 @@
 'use client';
-// this is the compont that will be rendered as a page
+
 import { useEffect, useState } from 'react';
 
 import styles from './index.module.scss';
@@ -7,14 +7,11 @@ import styles from './index.module.scss';
 import CategoryRadioGroup from '@/components/CategoryRadioGroup';
 import QuestionListView from '@/components/QuestionList/QuestionListView';
 import Paging from '@/components/UI/Pagination';
+import TabMenu from '@/components/UI/TabMenu';
+import { myOmrTabMenuList } from '@/constants/menu';
 import useCategoryList from '@/hooks/useCategoryList';
 import useFetcher from '@/hooks/useFetcher';
 import { type Question } from '@/types/question';
-
-type SubHeader = {
-  name: string;
-  stringId: string;
-};
 
 type QuestionList = {
   questions: Question[];
@@ -28,20 +25,13 @@ const PAGE_RANGE = 5;
 const MyOmr = () => {
   const { categoryList } = useCategoryList();
 
-  const [mode, setMode] = useState<string>('scraped'); // scraped || solved
+  const [currentTab, setCurrentTab] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [page, setPage] = useState<number>(1);
-  const subHeader: Array<SubHeader> = [
-    { name: '보관한 문제', stringId: 'scraped' },
-    { name: '내가 푼 문제', stringId: 'solved' },
-  ];
 
-  const handleSubheaderClick = (stringId: string) => {
-    setMode(stringId);
-  };
   const noDataText = (): string => {
     let text = '';
-    switch (mode) {
+    switch (myOmrTabMenuList[currentTab].menuType) {
       case 'scraped':
         text = '스크랩된 ';
         break;
@@ -58,12 +48,10 @@ const MyOmr = () => {
    */
   useEffect(() => {
     setPage(1);
-    // load from server
-    //
-  }, [mode, selectedCategory]);
-  console.log(selectedCategory);
+  }, [currentTab, selectedCategory]);
+
   const { data: questionList } = useFetcher<QuestionList>(
-    `/history/questions/${mode}`,
+    `/history/questions/${myOmrTabMenuList[currentTab].menuType}`,
     true,
     selectedCategory === 'ALL'
       ? `?page=${page}&size=${COUNT_PER_PAGE}`
@@ -73,21 +61,11 @@ const MyOmr = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.subheader}>
-        {/* place header here */}
-        {/* subheader */}
-        {subHeader.map((item, idx) => {
-          return (
-            <div
-              key={idx}
-              className={`${styles.text} ${
-                mode === item.stringId ? styles.active : ''
-              }`}
-              onClick={() => handleSubheaderClick(item.stringId)}
-            >
-              {item.name}
-            </div>
-          );
-        })}
+        <TabMenu
+          currentTab={currentTab}
+          setCurrentTab={setCurrentTab}
+          menuList={myOmrTabMenuList}
+        />
       </div>
       {/* category list */}
       <div className={styles.category}>
@@ -112,7 +90,7 @@ const MyOmr = () => {
               setPage={setPage}
               countPerPage={COUNT_PER_PAGE}
               pageRange={PAGE_RANGE}
-              totalCount={questionList.totalPageCount*COUNT_PER_PAGE}
+              totalCount={questionList.totalPageCount * COUNT_PER_PAGE}
             />
           </div>
         </>

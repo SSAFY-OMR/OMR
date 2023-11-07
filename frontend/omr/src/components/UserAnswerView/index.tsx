@@ -20,7 +20,7 @@ const UserAnswerView = ({ answer }: UserAnswerViewProps) => {
           <div className={styles.nickname}>{answer.nickname}</div>
         </div>
         {/* dummy data */}
-        <LikeButton isLiked={true} likeCount={answer.likeCount} />
+        {/* <LikeButton isLiked={true} likeCount={answer.likeCount} /> */}
       </div>
       <div className={styles.content}>{answer.content}</div>
     </div>
