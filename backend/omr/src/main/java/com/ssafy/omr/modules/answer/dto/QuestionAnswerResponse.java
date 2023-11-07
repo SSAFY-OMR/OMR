@@ -1,9 +1,12 @@
 package com.ssafy.omr.modules.answer.dto;
 
-import org.springframework.data.domain.Page;
+import java.util.List;
 
 public record QuestionAnswerResponse(
         long questionId,
-        Page<AnswerResponse> answerResponses
+        List<AnswerResponse> answerResponses,
+        int currentPage,
+        int totalPageCount
+
 ) {
 }

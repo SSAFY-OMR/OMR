@@ -47,12 +47,17 @@ public class AnswerMapper {
 
     public static QuestionAnswerResponse supplyQuestionAnswerResponseOf(
             Long questionId,
-            Page<AnswerResponse> answerList
+            Page<AnswerResponse> answerResopnsePage
     ) {
-        return new QuestionAnswerResponse(questionId, answerList);
+        return new QuestionAnswerResponse(
+                questionId,
+                answerResopnsePage.getContent(),
+                answerResopnsePage.getNumber(),
+                answerResopnsePage.getTotalPages()
+        );
     }
 
-    public static AnswerListResponse supplyQuestionAnswerResponseFrom(List<AnswerResponse> responseList){
+    public static AnswerListResponse supplyQuestionAnswerResponseFrom(List<AnswerResponse> responseList) {
         return new AnswerListResponse(responseList);
     }
 
