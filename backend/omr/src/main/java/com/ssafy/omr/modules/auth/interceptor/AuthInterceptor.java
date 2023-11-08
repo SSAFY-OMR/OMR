@@ -26,15 +26,23 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-//        if (isGetMethodWithQuestionsUri(request) || isGetMethodWithAnswersUri(request)) {
-//            return true;
-//        }
+
         if (CorsUtils.isPreFlightRequest(request)) {
             return true;
         }
 
         if(isPostMethodQuestions(request)) {
             return true;
+        }
+
+        if(isGetMethodMyProfile(request)) {
+            String token = AuthorizationExtractor.extractAccessToken(request);
+            return isValidToken(token, request, response);
+        }
+
+        if(isGetMethodHistory(request)) {
+            String token = AuthorizationExtractor.extractAccessToken(request);
+            return isValidToken(token, request, response);
         }
 
         if(isGetMethodQuestionDetail(request)) {
@@ -55,6 +63,14 @@ public class AuthInterceptor implements HandlerInterceptor {
         String token = AuthorizationExtractor.extractAccessToken(request);
 
         return isValidToken(token, request, response);
+    }
+
+    private boolean isGetMethodMyProfile(HttpServletRequest request) {
+        return request.getMethod().equalsIgnoreCase("GET") && request.getRequestURI().contains("/members/my-profile");
+    }
+
+    private boolean isGetMethodHistory(HttpServletRequest request) {
+        return request.getMethod().equalsIgnoreCase("GET") && request.getRequestURI().contains("/history");
     }
 
     private boolean isGetMethodQuestionDetail(HttpServletRequest request) {
