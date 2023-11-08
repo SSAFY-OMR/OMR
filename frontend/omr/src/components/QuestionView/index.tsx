@@ -52,7 +52,10 @@ const QuestionView = ({
   };
 
   return (
-    <div className={styles.QuestionView} onClick={handleClickQuestion}>
+    <div
+      className={`${type === 'listItem' && 'clickable boxHoverAnimation'} ${styles.QuestionView}`}
+      onClick={handleClickQuestion}
+    >
       <div className={styles.header}>
         <span className={styles.category}>
           <CategoryTag category={question.category.description} />

@@ -19,7 +19,7 @@ const CategoryCardButton = ({
   onClick,
 }: CategoryCardButtonProps) => {
   return (
-    <div className={styles.CategoryCardButton} onClick={onClick}>
+    <div className={`boxHoverAnimation clickable ${styles.CategoryCardButton}`} onClick={onClick}>
       <div className={styles.info}>
         <div className={styles.title}>{category.description}</div>
         <div className={styles.count}>총 {count}문제</div>

@@ -91,7 +91,7 @@ const ProfilePage = () => {
         <div className={styles.profileContainer}>
           <div className={styles.profileContents}>
             <div
-              className={styles.profileEmojiContainer}
+              className={`${styles.profileEmojiContainer} clickable`}
               onClick={handleEmojiModalOpen}
             >
               <div className={styles.emoji}>{user?.emoji}</div>

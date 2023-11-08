@@ -17,7 +17,7 @@ const CategoryRadioButton = ({
 }: CategoryRadioButtonProps) => {
   return (
     <label
-      className={`${styles.radioBtn} ${
+      className={`clickable ${styles.radioBtn} ${
         selectedCategory === category.name ? `${styles.selected}` : ''
       }`}
     >

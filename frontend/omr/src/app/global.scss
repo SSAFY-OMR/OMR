@@ -189,3 +189,12 @@ div {
 div::-webkit-scrollbar-thumb {
   border-radius: 100px;
 }
+
+.clickable:hover {
+  cursor: pointer;
+}
+
+.boxHoverAnimation:hover {
+  transform: translateY(-3px);
+  transition: all 0.1s;
+}

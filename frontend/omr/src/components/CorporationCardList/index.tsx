@@ -28,7 +28,10 @@ const CorporationCardList = () => {
     <div className={styles.CateoryCardList}>
       <div className={styles.header}>
         <div className={styles.title}>회사별 기출 문제</div>
-        <div onClick={handleClickViewAll} className={styles.viewAllBtn}>
+        <div
+          onClick={handleClickViewAll}
+          className={`clickable ${styles.viewAllBtn}`}
+        >
           전체 보기
         </div>
       </div>

@@ -66,7 +66,10 @@ const AnswerInput = ({ questionId, type, content }: AnswerInputProps) => {
   };
 
   return (
-    <div className={styles.AnswerInput} onClick={handleClickAnswerArea}>
+    <div
+      className={`clickable ${styles.AnswerInput}`}
+      onClick={handleClickAnswerArea}
+    >
       {type === 'edit' ? (
         <div className={styles.answerAreaWrapper}>
           <div

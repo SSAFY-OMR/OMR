@@ -1,7 +1,7 @@
 .CateoryCardList {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
   width: 90%;
   max-width: 400px;
 }
@@ -23,6 +23,7 @@
   gap: 7px;
   width: 100%;
   overflow: auto;
+  padding-top: 3px;
 }
 
 .viewAllBtn {

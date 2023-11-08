@@ -39,11 +39,11 @@ const EmojiModal = ({ handleEmojiModalClose, setToast, setUser }:EmojiModalProps
 
   return (
     <div className={styles.EmojiModal}>
-      <div className={styles.modalBackGround} onClick={handleEmojiModalClose}></div>
+      <div className={`clickable ${styles.modalBackGround}`} onClick={handleEmojiModalClose}></div>
       <div className={styles.modalWrapper}>
         <div className={styles.modal}>
           <div className={styles.modalHeader}>
-            <span className={styles.modalExitButton} onClick={handleEmojiModalClose}>X</span>
+            <span className={`clickable ${styles.modalExitButton}`} onClick={handleEmojiModalClose}>X</span>
           </div>
           <EmojiPicker width={'100%'} onEmojiClick={handleEmojiPicker}/>
         </div>
