@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Objects;
+
 @RestController
 @RequestMapping("/answers")
 @RequiredArgsConstructor
@@ -154,7 +156,7 @@ public class AnswerController {
             Pageable pageable
     ) {
         return BaseResponse.<AnswerListResponse>builder()
-                .data(answerService.getOthersAnswerList(questionId, authInfo, pageable))
+                .data(answerService.getOthersAnswerList(questionId, Objects.requireNonNull(authInfo.id()), pageable))
                 .build();
     }
 
