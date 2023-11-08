@@ -6,7 +6,9 @@ import styles from './index.module.scss';
 import Button from '../UI/Button';
 import Toast from '../UI/Toast';
 
+import { useSSRRecoilState } from '@/hooks/useSSRRecoilState';
 import { createAnswer } from '@/service/answer';
+import { toastMessageState } from '@/states/ui';
 
 type AnswerInputProps = {
   questionId: string;
@@ -18,8 +20,13 @@ const AnswerInput = ({ questionId, type, content }: AnswerInputProps) => {
   // eslint-disable-next-line no-null/no-null
   const answerArea = useRef<HTMLDivElement>(null);
 
+  const [toastMessage, setToastMessage] = useSSRRecoilState(
+    toastMessageState,
+    '',
+  );
+
   const [answerContent, setAnswerContent] = useState('');
-  const [toastMessage, setToastMessage] = useState('');
+  const [prevAnswer, setPrevAnswer] = useState('');
 
   const handleClickAnswerArea = () => {
     if (answerArea.current) {
@@ -38,12 +45,16 @@ const AnswerInput = ({ questionId, type, content }: AnswerInputProps) => {
       setToastMessage('답을 입력해주세요.');
       return;
     }
+
+    if (answerContent === prevAnswer) return;
+
     const res = await createAnswer({
       questionId: questionId,
       content: answerContent,
     });
 
     if (res?.status === 200) {
+      setPrevAnswer(answerContent);
       setToastMessage('답을 저장했어요.');
     }
   };

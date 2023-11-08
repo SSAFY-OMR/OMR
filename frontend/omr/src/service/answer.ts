@@ -26,3 +26,13 @@ export const createAnswer = async ({
     console.error(e);
   }
 };
+
+export const deleteAnswer = async (answerId: number) => {
+  try {
+    const res = await axiosInstance.delete(`/answers/delete/${answerId}`);
+
+    return res;
+  } catch (e) {
+    console.error(e);
+  }
+};

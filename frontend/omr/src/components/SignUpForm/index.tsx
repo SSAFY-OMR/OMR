@@ -12,8 +12,10 @@ import Toast from '../UI/Toast';
 
 import type { FieldValues } from 'react-hook-form';
 
+import { useSSRRecoilState } from '@/hooks/useSSRRecoilState';
 import { getExistence } from '@/service/auth';
 import { signUp } from '@/service/member';
+import { toastMessageState } from '@/states/ui';
 
 const SignUpForm = () => {
   const {
@@ -25,9 +27,13 @@ const SignUpForm = () => {
 
   const router = useRouter();
 
+  const [toastMessage, setToastMessage] = useSSRRecoilState(
+    toastMessageState,
+    '',
+  );
+
   const [isLoginSucceed, setIsLoginSucceed] = useState(true);
   const [ixExists, setIsExists] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
 
   const handleSignUp = async (data: FieldValues) => {
     const existRes = await getExistence(data.loginId);
