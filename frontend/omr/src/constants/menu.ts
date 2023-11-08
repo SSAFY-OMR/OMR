@@ -10,7 +10,7 @@ export const answerTabMenuList: AnswerTabItem[] = [
   },
   {
     menuType: 'others',
-    title: '전체 답변',
+    title: '다른 사람 답변',
   },
 ];
 
