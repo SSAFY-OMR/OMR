@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { ArrowIcon } from 'public/icons';
 
 import styles from './index.module.scss';
@@ -29,14 +29,19 @@ const QuestionView = ({
   questionId,
 }: QuestionProps) => {
   const router = useRouter();
+  const path = usePathname();
 
   const handleClickQuestion = () => {
     if (type === 'listItem') {
-      router.push(
-        `/question/${
-          listCategory === 'ALL' ? listCategory : question.category.name
-        }/${question.questionId}`,
-      );
+      if (path.includes('corporation')) {
+        router.push(`/question/corporation/${question.questionId}`);
+      } else {
+        router.push(
+          `/question/category/${
+            listCategory === 'ALL' ? listCategory : question.category.name
+          }/${question.questionId}`,
+        );
+      }
     }
   };
 

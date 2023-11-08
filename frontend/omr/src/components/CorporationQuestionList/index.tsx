@@ -8,21 +8,21 @@ import CategoryRadioGroup from '../CategoryRadioGroup';
 import QuestionListView from '../QuestionListView';
 import Paging from '../UI/Pagination';
 
-import useCategoryList from '@/hooks/useCategoryList';
-import useQuestionList from '@/hooks/useQuestionList';
+import useCorporationList from '@/hooks/useCorporationList';
+import useCorporationQuuestionList from '@/hooks/useCorporationQuestionList';
 
 const PAGE_SIZE = 5;
 
-const QuestionList = ({ category }: { category: string }) => {
-  const [selectedCategory, setSelectedCategory] = useState(category);
+const CorporationQuestionList = ({ corporation }: { corporation: string }) => {
+  const [selectedCategory, setSelectedCategory] = useState(corporation);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { categoryList } = useCategoryList();
+  const { corporations } = useCorporationList();
 
-  const { data } = useQuestionList({
+  const { data } = useCorporationQuuestionList({
     page: currentPage,
     size: PAGE_SIZE,
-    categoryName: selectedCategory === 'ALL' ? undefined : selectedCategory,
+    corporation: selectedCategory,
   });
 
   useEffect(() => {
@@ -32,11 +32,14 @@ const QuestionList = ({ category }: { category: string }) => {
   return (
     <div className={styles.QuestionList}>
       <div className={styles.categoryList}>
-        {categoryList && (
+        {corporations && (
           <CategoryRadioGroup
+            type="corporation"
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
-            categoryList={categoryList}
+            categoryList={corporations.map(
+              (corporation) => corporation.corporationType,
+            )}
           />
         )}
       </div>
@@ -65,4 +68,4 @@ const QuestionList = ({ category }: { category: string }) => {
   );
 };
 
-export default QuestionList;
+export default CorporationQuestionList;

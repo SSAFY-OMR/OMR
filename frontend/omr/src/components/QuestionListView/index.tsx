@@ -15,6 +15,7 @@ const QuestionListView = ({
   questions,
   listCategory,
 }: QuestionListViewProps) => {
+
   return (
     <div className={styles.QuestionListView}>
       {questions.map((question, index) => (

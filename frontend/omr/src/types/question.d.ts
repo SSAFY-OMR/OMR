@@ -25,3 +25,8 @@ export type CategoryCount = {
   interviewCategory: Category;
   count: number;
 };
+
+export type CorporationCount = {
+  corporationType: Category;
+  count: number;
+};
