@@ -81,14 +81,6 @@ public class AuthInterceptor implements HandlerInterceptor {
         return request.getMethod().equalsIgnoreCase("GET");
     }
 
-//    private boolean isGetMethodWithQuestionsUri(HttpServletRequest request) {
-//        return request.getRequestURI().contains("/questions") && request.getMethod().equalsIgnoreCase("GET");
-//    }
-//
-//    private boolean isGetMethodWithAnswersUri(HttpServletRequest request) {
-//        return request.getRequestURI().contains("/answers") && request.getMethod().equalsIgnoreCase("GET");
-//    }
-
     private boolean isPostMethodQuestions(HttpServletRequest request) {
         return request.getMethod().equalsIgnoreCase("POST") && request.getRequestURI().contains("/questions");
     }
@@ -99,8 +91,12 @@ public class AuthInterceptor implements HandlerInterceptor {
     }
 
     private boolean isValidToken(String token, HttpServletRequest request, HttpServletResponse response) {
-        LOGGER.info("no token" + request.getRequestURI());
-        response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        return tokenProvider.isValid(token);
+        if(tokenProvider.isValid(token)) {
+            return true;
+        } else {
+            LOGGER.info("no token" + request.getRequestURI());
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            return false;
+        }
     }
 }
