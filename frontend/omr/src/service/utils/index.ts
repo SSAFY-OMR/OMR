@@ -41,12 +41,18 @@ axiosInstance.interceptors.response.use(
   async (error: AxiosError) => {
     if (error.response?.status === 401) {
       if (typeof window !== 'undefined') {
-        if (!localStorage.getItem('USER')) redirectLoginPage();
+        if (!localStorage.getItem('USER')) {
+          redirectLoginPage();
+          return;
+        }
 
         let user = JSON.parse(localStorage.getItem('USER')!);
         const refreshToken = user.userRefreshTokenState;
 
-        if (!refreshToken) redirectLoginPage();
+        if (!refreshToken) {
+          redirectLoginPage();
+          return;
+        }
 
         const res = await reissue(refreshToken);
 

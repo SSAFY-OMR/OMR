@@ -38,7 +38,7 @@ const QuestionDetailPage = ({
   const [viewAnswer, setViewAnswer] = useState(false);
 
   const { data: question, mutate } = useFetcher<Question>(
-    `/questions/${id}`,
+    `/questions/detail/${id}`,
     typeof id !== 'undefined',
   );
 
