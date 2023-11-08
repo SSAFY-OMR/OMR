@@ -14,12 +14,12 @@ import type { User } from '@/types/user';
 import { useSSRRecoilState } from '@/hooks/useSSRRecoilState';
 import useStreaks from '@/hooks/useStreaks';
 import { getUserInfo } from '@/service/member';
-import { userInfoState, userTokenState } from '@/states/auth';
+import { userAccessTokenState, userInfoState } from '@/states/auth';
 
 const CalendarStreak = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [userToken, setUserToken, loadingUserToken] = useSSRRecoilState<string>(
-    userTokenState,
+  const [userAccessToken, setUserAccessToken, loadingUserToken] = useSSRRecoilState<string>(
+    userAccessTokenState,
     '',
   );
   const [userInfo, setUserInfo] = useSSRRecoilState<User | undefined>(
@@ -28,7 +28,7 @@ const CalendarStreak = () => {
   );
 
   useEffect(() => {
-    if (userToken) {
+    if (userAccessToken) {
       (async () => {
         const res = await getUserInfo();
 
@@ -37,7 +37,7 @@ const CalendarStreak = () => {
         }
       })();
     }
-  }, [setUserInfo, userToken]);
+  }, [setUserInfo, userAccessToken]);
 
   const {
     data: streaks,
@@ -46,7 +46,7 @@ const CalendarStreak = () => {
   } = useStreaks({
     month: currentMonth.getMonth() + 1,
     year: currentMonth.getFullYear(),
-    isTriggered: userToken !== '',
+    isTriggered: userAccessToken !== '',
   });
 
   return (
@@ -55,7 +55,7 @@ const CalendarStreak = () => {
         <CalendarLoading />
       ) : (
         <>
-          {userToken ? (
+          {userAccessToken ? (
             <>
               <div className={styles.title}>
                 {userInfo && userInfo.nickname}님의 기록

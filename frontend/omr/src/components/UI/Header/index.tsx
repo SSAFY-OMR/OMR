@@ -10,15 +10,15 @@ import { BookmarkIcon, ProfileIcon } from 'public/icons';
 import styles from './index.module.scss';
 
 import { useSSRRecoilState } from '@/hooks/useSSRRecoilState';
-import { userTokenState } from '@/states/auth';
+import { userAccessTokenState } from '@/states/auth';
 import { BLACK } from '@/styles/color';
 
 const Header = () => {
   const router = useRouter();
-  const [userToken, setUserToken] = useSSRRecoilState(userTokenState, '');
+  const [userAccessToken, setUserAccessToken] = useSSRRecoilState(userAccessTokenState, '');
 
   const handleClickProfile = () => {
-    if (userToken) {
+    if (userAccessToken) {
       router.push('/profile');
     } else {
       router.push('/login');
@@ -26,7 +26,7 @@ const Header = () => {
   };
 
   const handleClickBookmark = () => {
-    if (userToken) {
+    if (userAccessToken) {
       router.push('/myomr');
     } else {
       router.push('/login');
