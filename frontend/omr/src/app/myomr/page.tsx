@@ -95,9 +95,7 @@ const MyOmr = () => {
           </div>
         </>
       ) : (
-        <div className={styles.nodata}>
-          <h3>{noDataText()} 문제가 없습니다!</h3>
-        </div>
+        <div className={styles.nodata}>아직 {noDataText()} 문제가 없어요.</div>
       )}
     </div>
   );
