@@ -107,7 +107,9 @@ const ProfilePage = () => {
                 <label className={styles.label}>아이디</label>
                 <div className={styles.loginId}>{user?.loginId}</div>
               </div>
-              <button onClick={handleClickLogout}>로그아웃</button>
+              <div className={styles.logoutBtn} onClick={handleClickLogout}>
+                로그아웃
+              </div>
             </div>
           </div>
           <ChangePasswordForm />

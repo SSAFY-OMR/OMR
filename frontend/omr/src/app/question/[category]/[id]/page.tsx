@@ -93,12 +93,12 @@ const QuestionDetailPage = ({
   return (
     <div className={`${styles.QuestionDetailPage}`}>
       <div className={styles.header}>
-        <button onClick={handleClickBackBtn}>
+        <div onClick={handleClickBackBtn} className={styles.backBtn}>
           <PrevPageIcon width={24} height={24} fill={NEUTRAL_500} />
           <span className={styles.categoryTitle}>
             {category === 'ALL' ? '전체' : question?.category.description}
           </span>
-        </button>
+        </div>
       </div>
       <div
         className={`${styles.questionSolving} ${

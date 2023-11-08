@@ -28,9 +28,9 @@ const CategoryCardList = () => {
     <div className={styles.CateoryCardList}>
       <div className={styles.header}>
         <div className={styles.title}>카테고리별 문제 보기</div>
-        <button onClick={handleClickViewAll} className={styles.viewAllBtn}>
+        <div onClick={handleClickViewAll} className={styles.viewAllBtn}>
           전체 보기
-        </button>
+        </div>
       </div>
       <div className={styles.list}>
         {categoryList &&
