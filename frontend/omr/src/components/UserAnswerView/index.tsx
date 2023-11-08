@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { DeleteIcon } from 'public/icons';
 
@@ -8,7 +8,9 @@ import Toast from '../UI/Toast';
 
 import type { Answer } from '@/types/question';
 
+import { useSSRRecoilState } from '@/hooks/useSSRRecoilState';
 import { deleteAnswer } from '@/service/answer';
+import { toastMessageState } from '@/states/ui';
 import { BLACK } from '@/styles/color';
 
 type UserAnswerViewProps = {
@@ -22,14 +24,17 @@ const UserAnswerView = ({
   answer,
   mutateAnswerList,
 }: UserAnswerViewProps) => {
-  const [toastMessage, setToastMessage] = useState('');
+  const [toastMessage, setToastMessage] = useSSRRecoilState(
+    toastMessageState,
+    '',
+  );
 
   const handleClickDeleteBtn = async () => {
     if (!confirm('답변을 삭제합니다.')) return;
     console.log(answer.answerId);
     const res = await deleteAnswer(answer.answerId);
     if (res?.status === 200) {
-      mutateAnswerList();
+      await mutateAnswerList();
       setToastMessage('답변을 삭제했어요.');
     }
   };

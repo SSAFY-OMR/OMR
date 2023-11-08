@@ -16,7 +16,9 @@ import QuestionViewLoading from '@/components/QuestionView/QuestionViewLoading';
 import Button from '@/components/UI/Button';
 import Toast from '@/components/UI/Toast';
 import useFetcher from '@/hooks/useFetcher';
+import { useSSRRecoilState } from '@/hooks/useSSRRecoilState';
 import { updateScrap } from '@/service/question';
+import { toastMessageState } from '@/states/ui';
 import { NEUTRAL_500 } from '@/styles/color';
 
 const QuestionDetailPage = ({
@@ -29,7 +31,10 @@ const QuestionDetailPage = ({
 
   const router = useRouter();
 
-  const [toastMessage, setToastMessage] = useState('');
+  const [toastMessage, setToastMessage] = useSSRRecoilState(
+    toastMessageState,
+    '',
+  );
   const [viewAnswer, setViewAnswer] = useState(false);
 
   const { data: question, mutate } = useFetcher<Question>(
@@ -90,7 +95,7 @@ const QuestionDetailPage = ({
       <div className={styles.header}>
         <button onClick={handleClickBackBtn}>
           <PrevPageIcon width={24} height={24} fill={NEUTRAL_500} />
-          <span>
+          <span className={styles.categoryTitle}>
             {category === 'ALL' ? '전체' : question?.category.description}
           </span>
         </button>
