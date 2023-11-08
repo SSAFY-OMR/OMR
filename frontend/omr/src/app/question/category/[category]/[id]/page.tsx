@@ -78,7 +78,7 @@ const QuestionDetailPage = ({
       return;
     }
     router.push(
-      `/question/${question.category.name}/${question?.nextQuestionId}`,
+      `/question/category/${question.category.name}/${question?.nextQuestionId}`,
     );
   };
 
@@ -87,7 +87,7 @@ const QuestionDetailPage = ({
   };
 
   const handleClickBackBtn = () => {
-    router.push(`/questionlist/${category}`);
+    router.push(`/questionlist/category/${category}`);
   };
 
   return (

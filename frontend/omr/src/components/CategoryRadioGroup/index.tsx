@@ -8,12 +8,14 @@ import styles from './index.module.scss';
 import type { Category } from '@/types/question';
 
 type CategoryRadioGroupProps = {
+  type?: 'category' | 'corporation';
   selectedCategory: string;
   setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
   categoryList: Category[];
 };
 
 const CategoryRadioGroup = ({
+  type = 'category',
   selectedCategory,
   setSelectedCategory,
   categoryList,
@@ -37,12 +39,14 @@ const CategoryRadioGroup = ({
       // onWheel={handleScrollEvent}
       ref={containerRef}
     >
-      <CategoryRadioButton
-        key={0}
-        category={{ id: 0, name: 'ALL', description: '전체' }}
-        selectedCategory={selectedCategory}
-        handleChangeCategory={handleChangeCategory}
-      />
+      {type === 'category' && (
+        <CategoryRadioButton
+          key={0}
+          category={{ id: 0, name: 'ALL', description: '전체' }}
+          selectedCategory={selectedCategory}
+          handleChangeCategory={handleChangeCategory}
+        />
+      )}
       {categoryList.map((category) => (
         <CategoryRadioButton
           key={category.id}

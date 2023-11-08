@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 
 import CategoryRadioGroup from '@/components/CategoryRadioGroup';
-import QuestionListView from '@/components/QuestionList/QuestionListView';
+import QuestionListView from '@/components/QuestionListView';
 import Paging from '@/components/UI/Pagination';
 import TabMenu from '@/components/UI/TabMenu';
 import { myOmrTabMenuList } from '@/constants/menu';
