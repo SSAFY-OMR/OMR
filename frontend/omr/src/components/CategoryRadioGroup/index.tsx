@@ -25,17 +25,16 @@ const CategoryRadioGroup = ({
     setSelectedCategory(e.target.value);
   };
 
-  const handleScrollEvent = (e: WheelEvent<HTMLDivElement>) => {
-    
-    if(containerRef.current){
-      containerRef.current.scrollLeft += e.deltaY;
-    }
-  };
+  // const handleScrollEvent = (e: WheelEvent<HTMLDivElement>) => {
+  //   if (containerRef.current) {
+  //     containerRef.current.scrollLeft += e.deltaY;
+  //   }
+  // };
 
   return (
     <div
       className={styles.CategoryRadioGroup}
-      onWheel={handleScrollEvent}
+      // onWheel={handleScrollEvent}
       ref={containerRef}
     >
       <CategoryRadioButton
