@@ -31,7 +31,6 @@ const UserAnswerView = ({
 
   const handleClickDeleteBtn = async () => {
     if (!confirm('답변을 삭제합니다.')) return;
-    console.log(answer.answerId);
     const res = await deleteAnswer(answer.answerId);
     if (res?.status === 200) {
       await mutateAnswerList();

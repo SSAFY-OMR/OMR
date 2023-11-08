@@ -13,7 +13,7 @@ import type { FieldValues } from 'react-hook-form';
 
 import { useSSRRecoilState } from '@/hooks/useSSRRecoilState';
 import { login } from '@/service/auth';
-import { userTokenState } from '@/states/auth';
+import { userAccessTokenState, userRefreshTokenState } from '@/states/auth';
 
 const LoginForm = () => {
   const {
@@ -25,13 +25,18 @@ const LoginForm = () => {
   const router = useRouter();
 
   const [isLoginSucceed, setIsLoginSucceed] = useState(true);
-  const [userToken, setUserToken] = useSSRRecoilState(userTokenState, '');
+  const [userAccessToken, setUserAccessToken] = useSSRRecoilState(userAccessTokenState, '');
+  const [userRefreshToken, setUserRefreshToken] = useSSRRecoilState(
+    userRefreshTokenState,
+    '',
+  );
 
   const handleLogin = async (data: FieldValues) => {
     const res = await login({ loginId: data.loginId, password: data.password });
 
     if (res?.status === 200) {
-      setUserToken(res.data.data.accessToken);
+      setUserAccessToken(res.data.data.accessToken);
+      setUserRefreshToken(res.data.data.refreshToken);
       router.replace('/');
     } else {
       setIsLoginSucceed(false);
@@ -39,8 +44,8 @@ const LoginForm = () => {
   };
 
   const hadleClickJoin = () => {
-    router.push('/signup')
-  }
+    router.push('/signup');
+  };
 
   return (
     <form className={styles.LoginForm}>

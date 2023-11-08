@@ -1,9 +1,8 @@
 import axios from 'axios';
 
-import { userTokenState } from '../../states/auth';
 import { reissue } from '../auth';
 
-import { isTokenExpired } from '@/utils/jwtProvider';
+import type { AxiosError } from 'axios';
 
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -13,21 +12,7 @@ axiosInstance.interceptors.request.use(
   async (request) => {
     if (typeof window !== 'undefined' && localStorage.getItem('USER')) {
       let user = JSON.parse(localStorage.getItem('USER')!);
-      let accessToken = user.userTokenState;
-
-      if (accessToken && isTokenExpired(accessToken)) {
-        console.log('토큰 만료');
-
-        const res = await reissue();
-        if (res?.status === 200) {
-          accessToken = res.data.data.accessToken;
-          user = {
-            ...user,
-            userTokenState: accessToken,
-          };
-          localStorage.setItem('USER', user);
-        }
-      }
+      let accessToken = user.userAccessTokenState;
 
       request.headers['Authorization'] = `Bearer ${accessToken}`;
       axiosInstance.defaults.headers.common[
@@ -49,9 +34,29 @@ axiosInstance.interceptors.response.use(
     // 3. 이 작업 이후 .then()으로 이어진다
     return response;
   },
-  (error) => {
-    // 응답 200번대가 아닌 status일 때 응답 에러 직전 호출
-    // 4. 이 작업 이후 .catch()로 이어진다
-    return Promise.reject(error);
+  async (error: AxiosError) => {
+    if (error.response?.status === 401) {
+      if (typeof window !== 'undefined' && localStorage.getItem('USER')) {
+        let user = JSON.parse(localStorage.getItem('USER')!);
+        const res = await reissue(user.userRefreshTokenState);
+
+        if (res?.status === 200) {
+          user = {
+            ...user,
+            userAccessTokenState: res.data.data.accessToken,
+            userRefreshTokenState: res.data.data.refreshToken,
+          };
+          localStorage.setItem('USER', JSON.stringify(user));
+        }
+
+        if (error.config) {
+          return axiosInstance.request(error.config);
+        }
+      }
+
+      // 응답 200번대가 아닌 status일 때 응답 에러 직전 호출
+      // 4. 이 작업 이후 .catch()로 이어진다
+      return Promise.reject(error);
+    }
   },
 );
