@@ -16,7 +16,7 @@ type AnswerListProps = {
 const AnswerList = ({ questionId, answerType }: AnswerListProps) => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data: answers } = useAnswerList({
+  const { data: answers, mutate: mutateAnswerList } = useAnswerList({
     questionId: questionId,
     type: answerType,
     page: currentPage,
@@ -30,7 +30,12 @@ const AnswerList = ({ questionId, answerType }: AnswerListProps) => {
           {answers.answerResponses.length > 0 ? (
             <div className={styles.AnswerList}>
               {answers.answerResponses.map((answer) => (
-                <UserAnswerView key={answer.answerId} answer={answer} />
+                <UserAnswerView
+                  key={answer.answerId}
+                  answer={answer}
+                  isMine={answerType === 'mine' ? true : false}
+                  mutateAnswerList={mutateAnswerList}
+                />
               ))}
               <Paging
                 page={currentPage}

@@ -22,11 +22,11 @@ export default function useAnswerList({
   data: AnswerListResponse;
   isLoading: boolean;
   isError: boolean;
+  mutate: any;
 } {
   const params = `?page=${page}&size=${size}`;
 
-  const { data, isLoading, isError } = useFetcher<AnswerListResponse>(
-    // TODO: URL 수정 필요
+  const { data, isLoading, isError, mutate } = useFetcher<AnswerListResponse>(
     `/answers/question/${questionId}/${type}`,
     true,
     params,
@@ -36,5 +36,6 @@ export default function useAnswerList({
     data: data as AnswerListResponse,
     isLoading,
     isError,
+    mutate,
   };
 }
