@@ -15,6 +15,11 @@ import Toast from '@/components/UI/Toast';
 import { useSSRRecoilState } from '@/hooks/useSSRRecoilState';
 import { logout } from '@/service/auth';
 import { getUserInfo } from '@/service/member';
+import {
+  userAccessTokenState,
+  userInfoState,
+  userRefreshTokenState,
+} from '@/states/auth';
 import { toastMessageState } from '@/states/ui';
 import { BLACK } from '@/styles/color';
 
@@ -23,6 +28,16 @@ const ProfilePage = () => {
 
   const [user, setUser] = useState<User | undefined>(undefined);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+  const [userAccessToken, setUserAccessToken] = useSSRRecoilState(
+    userAccessTokenState,
+    '',
+  );
+  const [userRefreshToken, setUserRefreshToken] = useSSRRecoilState(
+    userRefreshTokenState,
+    '',
+  );
+  const [userInfo, setUserInfo] = useSSRRecoilState(userInfoState, {});
   const [toastMessage, setToastMessage] = useSSRRecoilState(
     toastMessageState,
     '',
@@ -54,6 +69,9 @@ const ProfilePage = () => {
     if (!confirm('로그아웃 하시겠습니까?')) return;
     const res = await logout();
     localStorage.removeItem('USER');
+    setUserAccessToken('');
+    setUserRefreshToken('');
+    setUserInfo({});
 
     if (res?.status === 200) {
       router.replace('/');

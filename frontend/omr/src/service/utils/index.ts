@@ -8,6 +8,10 @@ export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
+const redirectLoginPage = () => {
+  window.location.href = '/login';
+};
+
 axiosInstance.interceptors.request.use(
   async (request) => {
     if (typeof window !== 'undefined' && localStorage.getItem('USER')) {
@@ -36,9 +40,15 @@ axiosInstance.interceptors.response.use(
   },
   async (error: AxiosError) => {
     if (error.response?.status === 401) {
-      if (typeof window !== 'undefined' && localStorage.getItem('USER')) {
+      if (typeof window !== 'undefined') {
+        if (!localStorage.getItem('USER')) redirectLoginPage();
+
         let user = JSON.parse(localStorage.getItem('USER')!);
-        const res = await reissue(user.userRefreshTokenState);
+        const refreshToken = user.userRefreshTokenState;
+
+        if (!refreshToken) redirectLoginPage();
+
+        const res = await reissue(refreshToken);
 
         if (res?.status === 200) {
           user = {
@@ -54,8 +64,6 @@ axiosInstance.interceptors.response.use(
         }
       }
 
-      // 응답 200번대가 아닌 status일 때 응답 에러 직전 호출
-      // 4. 이 작업 이후 .catch()로 이어진다
       return Promise.reject(error);
     }
   },
