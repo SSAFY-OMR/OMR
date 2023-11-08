@@ -15,6 +15,8 @@ import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Objects;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -32,7 +34,7 @@ public class ScrapController {
 		@Parameter(description = "cs질문 pk")@PathVariable Long questionId
 	) {
 		return BaseResponse.<PostScrapResponse>builder()
-			.data(scrapService.toggleInterviewQuestionScrap(questionId, authInfo.id()))
+			.data(scrapService.toggleInterviewQuestionScrap(questionId, Objects.requireNonNull(authInfo.id())))
 			.build();
 	}
 }

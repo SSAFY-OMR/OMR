@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @RestController
 @RequestMapping("/questions")
 @RequiredArgsConstructor
@@ -43,10 +45,10 @@ public class QuestionController {
 
     @Operation(summary = "문제 상세 조회",
             description = "id에 해당하는 단건 문제를 조회합니다.")
-    @GetMapping("/{questionId}")
+    @GetMapping("/detail/{questionId}")
     public BaseResponse<QuestionDetailResponse> getQuestionById(@LoginUser AuthInfo authInfo, @PathVariable Long questionId) {
         return BaseResponse.<QuestionDetailResponse>builder()
-                .data(questionService.getQuestionById(authInfo, questionId))
+                .data(questionService.getQuestionById(Objects.requireNonNull(authInfo.id()), questionId))
                 .build();
     }
 
