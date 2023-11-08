@@ -17,17 +17,17 @@ const CategoryCardList = () => {
   const router = useRouter();
 
   const handleClickViewAll = () => {
-    router.push('/questionlist/ALL');
+    router.push('/questionlist/category/ALL');
   };
 
   const handleClickCategoryCard = (category: string) => {
-    router.push(`/questionlist/${category}`);
+    router.push(`/questionlist/category/${category}`);
   };
 
   return (
     <div className={styles.CateoryCardList}>
       <div className={styles.header}>
-        <div className={styles.title}>카테고리별 문제 보기</div>
+        <div className={styles.title}>카테고리별 문제</div>
         <div onClick={handleClickViewAll} className={styles.viewAllBtn}>
           전체 보기
         </div>
