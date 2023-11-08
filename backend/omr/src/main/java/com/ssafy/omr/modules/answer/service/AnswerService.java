@@ -82,7 +82,7 @@ public class AnswerService {
                 .findById(updateAnswerRequest.answerId())
                 .orElseThrow(AnswerNotFoundException::new);
 
-        if (checkEditable(authInfo, answer.getMember().getId())) {
+        if (!checkEditable(authInfo, answer.getMember().getId())) {
             throw new AnswerForbiddenException();
         }
         answer.updateContent(updateAnswerRequest.content());
@@ -101,7 +101,7 @@ public class AnswerService {
                 .findById(answerId)
                 .orElseThrow(AnswerNotFoundException::new);
 
-        if (checkEditable(authInfo, answer.getMember().getId())) {
+        if (!checkEditable(authInfo, answer.getMember().getId())) {
             throw new AnswerForbiddenException();
         }
         answerRepository.delete(answer);
