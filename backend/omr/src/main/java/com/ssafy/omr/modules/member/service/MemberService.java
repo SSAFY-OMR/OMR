@@ -105,9 +105,9 @@ public class MemberService {
 
         Streak streak = memberDynamicRepository.getTodayMemberStreak(memberId, localDate);
         if(Objects.isNull(streak)) { //오늘 문제를 푼 적이 없다면 new Streak 을 생성해서 저장
-            Member member = memberRepository.findById(memberId)
+            Member member = memberRepository.findMemberWithMemberStreakByMemberId(memberId)
                     .orElseThrow(MemberNotFoundException::new);
-            MemberStreak memberStreak = memberStreakRepository.findById(memberId)
+            MemberStreak memberStreak = memberStreakRepository.findById(member.getMemberStreak().getId())
                     .orElseThrow(MemberNotFoundException::new);
 
             updateMemberStreak(localDate, memberStreak, member);
