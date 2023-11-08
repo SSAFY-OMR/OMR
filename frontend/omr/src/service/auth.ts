@@ -17,6 +17,16 @@ export const login = async (user: { loginId: string; password: string }) => {
   }
 };
 
+export const logout = async () => {
+  try {
+    const res = await axiosInstance.post(`/logout`);
+
+    return res;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 export const reissue = async (refreshToken: string) => {
   try {
     const res = await axiosInstance.post<

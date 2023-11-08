@@ -14,18 +14,6 @@ export const getDailyQuestion = async () => {
   }
 };
 
-export const getQuestionDetail = async (questionId: string) => {
-  try {
-    const res = await axiosInstance.get<APIResponse<Question>>(
-      `questions/${questionId}`,
-    );
-
-    return res;
-  } catch (e) {
-    console.error(e);
-  }
-};
-
 export const updateScrap = async (questionId: string) => {
   try {
     const res = await axiosInstance.post<
