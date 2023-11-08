@@ -15,7 +15,7 @@ type LikeButtonProps = {
 const LikeButton = ({ onClick, isLiked, likeCount }: LikeButtonProps) => {
   return (
     <div className={styles.LikeButton}>
-      <button onClick={onClick}>
+      <button id="likeBtn" onClick={onClick}>
         <LikeIcon
           width={20}
           height={20}

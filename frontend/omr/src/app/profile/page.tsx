@@ -13,7 +13,6 @@ import ChangePasswordForm from '@/components/ChangePasswordForm';
 import EmojiModal from '@/components/EmojiModal/index';
 import Toast from '@/components/UI/Toast';
 import { useSSRRecoilState } from '@/hooks/useSSRRecoilState';
-import { logout } from '@/service/auth';
 import { getUserInfo } from '@/service/member';
 import {
   userAccessTokenState,

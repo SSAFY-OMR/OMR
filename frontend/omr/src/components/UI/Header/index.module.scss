@@ -17,4 +17,17 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  & > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+    border-radius: 10px;
+  }
+}
+
+.bookmarkBtn:hover,
+.profileBtn:hover {
+  background-color: var(--color-neutral-50);
+  transition: all 0.3s;
 }

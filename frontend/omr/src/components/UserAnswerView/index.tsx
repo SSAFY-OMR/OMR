@@ -3,7 +3,6 @@ import React from 'react';
 import { DeleteIcon } from 'public/icons';
 
 import styles from './index.module.scss';
-import LikeButton from '../LikeButton';
 import Toast from '../UI/Toast';
 
 import type { Answer } from '@/types/question';
@@ -52,12 +51,14 @@ const UserAnswerView = ({
           <div className={styles.nickname}>{answer.nickname}</div>
         </div>
         {isMine && (
-          <button onClick={handleClickDeleteBtn}>
+          <button
+            id="deleteBtn"
+            onClick={handleClickDeleteBtn}
+            className={styles.deleteBtn}
+          >
             <DeleteIcon width={20} height={20} fill={BLACK} />
           </button>
         )}
-        {/* dummy data */}
-        {/* <LikeButton isLiked={true} likeCount={answer.likeCount} /> */}
       </div>
       <div className={styles.content}>{answer.content}</div>
       <Toast

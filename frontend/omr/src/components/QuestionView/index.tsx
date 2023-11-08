@@ -53,7 +53,9 @@ const QuestionView = ({
 
   return (
     <div
-      className={`${type === 'listItem' && 'clickable boxHoverAnimation'} ${styles.QuestionView}`}
+      className={`${type === 'listItem' && 'clickable boxHoverAnimation'} ${
+        styles.QuestionView
+      }`}
       onClick={handleClickQuestion}
     >
       <div className={styles.header}>
@@ -73,9 +75,7 @@ const QuestionView = ({
       </div>
       {type === 'listItem' && (
         <div className={styles.footer}>
-          <button>
-            <ArrowIcon width={24} height={24} fill={BLUE_600} />
-          </button>
+          <ArrowIcon width={24} height={24} fill={BLUE_600} />
         </div>
       )}
     </div>

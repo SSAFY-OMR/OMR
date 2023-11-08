@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import RecoilRootProvider from '@/components/RecoilRootProvider';
 import Footer from '@/components/UI/Footer';
 import Header from '@/components/UI/Header';
+import { NEUTRAL_20 } from '@/styles/color';
 import { pretendard } from '@/styles/font';
 
 import './global.scss';
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     icon: '/favicon.ico',
     apple: './apple-touch-icon.png',
   },
-  themeColor: '#18b3e7',
+  themeColor: NEUTRAL_20,
 };
 
 export default function RootLayout({

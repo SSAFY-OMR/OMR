@@ -11,7 +11,7 @@ type ScrapButtonProps = {
 
 const ScrapButton = ({ isScrapped, onClick }: ScrapButtonProps) => {
   return (
-    <button onClick={onClick}>
+    <button onClick={onClick} id="scrapBtn">
       {isScrapped ? (
         <BookmarkIcon width={24} height={24} fill={BLUE_600} />
       ) : (

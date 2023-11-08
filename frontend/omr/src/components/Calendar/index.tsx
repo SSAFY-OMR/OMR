@@ -37,13 +37,21 @@ const Calendar = ({
   return (
     <div className={styles.Calendar}>
       <div className={styles.header}>
-        <button onClick={handleClickPrevMonth}>
+        <button
+          id="prevBtn"
+          onClick={handleClickPrevMonth}
+          className={styles.prevBtn}
+        >
           <PrevIcon width={20} height={20} fill={NEUTRAL_500} />
         </button>
         <span className={styles.currentMonth}>
           {currentMonth.getFullYear()}년 {currentMonth.getMonth() + 1}월
         </span>
-        <button onClick={handleClickNextMonth}>
+        <button
+          id="nextBtn"
+          onClick={handleClickNextMonth}
+          className={styles.nextBtn}
+        >
           <NextIcon width={20} height={20} fill={NEUTRAL_500} />
         </button>
       </div>

@@ -28,19 +28,27 @@ const Header = () => {
         <Link href="/">
           <Image
             src="/images/logo.png"
-            layout="responsive"
+            priority
             width={77.5}
-            height={35}
+            height={35.12}
             alt="logo"
           />
         </Link>
       </div>
       <div className={styles.buttons}>
-        <button onClick={handleClickBookmark}>
-          <BookmarkIcon width={24} height={24} fill={BLACK} />
+        <button
+          id="bookmarkBtn"
+          onClick={handleClickBookmark}
+          className={styles.bookmarkBtn}
+        >
+          <BookmarkIcon width={26} height={26} fill={BLACK} />
         </button>
-        <button onClick={handleClickProfile}>
-          <ProfileIcon width={24} height={24} fill={BLACK} />
+        <button
+          id="profileBtn"
+          onClick={handleClickProfile}
+          className={styles.profileBtn}
+        >
+          <ProfileIcon width={26} height={26} fill={BLACK} />
         </button>
       </div>
     </div>
