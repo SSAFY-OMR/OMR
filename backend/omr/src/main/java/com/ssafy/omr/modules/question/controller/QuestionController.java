@@ -6,12 +6,15 @@ import com.ssafy.omr.modules.question.dto.*;
 import com.ssafy.omr.modules.question.service.QuestionService;
 import com.ssafy.omr.modules.util.base.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/questions")
@@ -43,10 +46,11 @@ public class QuestionController {
 
     @Operation(summary = "문제 상세 조회",
             description = "id에 해당하는 단건 문제를 조회합니다.")
-    @GetMapping("/{questionId}")
-    public BaseResponse<QuestionDetailResponse> getQuestionById(@LoginUser AuthInfo authInfo, @PathVariable Long questionId) {
+    @GetMapping("/detail/{questionId}")
+    public BaseResponse<QuestionDetailResponse> getQuestionById(
+            @Parameter(hidden = true) @LoginUser AuthInfo authInfo, @PathVariable Long questionId) {
         return BaseResponse.<QuestionDetailResponse>builder()
-                .data(questionService.getQuestionById(authInfo, questionId))
+                .data(questionService.getQuestionById(Objects.requireNonNull(authInfo.id()), questionId))
                 .build();
     }
 

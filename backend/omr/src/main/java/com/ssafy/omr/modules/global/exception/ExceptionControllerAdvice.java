@@ -51,6 +51,7 @@ public class ExceptionControllerAdvice {
     }
 
     @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleRuntimeException(RuntimeException e) {
         log.error(e.getMessage());
         return new ErrorResponse("서버에 알 수 없는 문제가 발생했습니다.");

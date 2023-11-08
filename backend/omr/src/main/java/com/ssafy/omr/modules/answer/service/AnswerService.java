@@ -161,10 +161,10 @@ public class AnswerService {
     }
 
     @Transactional(readOnly = true)
-    public AnswerListResponse getOthersAnswerList(Long questionId, AuthInfo authInfo, Pageable pageableRequest) {
+    public AnswerListResponse getOthersAnswerList(Long questionId, Long memberId, Pageable pageableRequest) {
         Pageable pageable = PageRequest.of(pageableRequest.getPageNumber() - 1, pageableRequest.getPageSize(), pageableRequest.getSort());
         InterviewQuestion interviewQuestion = interViewQuestionRepository.getReferenceById(questionId);
-        Member member = memberRepository.getReferenceById(authInfo.id());
+        Member member = memberRepository.getReferenceById(memberId);
 
         Page<Answer> answers = answerDynamicRepository.findOthersAnswerListByQuestionAndMember(interviewQuestion, member, pageable);
         List<AnswerResponse> answerResponses = answers.stream().map(AnswerMapper::supplyAnswerResponseOf).toList();

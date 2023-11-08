@@ -37,6 +37,11 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
 
+        if(isGetMethodQuestionDetail(request)) {
+            String token = AuthorizationExtractor.extractAccessToken(request);
+            return isValidToken(token, request, response);
+        }
+
         if (isGetMethod(request)) {
             LOGGER.info("GET" + request.getRequestURI());
             return true;
@@ -48,12 +53,12 @@ public class AuthInterceptor implements HandlerInterceptor {
             return false;
         }
         String token = AuthorizationExtractor.extractAccessToken(request);
-        if (isInvalidToken(token)) {
-            LOGGER.info("no token" + request.getRequestURI());
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            return false;
-        }
-        return true;
+
+        return isValidToken(token, request, response);
+    }
+
+    private boolean isGetMethodQuestionDetail(HttpServletRequest request) {
+        return request.getMethod().equalsIgnoreCase("GET") && request.getRequestURI().contains("/questions/detail");
     }
 
     private boolean isGetMethod(HttpServletRequest request) {
@@ -77,7 +82,9 @@ public class AuthInterceptor implements HandlerInterceptor {
         return Objects.isNull(authorizationHeader);
     }
 
-    private boolean isInvalidToken(String token) {
-        return !tokenProvider.isValid(token);
+    private boolean isValidToken(String token, HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("no token" + request.getRequestURI());
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        return tokenProvider.isValid(token);
     }
 }
