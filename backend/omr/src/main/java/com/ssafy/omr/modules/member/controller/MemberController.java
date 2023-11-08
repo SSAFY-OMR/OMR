@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Objects;
+
 @Tag(name = "members", description = "회원 관련 api")
 @RequiredArgsConstructor
 @RequestMapping("/members")
@@ -68,7 +70,7 @@ public class MemberController {
     public BaseResponse<MemberProfileResponse> getMyProfileInformation(
             @Parameter(hidden = true) @LoginUser AuthInfo authInfo) {
         return BaseResponse.<MemberProfileResponse>builder()
-                .data(memberService.getMyProfileInformation(authInfo.id()))
+                .data(memberService.getMyProfileInformation(Objects.requireNonNull(authInfo.id())))
                 .build();
     }
 
