@@ -17,6 +17,22 @@ export const login = async (user: { loginId: string; password: string }) => {
   }
 };
 
+export const reissue = async (refreshToken: string) => {
+  try {
+    const res = await axiosInstance.post<
+      APIResponse<{ accessToken: string; refreshToken: string }>
+    >(
+      `/reissue`,
+      {},
+      { headers: { 'Refresh-Token': `Bearer ${refreshToken}` } },
+    );
+
+    return res;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 export const getExistence = async (id: string) => {
   try {
     const res = await axiosInstance.get<APIResponse<{ isExist: boolean }>>(
