@@ -12,14 +12,15 @@
   color: white;
   text-align: center;
   font-size: var(--font-size-small);
-  transition: all 0.3s;
   opacity: 0;
-  bottom: 20px;
+  bottom: -40px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s;
 }
 
 .show {
   opacity: 1;
+  transform: translate(-50%, -60px);
 }
