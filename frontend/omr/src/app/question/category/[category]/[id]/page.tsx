@@ -152,11 +152,6 @@ const QuestionDetailPage = ({
           </Button>
         </div>
         {viewAnswer && <AnswerListView questionId={id} />}
-        <Toast
-          message={toastMessage}
-          isShown={toastMessage !== ''}
-          onClose={handleCloseToast}
-        />
       </div>
     </div>
   );

@@ -110,11 +110,6 @@ const AnswerInput = ({ questionId, type, content }: AnswerInputProps) => {
           </Button>
         )}
       </div>
-      <Toast
-        message={toastMessage}
-        isShown={toastMessage !== ''}
-        onClose={handleCloseToast}
-      />
     </div>
   );
 };

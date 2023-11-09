@@ -127,11 +127,6 @@ const QuestionDetailPage = ({ params }: { params: { id: string } }) => {
           )}
         </div>
         {viewAnswer && <AnswerListView questionId={id} />}
-        <Toast
-          message={toastMessage}
-          isShown={toastMessage !== ''}
-          onClose={handleCloseToast}
-        />
       </div>
     </div>
   );

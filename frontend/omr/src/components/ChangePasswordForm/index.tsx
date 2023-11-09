@@ -122,11 +122,6 @@ const ChangePasswordForm = () => {
           저장
         </Button>
       </div>
-      <Toast
-        message={toastMessage}
-        isShown={toastMessage !== ''}
-        onClose={handleCloseToast}
-      />
     </form>
   );
 };

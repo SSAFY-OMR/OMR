@@ -61,11 +61,6 @@ const UserAnswerView = ({
         )}
       </div>
       <div className={styles.content}>{answer.content}</div>
-      <Toast
-        message={toastMessage}
-        isShown={toastMessage !== ''}
-        onClose={handleCloseToast}
-      />
     </div>
   );
 };

@@ -153,11 +153,6 @@ const LoginForm = () => {
           회원가입
         </Button>
       </div>
-      <Toast
-        message={toastMessage}
-        isShown={toastMessage !== ''}
-        onClose={handleCloseToast}
-      />
     </form>
   );
 };

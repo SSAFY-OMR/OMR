@@ -118,11 +118,6 @@ const ProfilePage = () => {
           </div>
           <ChangePasswordForm />
         </div>
-        <Toast
-          message={toastMessage}
-          isShown={toastMessage !== ''}
-          onClose={handleCloseEmojiUpdateResultToast}
-        />
       </div>
     </>
   );
