@@ -53,7 +53,7 @@ public class MemberQuestionHistoryRepository {
 			.groupBy(interviewQuestion.id)
 			.fetch();
 
-		JPAQuery<Long> countQuery = jpaQueryFactory.select(Wildcard.count)
+		JPAQuery<Long> countQuery = jpaQueryFactory.select(interviewQuestion.countDistinct())
 			.from(interviewQuestion)
 			.innerJoin(answer)
 			.on(answer.interviewQuestion.id.eq(interviewQuestion.id))
