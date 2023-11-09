@@ -4,7 +4,7 @@ import { ArrowIcon, CheckIcon, CommunityIcon, EditIcon } from 'public/icons';
 
 import styles from './index.module.scss';
 
-import { BLUE_600, NEUTRAL_100, WHITE } from '@/styles/color';
+import { BLUE_600, BLUE_700, NEUTRAL_100, WHITE } from '@/styles/color';
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -33,7 +33,7 @@ const Button = ({
 
   const iconColor = {
     primary: WHITE,
-    secondary: BLUE_600,
+    secondary: BLUE_700,
     disabled: NEUTRAL_100,
   };
 
