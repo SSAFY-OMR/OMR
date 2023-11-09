@@ -59,21 +59,14 @@ const ProfilePage = () => {
     setModalOpen(false);
   };
 
-  const handleCloseEmojiUpdateResultToast = () => {
-    setToastMessage('');
-  };
-
   const handleClickLogout = async () => {
     if (!confirm('로그아웃 하시겠습니까?')) return;
-    // const res = await logout();
     localStorage.removeItem('USER');
     setUserAccessToken('');
     setUserRefreshToken('');
     setUserInfo({});
 
-    // if (res?.status === 200) {
     router.replace('/');
-    // }
   };
 
   return (

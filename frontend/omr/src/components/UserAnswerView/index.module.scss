@@ -27,10 +27,14 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: black;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.profileEmoji {
+  font-size: var(--font-size-large);
 }
 
 .nickname {
