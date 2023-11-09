@@ -50,10 +50,13 @@ public class MemberQuestionHistoryRepository {
 			.innerJoin(answer)
 			.on(answer.interviewQuestion.id.eq(interviewQuestion.id))
 			.where(answer.member.id.eq(memberId))
+			.groupBy(interviewQuestion.id)
 			.fetch();
 
 		JPAQuery<Long> countQuery = jpaQueryFactory.select(Wildcard.count)
-			.from(answer)
+			.from(interviewQuestion)
+			.innerJoin(answer)
+			.on(answer.interviewQuestion.id.eq(interviewQuestion.id))
 			.where(answer.member.id.eq(memberId)
 				, interviewCategoryEq(interviewQuestion.interviewCategory, category)
 			);
