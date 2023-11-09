@@ -4,7 +4,6 @@ import React, { useRef, useState } from 'react';
 
 import styles from './index.module.scss';
 import Button from '../UI/Button';
-import Toast from '../UI/Toast';
 
 import { useSSRRecoilState } from '@/hooks/useSSRRecoilState';
 import { createAnswer } from '@/service/answer';
@@ -36,7 +35,7 @@ const AnswerInput = ({ questionId, type, content }: AnswerInputProps) => {
 
   const handleInputAnswer = (e: React.FormEvent<HTMLDivElement>) => {
     if (e.currentTarget.textContent) {
-      setAnswerContent(e.currentTarget.textContent);
+      setAnswerContent(e.currentTarget.innerText);
     }
   };
 
@@ -59,12 +58,6 @@ const AnswerInput = ({ questionId, type, content }: AnswerInputProps) => {
       setPrevAnswer(answerContent);
       setToastMessage('답을 저장했어요.');
     }
-  };
-
-  const handleClickEditBtn = () => {};
-
-  const handleCloseToast = () => {
-    setToastMessage('');
   };
 
   return (
@@ -104,7 +97,6 @@ const AnswerInput = ({ questionId, type, content }: AnswerInputProps) => {
             size="small"
             iconType="edit"
             width="fitContent"
-            onClick={handleClickEditBtn}
           >
             수정
           </Button>

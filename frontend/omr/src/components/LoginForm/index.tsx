@@ -8,7 +8,6 @@ import { useForm } from 'react-hook-form';
 import styles from './index.module.scss';
 import FeedbackMessage from '../FeedbackMessage';
 import Button from '../UI/Button';
-import Toast from '../UI/Toast';
 
 import type { FieldValues } from 'react-hook-form';
 
@@ -54,10 +53,6 @@ const LoginForm = () => {
 
   const hadleClickJoin = () => {
     router.push('/signup');
-  };
-
-  const handleCloseToast = () => {
-    setToastMessage('');
   };
 
   return (

@@ -46,7 +46,7 @@ const DateCells = ({ currentMonth, streaks }: DateCellsProps) => {
         return colors.color;
       }
     }
-    return '';
+    return 'var(--color-blue-900)';
   };
 
   while (date < endDateOfLastWeek) {

@@ -14,7 +14,6 @@ import AnswerListView from '@/components/AnswerListView';
 import QuestionView from '@/components/QuestionView';
 import QuestionViewLoading from '@/components/QuestionView/QuestionViewLoading';
 import Button from '@/components/UI/Button';
-import Toast from '@/components/UI/Toast';
 import useFetcher from '@/hooks/useFetcher';
 import { useSSRRecoilState } from '@/hooks/useSSRRecoilState';
 import { updateScrap } from '@/service/question';
@@ -65,10 +64,6 @@ const QuestionDetailPage = ({ params }: { params: { id: string } }) => {
 
   const handleClickAnswerWrite = () => {
     setViewAnswer(false);
-  };
-
-  const handleCloseToast = () => {
-    setToastMessage('');
   };
 
   const handleClickBackBtn = () => {

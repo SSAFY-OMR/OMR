@@ -7,7 +7,6 @@ import { useForm } from 'react-hook-form';
 import styles from './index.module.scss';
 import FeedbackMessage from '../FeedbackMessage';
 import Button from '../UI/Button';
-import Toast from '../UI/Toast';
 
 import type { FieldValues } from 'react-hook-form';
 
@@ -38,10 +37,6 @@ const ChangePasswordForm = () => {
         '비밀번호 변경에 실패하였습니다. 관리자에게 문의하세요. 😔',
       );
     }
-  };
-
-  const handleCloseToast = () => {
-    setToastMessage('');
   };
 
   return (

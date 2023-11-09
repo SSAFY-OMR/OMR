@@ -3,7 +3,6 @@ import React from 'react';
 import { DeleteIcon } from 'public/icons';
 
 import styles from './index.module.scss';
-import Toast from '../UI/Toast';
 
 import type { Answer } from '@/types/question';
 
@@ -35,10 +34,6 @@ const UserAnswerView = ({
       await mutateAnswerList();
       setToastMessage('답변을 삭제했어요.');
     }
-  };
-
-  const handleCloseToast = () => {
-    setToastMessage('');
   };
 
   return (
