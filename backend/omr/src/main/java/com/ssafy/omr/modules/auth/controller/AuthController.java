@@ -16,7 +16,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -63,8 +62,7 @@ public class AuthController {
     @Operation(summary = "아이디 중복 검사", description = "아이디 중복 검사")
     @GetMapping("/existence")
     public BaseResponse<ExistLoginIdResponse> isExistLoginId(@NotNull
-                                                             @Length(min = 8, max = 16, message = "올바르지 않은 아이디 형식입니다.")
-                                                             @Pattern(regexp = "^[a-z]+[a-z0-9]{8,16}$", message = "올바르지 않은 아이디 형식입니다.")
+                                                             @Pattern(regexp = "^[a-z]+[a-z0-9]{7,15}$", message = "올바르지 않은 아이디 형식입니다.")
                                                              String loginId) {
         return BaseResponse.<ExistLoginIdResponse>builder()
                 .data(authService.isExistLoginId(loginId))

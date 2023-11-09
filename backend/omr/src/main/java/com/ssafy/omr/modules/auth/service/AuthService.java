@@ -84,7 +84,7 @@ public class AuthService {
 
     @Transactional(readOnly = true)
     public ExistLoginIdResponse isExistLoginId(String loginId) {
-
+        loginId = encryptor.encrypt(loginId);
         return AuthMapper.supplyExistLoginIdResponseFrom(memberRepository.existsByLoginId(loginId));
     }
 }
