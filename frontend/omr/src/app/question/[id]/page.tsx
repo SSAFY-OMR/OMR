@@ -21,12 +21,7 @@ import { updateScrap } from '@/service/question';
 import { toastMessageState } from '@/states/ui';
 import { NEUTRAL_500 } from '@/styles/color';
 
-const QuestionDetailPage = ({
-  params,
-}: {
-  params: { corporation: string; id: string };
-}) => {
-  const corporation = params.corporation;
+const QuestionDetailPage = ({ params }: { params: { id: string } }) => {
   const id = params.id;
 
   const router = useRouter();
@@ -83,7 +78,10 @@ const QuestionDetailPage = ({
   return (
     <div className={`${styles.QuestionDetailPage}`}>
       <div className={styles.header}>
-        <div onClick={handleClickBackBtn} className={`clickable ${styles.backBtn}`}>
+        <div
+          onClick={handleClickBackBtn}
+          className={`clickable ${styles.backBtn}`}
+        >
           <PrevPageIcon width={24} height={24} fill={NEUTRAL_500} />
         </div>
       </div>
@@ -95,7 +93,6 @@ const QuestionDetailPage = ({
         <div className={styles.QuestionContainer}>
           {question ? (
             <QuestionView
-              listCategory={corporation}
               questionId={id}
               question={question}
               type="questionView"

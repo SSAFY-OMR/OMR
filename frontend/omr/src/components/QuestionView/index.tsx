@@ -14,7 +14,7 @@ import type { Question } from '@/types/question';
 import { BLUE_600 } from '@/styles/color';
 
 type QuestionProps = {
-  listCategory: string;
+  listCategory?: string;
   question: Question;
   type: 'listItem' | 'questionView';
   toggleScrap?: (questionId: string) => Promise<void>;
@@ -33,14 +33,14 @@ const QuestionView = ({
 
   const handleClickQuestion = () => {
     if (type === 'listItem') {
-      if (path.includes('corporation')) {
-        router.push(`/question/corporation/${question.questionId}`);
-      } else {
+      if (path === '/' || path.includes('category')) {
         router.push(
           `/question/category/${
             listCategory === 'ALL' ? listCategory : question.category.name
           }/${question.questionId}`,
         );
+      } else {
+        router.push(`/question/${question.questionId}`);
       }
     }
   };

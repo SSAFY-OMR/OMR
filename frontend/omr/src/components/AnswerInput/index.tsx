@@ -40,7 +40,9 @@ const AnswerInput = ({ questionId, type, content }: AnswerInputProps) => {
     }
   };
 
-  const handleClickSaveBtn = async () => {
+  const handleClickSaveBtn = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    
     if (!answerContent) {
       setToastMessage('답을 입력해주세요.');
       return;
@@ -92,7 +94,7 @@ const AnswerInput = ({ questionId, type, content }: AnswerInputProps) => {
             size="small"
             iconType="complete"
             width="fitContent"
-            onClick={handleClickSaveBtn}
+            onClick={(e) => handleClickSaveBtn(e)}
           >
             저장
           </Button>
