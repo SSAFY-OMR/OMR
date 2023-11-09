@@ -45,7 +45,7 @@ const SignUpForm = () => {
     const res = await signUp({
       loginId: data.loginId,
       password: data.password,
-      emoji: '😀',
+      emoji: '😊',
     });
 
     if (res?.status === 200) {
