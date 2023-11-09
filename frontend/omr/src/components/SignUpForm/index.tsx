@@ -8,7 +8,6 @@ import { useForm } from 'react-hook-form';
 import styles from './index.module.scss';
 import FeedbackMessage from '../FeedbackMessage';
 import Button from '../UI/Button';
-import Toast from '../UI/Toast';
 
 import type { FieldValues } from 'react-hook-form';
 
@@ -57,10 +56,6 @@ const SignUpForm = () => {
     }
   };
 
-  const handleCloseToast = () => {
-    setToastMessage('');
-  };
-
   return (
     <form className={styles.LoginForm}>
       <div className={styles.loginInputs}>
@@ -76,7 +71,7 @@ const SignUpForm = () => {
             {...register('loginId', {
               required: '아이디를 입력해주세요.',
               pattern: {
-                value: /^[a-z][a-z0-9]*[0-9][a-z0-9]*$/,
+                value: /^[a-z]+[a-z0-9]{7,15}$/,
                 message: '아이디는 영문과 숫자로 구성되어야 합니다.',
               },
               minLength: {
@@ -112,8 +107,10 @@ const SignUpForm = () => {
             {...register('password', {
               required: '비밀번호를 입력해주세요.',
               pattern: {
-                value: /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]+$/,
-                message: '비밀번호는 영문과 숫자로 구성되어야 합니다.',
+                value:
+                  /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/,
+                message:
+                  '비밀번호는 영문과 숫자, 특수문자로 구성되어야 합니다.',
               },
               minLength: {
                 value: 8,
@@ -172,11 +169,6 @@ const SignUpForm = () => {
           회원가입
         </Button>
       </div>
-      <Toast
-        message={toastMessage}
-        isShown={toastMessage !== ''}
-        onClose={handleCloseToast}
-      />
     </form>
   );
 };

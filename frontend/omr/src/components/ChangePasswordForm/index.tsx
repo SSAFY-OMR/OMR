@@ -58,8 +58,9 @@ const ChangePasswordForm = () => {
           {...register('password', {
             required: '비밀번호를 입력해주세요.',
             pattern: {
-              value: /^[A-Za-z0-9]+$/,
-              message: '비밀번호는 영문과 숫자로 구성되어야 합니다.',
+              value:
+                /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/,
+              message: '비밀번호는 영문과 숫자, 특수문자로 구성되어야 합니다.',
             },
             minLength: {
               value: 8,
