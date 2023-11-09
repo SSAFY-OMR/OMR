@@ -104,13 +104,15 @@ const ProfilePage = () => {
             <div className={styles.idField}>
               <div className={styles.profileContent}>
                 <label className={styles.label}>아이디</label>
-                <div className={styles.loginId}>{user?.loginId}</div>
-              </div>
-              <div
-                className={`clickable ${styles.logoutBtn}`}
-                onClick={handleClickLogout}
-              >
-                로그아웃
+                <div className={styles.loginId}>
+                  {user?.loginId}
+                  <div
+                    className={`clickable ${styles.logoutBtn}`}
+                    onClick={handleClickLogout}
+                  >
+                    로그아웃
+                  </div>
+                </div>
               </div>
             </div>
           </div>

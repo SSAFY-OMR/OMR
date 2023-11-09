@@ -68,9 +68,13 @@
   flex-direction: row;
   align-items: center;
   gap: 15px;
+  width: 100%;
 }
 
 .loginId {
+  width: calc(75% - 10px);
+  display: flex;
+  justify-content: space-between;
   font-weight: 400;
   font-size: var(--font-size-medium);
   padding: 15px 0px;
@@ -86,7 +90,6 @@
 
 .labelContent {
   min-width: 150px;
-  width: calc(75% - 10px);
   background-color: white;
   border-radius: 10px;
   padding: 15px 20px;

@@ -8,11 +8,19 @@ import { useRouter } from 'next/navigation';
 import { BookmarkIcon, ProfileIcon } from 'public/icons';
 
 import styles from './index.module.scss';
+import Toast from '../Toast';
 
+import { useSSRRecoilState } from '@/hooks/useSSRRecoilState';
+import { toastMessageState } from '@/states/ui';
 import { BLACK } from '@/styles/color';
 
 const Header = () => {
   const router = useRouter();
+
+  const [toastMessage, setToastMessage] = useSSRRecoilState(
+    toastMessageState,
+    '',
+  );
 
   const handleClickProfile = () => {
     router.push('/profile');
@@ -20,6 +28,10 @@ const Header = () => {
 
   const handleClickBookmark = () => {
     router.push('/myomr');
+  };
+
+  const handleCloseToast = () => {
+    setToastMessage('');
   };
 
   return (
@@ -51,6 +63,11 @@ const Header = () => {
           <ProfileIcon width={26} height={26} fill={BLACK} />
         </button>
       </div>
+      <Toast
+        message={toastMessage}
+        isShown={toastMessage !== ''}
+        onClose={handleCloseToast}
+      />
     </div>
   );
 };
