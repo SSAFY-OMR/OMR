@@ -34,7 +34,7 @@ const QuestionDetailPage = ({ params }: { params: { id: string } }) => {
   const { data: question, mutate } = useFetcher<Question>(
     `/questions/detail/${id}`,
     typeof id !== 'undefined',
-
+    '?isAll=false'
   );
 
   const toggleScrap = async (questionId: string) => {
