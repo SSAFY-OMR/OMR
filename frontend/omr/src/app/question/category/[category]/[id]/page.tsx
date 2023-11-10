@@ -39,6 +39,7 @@ const QuestionDetailPage = ({
   const { data: question, mutate } = useFetcher<Question>(
     `/questions/detail/${id}`,
     typeof id !== 'undefined',
+    category === 'ALL' ? '?isAll=true' : '?isAll=false',
   );
 
   const toggleScrap = async (questionId: string) => {
@@ -77,7 +78,9 @@ const QuestionDetailPage = ({
       return;
     }
     router.push(
-      `/question/category/${question.category.name}/${question?.nextQuestionId}`,
+      `/question/category/${
+        category === 'ALL' ? 'ALL' : question.category.name
+      }/${question?.nextQuestionId}`,
     );
   };
 
@@ -88,7 +91,10 @@ const QuestionDetailPage = ({
   return (
     <div className={`${styles.QuestionDetailPage}`}>
       <div className={styles.header}>
-        <div onClick={handleClickBackBtn} className={`clickable ${styles.backBtn}`}>
+        <div
+          onClick={handleClickBackBtn}
+          className={`clickable ${styles.backBtn}`}
+        >
           <PrevPageIcon width={24} height={24} fill={NEUTRAL_500} />
           <span className={styles.categoryTitle}>
             {category === 'ALL' ? '전체' : question?.category.description}
