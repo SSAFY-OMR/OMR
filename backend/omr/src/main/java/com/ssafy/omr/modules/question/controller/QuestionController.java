@@ -48,9 +48,11 @@ public class QuestionController {
             description = "id에 해당하는 단건 문제를 조회합니다.")
     @GetMapping("/detail/{questionId}")
     public BaseResponse<QuestionDetailResponse> getQuestionById(
-            @Parameter(hidden = true) @LoginUser AuthInfo authInfo, @PathVariable Long questionId) {
+            @Parameter(hidden = true) @LoginUser AuthInfo authInfo, @PathVariable Long questionId, @ModelAttribute QuestionDetailRequest questionDetailRequest) {
+        log.info(String.valueOf(questionDetailRequest.getIsAll()));
+
         return BaseResponse.<QuestionDetailResponse>builder()
-                .data(questionService.getQuestionById(Objects.requireNonNull(authInfo.id()), questionId))
+                .data(questionService.getQuestionById(Objects.requireNonNull(authInfo.id()), questionId, questionDetailRequest.getIsAll()))
                 .build();
     }
 
