@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 public interface InterviewQuestionRepositoryCustom {
     Page<InterviewQuestion> findQuestionsByCategory(Pageable pageable, String category);
 
-    InterviewQuestion findNextQuestion(InterviewQuestion interviewQuestion);
+    InterviewQuestion findNextQuestion(InterviewQuestion interviewQuestion, Boolean isAll);
 }
