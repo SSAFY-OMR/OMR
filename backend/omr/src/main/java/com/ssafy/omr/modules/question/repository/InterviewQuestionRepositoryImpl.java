@@ -37,7 +37,14 @@ public class InterviewQuestionRepositoryImpl implements InterviewQuestionReposit
     }
 
     @Override
-    public InterviewQuestion findNextQuestion(InterviewQuestion interviewQuestion) {
+    public InterviewQuestion findNextQuestion(InterviewQuestion interviewQuestion, Boolean isAll) {
+        if (isAll) {
+            return jpaQueryFactory.select(qInterviewQuestion)
+                    .from(qInterviewQuestion)
+                    .where(qInterviewQuestion.id.lt(interviewQuestion.getId()))
+                    .orderBy(qInterviewQuestion.id.desc())
+                    .fetchFirst();
+        }
         return jpaQueryFactory.select(qInterviewQuestion)
                 .from(qInterviewQuestion)
                 .where(interviewCategoryEq(interviewQuestion.getInterviewCategory()),

@@ -64,11 +64,11 @@ public class QuestionService {
     }
 
     @Transactional(readOnly = true)
-    public QuestionDetailResponse getQuestionById(Long memberId, Long questionId) {
+    public QuestionDetailResponse getQuestionById(Long memberId, Long questionId, Boolean isAll) {
         InterviewQuestion interviewQuestion = interviewQuestionRepository.findById(questionId)
                 .orElseThrow(InterviewQuestionNotFoundException::new);
 
-        InterviewQuestion nextQuestion = interviewQuestionRepository.findNextQuestion(interviewQuestion);
+        InterviewQuestion nextQuestion = interviewQuestionRepository.findNextQuestion(interviewQuestion, isAll);
 
         boolean isScrapped = false;
         String answer = null;
