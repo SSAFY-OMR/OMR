@@ -8,7 +8,7 @@ import CategoryRadioGroup from '../CategoryRadioGroup';
 import QuestionListView from '../QuestionListView';
 import Paging from '../UI/Pagination';
 
-import useCategoryList from '@/hooks/useCategoryList';
+import useCategoryCount from '@/hooks/useCategoryCount';
 import useQuestionList from '@/hooks/useQuestionList';
 
 const PAGE_SIZE = 5;
@@ -17,7 +17,7 @@ const QuestionList = ({ category }: { category: string }) => {
   const [selectedCategory, setSelectedCategory] = useState(category);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { categoryList } = useCategoryList();
+  const { categoryCount } = useCategoryCount();
 
   const { data } = useQuestionList({
     page: currentPage,
@@ -32,11 +32,11 @@ const QuestionList = ({ category }: { category: string }) => {
   return (
     <div className={styles.QuestionList}>
       <div className={styles.categoryList}>
-        {categoryList && (
+        {categoryCount && (
           <CategoryRadioGroup
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
-            categoryList={categoryList}
+            categoryCount={categoryCount}
           />
         )}
       </div>

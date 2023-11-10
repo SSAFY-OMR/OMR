@@ -9,7 +9,7 @@ import QuestionListView from '@/components/QuestionListView';
 import Paging from '@/components/UI/Pagination';
 import TabMenu from '@/components/UI/TabMenu';
 import { myOmrTabMenuList } from '@/constants/menu';
-import useCategoryList from '@/hooks/useCategoryList';
+import useCategoryCount from '@/hooks/useCategoryCount';
 import useFetcher from '@/hooks/useFetcher';
 import { type Question } from '@/types/question';
 
@@ -23,7 +23,7 @@ const COUNT_PER_PAGE = 5;
 const PAGE_RANGE = 5;
 
 const MyOmr = () => {
-  const { categoryList } = useCategoryList();
+  const { categoryCount } = useCategoryCount();
 
   const [currentTab, setCurrentTab] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
@@ -69,9 +69,9 @@ const MyOmr = () => {
       </div>
       {/* category list */}
       <div className={styles.category}>
-        {categoryList && (
+        {categoryCount && (
           <CategoryRadioGroup
-            categoryList={categoryList}
+            categoryCount={categoryCount}
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
           />

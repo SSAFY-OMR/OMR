@@ -37,9 +37,7 @@ const CorporationQuestionList = ({ corporation }: { corporation: string }) => {
             type="corporation"
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
-            categoryList={corporations.map(
-              (corporation) => corporation.corporationType,
-            )}
+            corporationCount={corporations}
           />
         )}
       </div>
