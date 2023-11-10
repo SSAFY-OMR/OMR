@@ -45,7 +45,7 @@ const CategoryCardList = () => {
                 count = categoryCount[i].count;
               }
             }
-
+            if (count === 0) return;
             return (
               <CategoryCardButton
                 key={category.id}
