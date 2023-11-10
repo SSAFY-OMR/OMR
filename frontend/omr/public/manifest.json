@@ -7,6 +7,44 @@
   "name": "OMR:오늘의 문제를 알려줘!",
   "short_name": "OMR",
   "description": "\uc624\ub298\uc758 \ubb38\uc81c\ub97c \uc54c\ub824\uc918",
+  "screenshots": [
+    {
+      "src": "images/www.omrcs.com_Desktop_1.png",
+      "type": "image/png",
+      "sizes": "625x922",
+      "form_factor": "wide"
+    },
+    {
+      "src": "images/www.omrcs.com_Desktop_2.png",
+      "type": "image/png",
+      "sizes": "625x922",
+      "form_factor": "wide"
+    },
+    {
+      "src": "images/www.omrcs.com_Desktop_3.png",
+      "type": "image/png",
+      "sizes": "625x922",
+      "form_factor": "wide"
+    },
+    {
+      "src": "images/www.omrcs.com_SamsungGalaxyS20Ultra_1.png",
+      "type": "image/png",
+      "sizes": "1442x3202",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "images/www.omrcs.com_SamsungGalaxyS20Ultra_2.png",
+      "type": "image/png",
+      "sizes": "1442x3202",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "images/www.omrcs.com_SamsungGalaxyS20Ultra_3.png",
+      "type": "image/png",
+      "sizes": "1442x3202",
+      "form_factor": "narrow"
+    }
+  ],
   "icons": [
     {
       "src": "images/icons/icon-72x72.png",
