@@ -15,16 +15,19 @@ import com.ssafy.omr.modules.member.repository.MemberStreakRepository;
 import com.ssafy.omr.modules.member.repository.StreakRepository;
 import com.ssafy.omr.modules.util.RandomUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class MemberService {
@@ -102,13 +105,13 @@ public class MemberService {
 
     public void updateMemberStreakStatus(Long memberId) {
         LocalDate localDate = LocalDate.now();
-
+        LocalDateTime localDateTime = LocalDateTime.now();
+        log.info("스트릭 업데이트 날짜: " + localDateTime);
         Streak streak = memberDynamicRepository.getTodayMemberStreak(memberId, localDate);
         if(Objects.isNull(streak)) { //오늘 문제를 푼 적이 없다면 new Streak 을 생성해서 저장
             Member member = memberRepository.findMemberWithMemberStreakByMemberId(memberId)
                     .orElseThrow(MemberNotFoundException::new);
-            MemberStreak memberStreak = memberStreakRepository.findById(member.getMemberStreak().getId())
-                    .orElseThrow(MemberNotFoundException::new);
+            MemberStreak memberStreak = member.getMemberStreak();
 
             updateMemberStreak(localDate, memberStreak, member);
         } else { //오늘 문제를 푼 적이 있다면 solvedCount + 1
