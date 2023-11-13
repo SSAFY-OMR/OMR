@@ -34,13 +34,14 @@ public class AnswerMapper {
         return new ToggleLikeAnswerResponse(isToggled);
     }
 
-    public static AnswerResponse supplyAnswerResponseOf(Answer answer) {
+    public static AnswerResponse supplyAnswerResponseOf(Answer answer, boolean isLiked) {
         Member member = answer.getMember();
         return new AnswerResponse(
                 answer.getId(),
                 member.getNickname(),
                 member.getEmoji(),
                 answer.getContent(),
+                isLiked,
                 answer.getLikeCount()
         );
     }

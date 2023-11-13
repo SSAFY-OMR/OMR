@@ -5,6 +5,7 @@ public record AnswerResponse(
         String nickname,
         String emoji,
         String content,
+        boolean isLiked,
         Integer likeCount
 ) {
 }
