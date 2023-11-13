@@ -1,5 +1,5 @@
 export type AnswerTabItem = {
-  menuType: 'mine' | 'others';
+  menuType: 'mine' | 'others' | 'chat';
   title: string;
 };
 
@@ -11,6 +11,10 @@ export const answerTabMenuList: AnswerTabItem[] = [
   {
     menuType: 'others',
     title: '다른 사람 답변',
+  },
+  {
+    menuType: 'chat',
+    title: '챗봇 답변',
   },
 ];
 

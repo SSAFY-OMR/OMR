@@ -22,7 +22,7 @@ export default function useStreaks({
   isError: boolean;
 } {
   const { data, isLoading, isError } = useFetcher<StreakResponse>(
-    `/members/streak/${month}/${year}`,
+    `/omr-api/members/streak/${month}/${year}`,
     isTriggered,
   );
 
