@@ -27,7 +27,7 @@ export default function useQuestionList({
       : `?page=${page}&size=${size}&category=${categoryName}`;
 
   const { data, isLoading, isError } = useFetcher<QuestionListResponse>(
-    `/questions`,
+    `/omr-api/questions`,
     true,
     params,
   );

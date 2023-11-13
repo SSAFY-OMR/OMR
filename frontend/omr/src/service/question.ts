@@ -6,7 +6,7 @@ import type { Question } from '@/types/question';
 export const getDailyQuestion = async () => {
   try {
     const res =
-      await axiosInstance.get<APIResponse<Question>>(`questions/daily`);
+      await axiosInstance.get<APIResponse<Question>>(`/omr-api/questions/daily`);
 
     return res;
   } catch (e) {
@@ -20,7 +20,7 @@ export const updateScrap = async (questionId: string) => {
       APIResponse<{
         isScrapped: boolean;
       }>
-    >(`questions/${questionId}/scrap`);
+    >(`/omr-api/questions/${questionId}/scrap`);
 
     return res;
   } catch (e) {

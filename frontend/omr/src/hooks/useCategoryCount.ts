@@ -12,7 +12,7 @@ export default function useCategoryCount(): {
   isError: boolean;
 } {
   const { data, isLoading, isError } =
-    useFetcher<CategoryCountResponse>(`/questions/count`);
+    useFetcher<CategoryCountResponse>(`/omr-api/questions/count`);
 
   return {
     categoryCount: data?.categoriesCount as CategoryCount[],

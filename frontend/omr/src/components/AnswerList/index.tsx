@@ -17,7 +17,7 @@ const PAGE_SIZE = 5;
 
 type AnswerListProps = {
   questionId: string;
-  answerType: 'mine' | 'others';
+  answerType: 'mine' | 'others' | 'chat';
 };
 
 const AnswerList = ({ questionId, answerType }: AnswerListProps) => {

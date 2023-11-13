@@ -32,9 +32,9 @@ const QuestionDetailPage = ({ params }: { params: { id: string } }) => {
   const [viewAnswer, setViewAnswer] = useState(false);
 
   const { data: question, mutate } = useFetcher<Question>(
-    `/questions/detail/${id}`,
+    `/omr-api/questions/detail/${id}`,
     typeof id !== 'undefined',
-    '?isAll=false'
+    '?isAll=false',
   );
 
   const toggleScrap = async (questionId: string) => {
@@ -122,7 +122,9 @@ const QuestionDetailPage = ({ params }: { params: { id: string } }) => {
             </Button>
           )}
         </div>
-        {viewAnswer && <AnswerListView questionId={id} />}
+        {viewAnswer && question && (
+          <AnswerListView questionId={id} question={question} />
+        )}
       </div>
     </div>
   );

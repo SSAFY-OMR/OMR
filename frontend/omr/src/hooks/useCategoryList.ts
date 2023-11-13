@@ -12,7 +12,7 @@ export default function useCategoryList(): {
   isError: boolean;
 } {
   const { data, isLoading, isError } =
-    useFetcher<CategoryListResponse>(`/category`);
+    useFetcher<CategoryListResponse>(`/omr-api/category`);
 
   return {
     categoryList: data?.metaData as Category[],

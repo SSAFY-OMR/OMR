@@ -2,11 +2,20 @@ import React, { useState } from 'react';
 
 import styles from './index.module.scss';
 import AnswerList from '../AnswerList';
+import ChatbotAnswer from '../ChatbotAnswer';
 import TabMenu from '../UI/TabMenu';
+
+import type { Question } from '@/types/question';
 
 import { answerTabMenuList } from '@/constants/menu';
 
-const AnswerListView = ({ questionId }: { questionId: string }) => {
+const AnswerListView = ({
+  question,
+  questionId,
+}: {
+  question: Question;
+  questionId: string;
+}) => {
   const [currentTab, setCurrentTab] = useState(0);
 
   return (
@@ -16,10 +25,14 @@ const AnswerListView = ({ questionId }: { questionId: string }) => {
         currentTab={currentTab}
         setCurrentTab={setCurrentTab}
       />
-      <AnswerList
-        questionId={questionId}
-        answerType={answerTabMenuList[currentTab].menuType}
-      />
+      {answerTabMenuList[currentTab].menuType === 'chat' ? (
+        <ChatbotAnswer question={question} />
+      ) : (
+        <AnswerList
+          questionId={questionId}
+          answerType={answerTabMenuList[currentTab].menuType}
+        />
+      )}
     </div>
   );
 };
