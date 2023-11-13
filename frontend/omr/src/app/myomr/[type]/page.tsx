@@ -7,8 +7,6 @@ import styles from './index.module.scss';
 import CategoryRadioGroup from '@/components/CategoryRadioGroup';
 import QuestionListView from '@/components/QuestionListView';
 import Paging from '@/components/UI/Pagination';
-import TabMenu from '@/components/UI/TabMenu';
-import { myOmrTabMenuList } from '@/constants/menu';
 import useCategoryCount from '@/hooks/useCategoryCount';
 import useFetcher from '@/hooks/useFetcher';
 import { type Question } from '@/types/question';
@@ -22,25 +20,13 @@ type QuestionList = {
 const COUNT_PER_PAGE = 5;
 const PAGE_RANGE = 5;
 
-const MyOmr = () => {
+const MyOmr = ({ params }: { params: { type: string } }) => {
+  const type = params.type;
+
   const { categoryCount } = useCategoryCount();
 
-  const [currentTab, setCurrentTab] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [page, setPage] = useState<number>(1);
-
-  const noDataText = (): string => {
-    let text = '';
-    switch (myOmrTabMenuList[currentTab].menuType) {
-      case 'scraped':
-        text = '스크랩된 ';
-        break;
-      case 'solved':
-        text = '해결한';
-        break;
-    }
-    return text;
-  };
 
   /**
    * 모드 및 카테고리 선택 변경 감지시 서버에서 유관 데이터 로드
@@ -48,10 +34,10 @@ const MyOmr = () => {
    */
   useEffect(() => {
     setPage(1);
-  }, [currentTab, selectedCategory]);
+  }, [selectedCategory]);
 
   const { data: questionList } = useFetcher<QuestionList>(
-    `/history/questions/${myOmrTabMenuList[currentTab].menuType}`,
+    `/history/questions/${type}`,
     true,
     selectedCategory === 'ALL'
       ? `?page=${page}&size=${COUNT_PER_PAGE}`
@@ -61,11 +47,7 @@ const MyOmr = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.subheader}>
-        <TabMenu
-          currentTab={currentTab}
-          setCurrentTab={setCurrentTab}
-          menuList={myOmrTabMenuList}
-        />
+        {type === 'solved' ? '해결한' : '스크랩한'} 문제
       </div>
       {/* category list */}
       <div className={styles.category}>
@@ -95,7 +77,9 @@ const MyOmr = () => {
           </div>
         </>
       ) : (
-        <div className={styles.nodata}>아직 {noDataText()} 문제가 없어요.</div>
+        <div className={styles.nodata}>
+          아직 {type === 'solved' ? '해결한' : '스크랩된'} 문제가 없어요.
+        </div>
       )}
     </div>
   );
