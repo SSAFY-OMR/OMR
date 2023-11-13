@@ -4,7 +4,7 @@ import React from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { BookmarkIcon, ProfileIcon } from 'public/icons';
 
 import styles from './index.module.scss';
@@ -12,10 +12,11 @@ import Toast from '../Toast';
 
 import { useSSRRecoilState } from '@/hooks/useSSRRecoilState';
 import { toastMessageState } from '@/states/ui';
-import { BLACK } from '@/styles/color';
+import { BLACK, BLUE_600 } from '@/styles/color';
 
 const Header = () => {
   const router = useRouter();
+  const path = usePathname();
 
   const [toastMessage, setToastMessage] = useSSRRecoilState(
     toastMessageState,
@@ -51,16 +52,24 @@ const Header = () => {
         <button
           id="bookmarkBtn"
           onClick={handleClickBookmark}
-          className={styles.bookmarkBtn}
+          className={`${styles.bookmarkBtn}`}
         >
-          <BookmarkIcon width={26} height={26} fill={BLACK} />
+          <BookmarkIcon
+            width={26}
+            height={26}
+            fill={path.includes('myomr') ? BLUE_600 : BLACK}
+          />
         </button>
         <button
           id="profileBtn"
           onClick={handleClickProfile}
           className={styles.profileBtn}
         >
-          <ProfileIcon width={26} height={26} fill={BLACK} />
+          <ProfileIcon
+            width={26}
+            height={26}
+            fill={path.includes('profile') ? BLUE_600 : BLACK}
+          />
         </button>
       </div>
       <Toast
