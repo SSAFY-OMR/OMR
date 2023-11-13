@@ -10,6 +10,7 @@ import {
   LoginIcon,
   ProfileIcon,
   SettingIcon,
+  SolvedIcon,
 } from 'public/icons';
 
 import styles from './index.module.scss';
@@ -73,7 +74,7 @@ const Header = () => {
               onClick={() => handleRouting('/myomr/solved')}
               className={styles.solvedBtn}
             >
-              <ProfileIcon
+              <SolvedIcon
                 width={26}
                 height={26}
                 fill={path.includes('solved') ? BLUE_600 : BLACK}
@@ -84,7 +85,7 @@ const Header = () => {
               onClick={() => handleRouting('/profile')}
               className={styles.settingBtn}
             >
-              <SettingIcon
+              <ProfileIcon
                 width={26}
                 height={26}
                 fill={path.includes('profile') ? BLUE_600 : BLACK}
