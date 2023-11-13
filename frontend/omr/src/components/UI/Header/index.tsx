@@ -9,7 +9,6 @@ import {
   BookmarkIcon,
   LoginIcon,
   ProfileIcon,
-  SettingIcon,
   SolvedIcon,
 } from 'public/icons';
 
