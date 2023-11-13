@@ -41,6 +41,7 @@ public class AnswerDynamicRepository {
                 )
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
+                .orderBy(answer.likeCount.desc())
                 .fetch();
         JPAQuery<Long> totalPageCount =
                 jpaQueryFactory
@@ -73,6 +74,7 @@ public class AnswerDynamicRepository {
                 )
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
+                .orderBy(answer.likeCount.desc())
                 .fetch();
         JPAQuery<Long> totalPageCount =
                 jpaQueryFactory
