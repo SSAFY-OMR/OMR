@@ -87,7 +87,10 @@ Nginx                   1.18.0
 <br>
 
 # 😃 팀원들
-<img src="./docs/팀원.png"/>
+|                                         Backend                                          |                                          Backend                                          |                                          Backend                                          |                                         Backend                                         |                                        Frontend                                         |                                         Frontend                                         |
+| :--------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------: | 
+| <img src="https://avatars.githubusercontent.com/u/55014803?v=4" width=400px alt="한성"/> | <img src="https://avatars.githubusercontent.com/u/96672609?v=4" width=400px alt="승윤"/> | <img src="https://avatars.githubusercontent.com/u/65756225?v=4" width=400px alt="현철"/> | <img src="https://avatars.githubusercontent.com/u/86272688?v=4" width=400px alt="태용"> | <img src="https://avatars.githubusercontent.com/u/68845258?v=4" width=400px alt="정현"> | <img src="https://avatars.githubusercontent.com/u/59381113?v=4" width=400px alt="용준"> |
+|                      [김한성](https://github.com/khs960616)                      |                         [백승윤](https://github.com/inputTitleHere)                          |                         [신현철](https://github.com/moonn6pence)                          |                          [김태용](https://github.com/YongsHub)                          |                          [좌정현](https://github.com/imhynni)                           |                        [이용준](https://github.com/jjuny0310)                        |
 
 
 
