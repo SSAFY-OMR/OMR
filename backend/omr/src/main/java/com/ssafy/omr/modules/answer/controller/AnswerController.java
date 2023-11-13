@@ -37,8 +37,8 @@ import java.util.Objects;
 @RequestMapping("/answers")
 @RequiredArgsConstructor
 public class AnswerController {
+
     private final AnswerService answerService;
-    private final int PAGE_SIZE = 5;
 
     @Operation(
             summary = "신규 답안 작성",
@@ -107,33 +107,10 @@ public class AnswerController {
             @RequestBody ToggleLikeAnswerRequest toggleLikeAnswerRequest
     ) {
         return BaseResponse.<ToggleLikeAnswerResponse>builder()
-                .data(answerService.toggleAnswerLike(authInfo, toggleLikeAnswerRequest))
+                .data(answerService.toggleAnswerLike(Objects.requireNonNull(authInfo.id()), toggleLikeAnswerRequest))
                 .build();
     }
 
-    @Operation(
-            summary = "특정 문제에 대한 답변 목록 조회",
-            description = "문제 번호와 페이징 정보를 입력받는다."
-    )
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "답변 목록 및 페이징 정보"
-            )
-    })
-    @GetMapping("/question/{questionId}")
-    public BaseResponse<QuestionAnswerResponse> getAnswerList(
-            @PathVariable("questionId") Long questionId,
-            @SortDefault.SortDefaults({
-                    @SortDefault(sort = "likeCount", direction = Sort.Direction.DESC),
-                    @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
-            })
-            Pageable pageable
-    ) {
-        return BaseResponse.<QuestionAnswerResponse>builder()
-                .data(answerService.getAnswerList(questionId, pageable))
-                .build();
-    }
 
     @Operation(
             summary = "특정 문제에 대한 남의 답변 목록 조회",
@@ -181,7 +158,7 @@ public class AnswerController {
             Pageable pageable
     ) {
         return BaseResponse.<AnswerListResponse>builder()
-                .data(answerService.getMyAnswer(questionId, authInfo, pageable))
+                .data(answerService.getMyAnswer(questionId, Objects.requireNonNull(authInfo.id()), pageable))
                 .build();
     }
 

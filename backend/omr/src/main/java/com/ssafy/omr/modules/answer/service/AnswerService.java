@@ -2,6 +2,7 @@ package com.ssafy.omr.modules.answer.service;
 
 import com.ssafy.omr.modules.answer.domain.Answer;
 import com.ssafy.omr.modules.answer.domain.AnswerLike;
+import com.ssafy.omr.modules.answer.domain.Answers;
 import com.ssafy.omr.modules.answer.dto.AnswerListResponse;
 import com.ssafy.omr.modules.answer.dto.AnswerResponse;
 import com.ssafy.omr.modules.answer.dto.CreateAnswerRequest;
@@ -112,13 +113,13 @@ public class AnswerService {
      * 좋아요가 없으면 신규 좋아요 객체 생성
      * 좋아요가 있으면 좋아요 객체 삭제
      *
-     * @param authInfo                권한 객체
+     * @param memberId                memberId
      * @param toggleLikeAnswerRequest 답변 정보 객체
      * @return 좋아요 여부가 담긴 응답객체
      */
     @Transactional
-    public ToggleLikeAnswerResponse toggleAnswerLike(AuthInfo authInfo, ToggleLikeAnswerRequest toggleLikeAnswerRequest) {
-        Member member = memberRepository.getReferenceById(authInfo.id());
+    public ToggleLikeAnswerResponse toggleAnswerLike(Long memberId, ToggleLikeAnswerRequest toggleLikeAnswerRequest) {
+        Member member = memberRepository.getReferenceById(memberId);
         Answer answer = answerRepository.findById(toggleLikeAnswerRequest.answerId())
                 .orElseThrow(AnswerNotFoundException::new);
 
@@ -153,32 +154,33 @@ public class AnswerService {
         answerLikeRepository.save(answerLike);
     }
 
-    public QuestionAnswerResponse getAnswerList(Long questionId, Pageable pageRequest) {
-        Page<AnswerResponse> answerList = answerRepository
-                .findAnswerListByQuestion(interViewQuestionRepository.getReferenceById(questionId), pageRequest)
-                .map(AnswerMapper::supplyAnswerResponseOf);
-        return AnswerMapper.supplyQuestionAnswerResponseOf(questionId, answerList);
-    }
-
     @Transactional(readOnly = true)
     public AnswerListResponse getOthersAnswerList(Long questionId, Long memberId, Pageable pageableRequest) {
         Pageable pageable = PageRequest.of(pageableRequest.getPageNumber() - 1, pageableRequest.getPageSize(), pageableRequest.getSort());
         InterviewQuestion interviewQuestion = interViewQuestionRepository.getReferenceById(questionId);
         Member member = memberRepository.getReferenceById(memberId);
 
-        Page<Answer> answers = answerDynamicRepository.findOthersAnswerListByQuestionAndMember(interviewQuestion, member, pageable);
-        List<AnswerResponse> answerResponses = answers.stream().map(AnswerMapper::supplyAnswerResponseOf).toList();
-        return AnswerMapper.supplyQuestionAnswerResponseOf(answerResponses, answers.getNumber(), answers.getTotalPages());
+        Page<Answer> answersPage = answerDynamicRepository.findOthersAnswerListByQuestionAndMember(interviewQuestion, member, pageable);
+        List<AnswerLike> answerLikes = answerDynamicRepository.findAnswerLikesByAnswerAndMember(answersPage.getContent(), member);
+
+        Answers answers = new Answers(answersPage.getContent(), answerLikes);
+
+        return AnswerMapper
+                .supplyQuestionAnswerResponseOf(answers.getAnswers(), answersPage.getNumber(), answersPage.getTotalPages());
     }
 
     @Transactional(readOnly = true)
-    public AnswerListResponse getMyAnswer(Long questionId, AuthInfo authInfo, Pageable pageableRequest) {
+    public AnswerListResponse getMyAnswer(Long questionId, Long memberId, Pageable pageableRequest) {
         Pageable pageable = PageRequest.of(pageableRequest.getPageNumber() - 1, pageableRequest.getPageSize(), pageableRequest.getSort());
         InterviewQuestion interviewQuestion = interViewQuestionRepository.getReferenceById(questionId);
-        Member member = memberRepository.getReferenceById(authInfo.id());
+        Member member = memberRepository.getReferenceById(memberId);
 
-        Page<Answer> answers = answerDynamicRepository.findMyAnswerListByInterviewQuestionAndMember(interviewQuestion, member, pageable);
-        List<AnswerResponse> answerResponses = answers.stream().map(AnswerMapper::supplyAnswerResponseOf).toList();
-        return AnswerMapper.supplyQuestionAnswerResponseOf(answerResponses, answers.getNumber(), answers.getTotalPages());
+        Page<Answer> answersPage = answerDynamicRepository.findMyAnswerListByInterviewQuestionAndMember(interviewQuestion, member, pageable);
+        List<AnswerLike> answerLikes = answerDynamicRepository.findAnswerLikesByAnswerAndMember(answersPage.getContent(), member);
+
+        Answers answers = new Answers(answersPage.getContent(), answerLikes);
+
+        return AnswerMapper
+                .supplyQuestionAnswerResponseOf(answers.getAnswers(), answersPage.getNumber(), answersPage.getTotalPages());
     }
 }
