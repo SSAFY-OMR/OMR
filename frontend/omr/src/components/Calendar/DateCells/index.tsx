@@ -60,12 +60,14 @@ const DateCells = ({ currentMonth, streaks }: DateCellsProps) => {
         color = setCountColor(count);
       }
 
+      const now = format(date, 'MM/dd');
+
       dates.push(
         <div
           key={date.toISOString()}
           style={{ backgroundColor: `${color}` }}
           className={styles.dateCell}
-          onMouseOver={(e) => handleClickDate(e, count)}
+          onMouseOver={(e) => handleClickDate(e, now, count)}
           onMouseOut={() => setTooltipContent('')}
         ></div>,
       );
@@ -82,6 +84,7 @@ const DateCells = ({ currentMonth, streaks }: DateCellsProps) => {
 
   const handleClickDate = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    date: string,
     count: number,
   ) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -90,7 +93,7 @@ const DateCells = ({ currentMonth, streaks }: DateCellsProps) => {
 
     if (!count) return;
 
-    setTooltipContent(count.toString());
+    setTooltipContent(`${date}  ${count.toString()}문제`);
     setTooltipPosition({ left, top });
   };
 

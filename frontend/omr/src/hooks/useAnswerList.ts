@@ -1,8 +1,9 @@
 import useFetcher from './useFetcher';
 
 import type { Answer } from '@/types/question';
+import type { KeyedMutator } from 'swr';
 
-type AnswerListResponse = {
+export type AnswerListResponse = {
   answerResponses: Answer[];
   currentPage: number;
   totalPageCount: number;
@@ -22,7 +23,7 @@ export default function useAnswerList({
   data: AnswerListResponse;
   isLoading: boolean;
   isError: boolean;
-  mutate: any;
+  mutate: KeyedMutator<AnswerListResponse>;
 } {
   const params = `?page=${page}&size=${size}`;
 
