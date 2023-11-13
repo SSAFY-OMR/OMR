@@ -8,6 +8,9 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  &.isMine {
+    padding-right: 10px;
+  }
 }
 
 .header {
@@ -44,4 +47,48 @@
 .content {
   line-height: 20px;
   white-space: pre-wrap;
+}
+
+.buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.menu {
+  position: relative;
+  padding: 3px;
+  height: fit-content;
+  border-radius: 50%;
+  &:hover {
+    background-color: var(--color-neutral-40);
+  }
+}
+
+.active {
+  background-color: var(--color-neutral-40);
+}
+
+.deleteWindow {
+  background-color: white;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  padding: 8px;
+  border-radius: 5px;
+  width: 45px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  outline: 2px solid var(--color-neutral-40);
+}
+
+.deleteBtn {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  font-weight: 600;
+  transition: all 0.1s;
+  &:hover {
+    color: var(--color-red);
+  }
 }
