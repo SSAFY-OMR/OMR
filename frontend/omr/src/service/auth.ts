@@ -6,7 +6,7 @@ export const login = async (user: { loginId: string; password: string }) => {
   try {
     const res = await axiosInstance.post<
       APIResponse<{ accessToken: string; refreshToken: string }>
-    >(`/login`, user, {
+    >(`/omr-api/login`, user, {
       headers: {
         'Content-Type': 'application/json',
       },
