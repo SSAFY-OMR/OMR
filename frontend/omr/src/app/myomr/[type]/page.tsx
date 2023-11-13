@@ -37,7 +37,7 @@ const MyOmr = ({ params }: { params: { type: string } }) => {
   }, [selectedCategory]);
 
   const { data: questionList } = useFetcher<QuestionList>(
-    `/history/questions/${type}`,
+    `/omr-api/history/questions/${type}`,
     true,
     selectedCategory === 'ALL'
       ? `?page=${page}&size=${COUNT_PER_PAGE}`

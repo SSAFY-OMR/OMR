@@ -37,7 +37,7 @@ const QuestionDetailPage = ({
   const [viewAnswer, setViewAnswer] = useState(false);
 
   const { data: question, mutate } = useFetcher<Question>(
-    `/questions/detail/${id}`,
+    `/omr-api/questions/detail/${id}`,
     typeof id !== 'undefined',
     category === 'ALL' ? '?isAll=true' : '?isAll=false',
   );
@@ -152,7 +152,9 @@ const QuestionDetailPage = ({
             다음 문제
           </Button>
         </div>
-        {viewAnswer && <AnswerListView questionId={id} />}
+        {viewAnswer && question && (
+          <AnswerListView question={question} questionId={id} />
+        )}
       </div>
     </div>
   );

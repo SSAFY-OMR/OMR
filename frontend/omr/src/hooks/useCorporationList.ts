@@ -12,7 +12,7 @@ export default function useCorporationList(): {
   isError: boolean;
 } {
   const { data, isLoading, isError } = useFetcher<CategoryCountResponse>(
-    `/questions/corporation/count`,
+    `/omr-api/questions/corporation/count`,
   );
 
   return {

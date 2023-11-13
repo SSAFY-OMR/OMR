@@ -6,7 +6,7 @@ import type { User } from '@/types/user';
 export const getUserInfo = async () => {
   try {
     const res =
-      await axiosInstance.get<APIResponse<User>>(`members/my-profile`);
+      await axiosInstance.get<APIResponse<User>>(`/omr-api/members/my-profile`);
 
     return res;
   } catch (e) {
@@ -20,7 +20,7 @@ export const signUp = async (user: {
   emoji: string;
 }) => {
   try {
-    const res = await axiosInstance.post(`members/signup`, user, {
+    const res = await axiosInstance.post(`/omr-api/members/signup`, user, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -35,7 +35,7 @@ export const signUp = async (user: {
 export const updateUserEmoji = async (emoji: string) => {
   try {
     const res = 
-      await axiosInstance.patch<APIResponse<string>>(`members/emoji`, {
+      await axiosInstance.patch<APIResponse<string>>(`/omr-api/members/emoji`, {
         emoji
       });
 
@@ -48,7 +48,7 @@ export const updateUserEmoji = async (emoji: string) => {
 export const updateUserPassword = async (password: string) => {
   try {
     const res =
-      await axiosInstance.post<APIResponse<any>>(`members/password`, {
+      await axiosInstance.post<APIResponse<any>>(`/omr-api/members/password`, {
         password
       });
 

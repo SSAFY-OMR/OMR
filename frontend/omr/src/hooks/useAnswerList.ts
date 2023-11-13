@@ -16,7 +16,7 @@ export default function useAnswerList({
   size,
 }: {
   questionId: string;
-  type: 'mine' | 'others';
+  type: 'mine' | 'others' | 'chat';
   page: number;
   size: number;
 }): {
@@ -28,7 +28,7 @@ export default function useAnswerList({
   const params = `?page=${page}&size=${size}`;
 
   const { data, isLoading, isError, mutate } = useFetcher<AnswerListResponse>(
-    `/answers/question/${questionId}/${type}`,
+    `/omr-api/answers/question/${questionId}/${type}`,
     true,
     params,
   );

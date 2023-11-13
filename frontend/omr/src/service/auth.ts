@@ -19,7 +19,7 @@ export const login = async (user: { loginId: string; password: string }) => {
 
 export const logout = async () => {
   try {
-    const res = await axiosInstance.post(`/logout`);
+    const res = await axiosInstance.post(`/omr-api/logout`);
 
     return res;
   } catch (e) {
@@ -32,7 +32,7 @@ export const reissue = async (refreshToken: string) => {
     const res = await axiosInstance.post<
       APIResponse<{ accessToken: string; refreshToken: string }>
     >(
-      `/reissue`,
+      `/omr-api/reissue`,
       {},
       { headers: { 'Refresh-Token': `Bearer ${refreshToken}` } },
     );
@@ -46,7 +46,7 @@ export const reissue = async (refreshToken: string) => {
 export const getExistence = async (id: string) => {
   try {
     const res = await axiosInstance.get<APIResponse<{ isExist: boolean }>>(
-      `/existence?loginId=${id}`,
+      `/omr-api/existence?loginId=${id}`,
     );
 
     return res;

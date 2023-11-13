@@ -24,7 +24,7 @@ export default function useCorporationQuuestionList({
   const params = `?page=${page}&size=${size}&corporation=${corporation}`;
 
   const { data, isLoading, isError } = useFetcher<QuestionListResponse>(
-    `/questions/corporation`,
+    `/omr-api/questions/corporation`,
     true,
     params,
   );
