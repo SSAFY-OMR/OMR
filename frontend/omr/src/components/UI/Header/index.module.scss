@@ -12,9 +12,6 @@
   height: 40px;
 }
 
-.active {
-}
-
 .buttons {
   display: flex;
   justify-content: center;
@@ -30,7 +27,8 @@
 }
 
 .bookmarkBtn:hover,
-.profileBtn:hover {
+.solvedBtn:hover,
+.settingBtn:hover {
   background-color: var(--color-neutral-40);
   transition: all 0.3s;
 }

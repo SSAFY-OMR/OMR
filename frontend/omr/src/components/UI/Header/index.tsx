@@ -5,7 +5,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { BookmarkIcon, ProfileIcon } from 'public/icons';
+import { BookmarkIcon, ProfileIcon, SettingIcon } from 'public/icons';
 
 import styles from './index.module.scss';
 import Toast from '../Toast';
@@ -23,12 +23,16 @@ const Header = () => {
     '',
   );
 
-  const handleClickProfile = () => {
-    router.push('/profile');
+  const handleClickSolved = () => {
+    router.push('/myomr/solved');
   };
 
   const handleClickBookmark = () => {
-    router.push('/myomr');
+    router.push('/myomr/scraped');
+  };
+
+  const handleClickProfile = () => {
+    router.push('/profile');
   };
 
   const handleCloseToast = () => {
@@ -57,15 +61,26 @@ const Header = () => {
           <BookmarkIcon
             width={26}
             height={26}
-            fill={path.includes('myomr') ? BLUE_600 : BLACK}
+            fill={path.includes('scraped') ? BLUE_600 : BLACK}
           />
         </button>
         <button
-          id="profileBtn"
-          onClick={handleClickProfile}
-          className={styles.profileBtn}
+          id="myQuestionBtn"
+          onClick={handleClickSolved}
+          className={styles.solvedBtn}
         >
           <ProfileIcon
+            width={26}
+            height={26}
+            fill={path.includes('solved') ? BLUE_600 : BLACK}
+          />
+        </button>
+        <button
+          id="settingBtn"
+          onClick={handleClickProfile}
+          className={styles.settingBtn}
+        >
+          <SettingIcon
             width={26}
             height={26}
             fill={path.includes('profile') ? BLUE_600 : BLACK}

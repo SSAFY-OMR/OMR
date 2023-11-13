@@ -4,6 +4,14 @@
   height: calc(100vh - 50px);
 }
 
+.subheader {
+  text-align: center;
+  padding: 20px;
+  padding-top: 10px;
+  font-size: var(--font-size-large);
+  font-weight: 600;
+}
+
 .text {
   cursor: pointer;
   user-select: none;

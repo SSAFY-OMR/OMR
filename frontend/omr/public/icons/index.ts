@@ -12,6 +12,7 @@ import NextIcon from './next-icon.svg';
 import PrevIcon from './prev-icon.svg';
 import PrevPageIcon from './prev-page-icon.svg';
 import ProfileIcon from './profile-icon.svg';
+import SettingIcon from './setting-icon.svg';
 import SuccessIcon from './success-icon.svg';
 
 export {
@@ -29,5 +30,6 @@ export {
   PrevIcon,
   PrevPageIcon,
   ProfileIcon,
+  SettingIcon,
   SuccessIcon,
 };
