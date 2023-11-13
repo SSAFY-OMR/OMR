@@ -19,6 +19,7 @@ export type Answer = {
   emoji: string;
   content: string;
   likeCount: number;
+  isLiked: boolean;
 };
 
 export type CategoryCount = {

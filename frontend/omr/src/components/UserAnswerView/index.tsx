@@ -3,6 +3,7 @@ import React from 'react';
 import { DeleteIcon } from 'public/icons';
 
 import styles from './index.module.scss';
+import LikeButton from '../LikeButton';
 
 import type { Answer } from '@/types/question';
 
@@ -15,12 +16,14 @@ type UserAnswerViewProps = {
   isMine: boolean;
   answer: Answer;
   mutateAnswerList: any;
+  toggleLike: any;
 };
 
 const UserAnswerView = ({
   isMine,
   answer,
   mutateAnswerList,
+  toggleLike,
 }: UserAnswerViewProps) => {
   const [toastMessage, setToastMessage] = useSSRRecoilState(
     toastMessageState,
@@ -36,6 +39,10 @@ const UserAnswerView = ({
     }
   };
 
+  const handleClickLikeBtn = () => {
+    toggleLike(answer.answerId);
+  };
+
   return (
     <div className={styles.UserAnswerView}>
       <div className={styles.header}>
@@ -45,7 +52,7 @@ const UserAnswerView = ({
           </div>
           <div className={styles.nickname}>{answer.nickname}</div>
         </div>
-        {isMine && (
+        {isMine ? (
           <button
             id="deleteBtn"
             onClick={handleClickDeleteBtn}
@@ -53,6 +60,12 @@ const UserAnswerView = ({
           >
             <DeleteIcon width={20} height={20} fill={BLACK} />
           </button>
+        ) : (
+          <LikeButton
+            isLiked={answer.isLiked}
+            likeCount={answer.likeCount}
+            onClick={handleClickLikeBtn}
+          />
         )}
       </div>
       <div className={styles.content}>{answer.content}</div>

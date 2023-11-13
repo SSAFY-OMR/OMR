@@ -36,3 +36,15 @@ export const deleteAnswer = async (answerId: number) => {
     console.error(e);
   }
 };
+
+export const updateLikeAnswer = async (answerId: number) => {
+  try {
+    const res = await axiosInstance.post(`/answers/like`, {
+      answerId: answerId,
+    });
+
+    return res;
+  } catch (e) {
+    console.error(e);
+  }
+};
