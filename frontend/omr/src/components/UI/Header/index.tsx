@@ -5,12 +5,18 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { BookmarkIcon, ProfileIcon, SettingIcon } from 'public/icons';
+import {
+  BookmarkIcon,
+  LoginIcon,
+  ProfileIcon,
+  SettingIcon,
+} from 'public/icons';
 
 import styles from './index.module.scss';
 import Toast from '../Toast';
 
 import { useSSRRecoilState } from '@/hooks/useSSRRecoilState';
+import { userAccessTokenState } from '@/states/auth';
 import { toastMessageState } from '@/states/ui';
 import { BLACK, BLUE_600 } from '@/styles/color';
 
@@ -18,21 +24,17 @@ const Header = () => {
   const router = useRouter();
   const path = usePathname();
 
+  const [userAccessToken, setUserAccessToken] = useSSRRecoilState(
+    userAccessTokenState,
+    '',
+  );
   const [toastMessage, setToastMessage] = useSSRRecoilState(
     toastMessageState,
     '',
   );
 
-  const handleClickSolved = () => {
-    router.push('/myomr/solved');
-  };
-
-  const handleClickBookmark = () => {
-    router.push('/myomr/scraped');
-  };
-
-  const handleClickProfile = () => {
-    router.push('/profile');
+  const handleRouting = (path: string) => {
+    router.push(path);
   };
 
   const handleCloseToast = () => {
@@ -53,39 +55,59 @@ const Header = () => {
         </Link>
       </div>
       <div className={styles.buttons}>
-        <button
-          id="bookmarkBtn"
-          onClick={handleClickBookmark}
-          className={`${styles.bookmarkBtn}`}
-        >
-          <BookmarkIcon
-            width={26}
-            height={26}
-            fill={path.includes('scraped') ? BLUE_600 : BLACK}
-          />
-        </button>
-        <button
-          id="myQuestionBtn"
-          onClick={handleClickSolved}
-          className={styles.solvedBtn}
-        >
-          <ProfileIcon
-            width={26}
-            height={26}
-            fill={path.includes('solved') ? BLUE_600 : BLACK}
-          />
-        </button>
-        <button
-          id="settingBtn"
-          onClick={handleClickProfile}
-          className={styles.settingBtn}
-        >
-          <SettingIcon
-            width={26}
-            height={26}
-            fill={path.includes('profile') ? BLUE_600 : BLACK}
-          />
-        </button>
+        {userAccessToken ? (
+          <>
+            <button
+              id="bookmarkBtn"
+              onClick={() => handleRouting('/myomr/scraped')}
+              className={`${styles.bookmarkBtn}`}
+            >
+              <BookmarkIcon
+                width={26}
+                height={26}
+                fill={path.includes('scraped') ? BLUE_600 : BLACK}
+              />
+            </button>
+            <button
+              id="myQuestionBtn"
+              onClick={() => handleRouting('/myomr/solved')}
+              className={styles.solvedBtn}
+            >
+              <ProfileIcon
+                width={26}
+                height={26}
+                fill={path.includes('solved') ? BLUE_600 : BLACK}
+              />
+            </button>
+            <button
+              id="settingBtn"
+              onClick={() => handleRouting('/profile')}
+              className={styles.settingBtn}
+            >
+              <SettingIcon
+                width={26}
+                height={26}
+                fill={path.includes('profile') ? BLUE_600 : BLACK}
+              />
+            </button>
+          </>
+        ) : (
+          <button
+            id="loginBtn"
+            onClick={() => handleRouting('/login')}
+            className={styles.loginBtn}
+          >
+            <LoginIcon
+              width={26}
+              height={26}
+              fill={
+                path.includes('login') || path.includes('signup')
+                  ? BLUE_600
+                  : BLACK
+              }
+            />
+          </button>
+        )}
       </div>
       <Toast
         message={toastMessage}

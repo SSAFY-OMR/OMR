@@ -8,6 +8,7 @@ import DoublePrevIcon from './double-prev-icon.svg';
 import EditIcon from './edit-icon.svg';
 import ErrorIcon from './error-icon.svg';
 import LikeIcon from './like-icon.svg';
+import LoginIcon from './login-icon.svg';
 import NextIcon from './next-icon.svg';
 import PrevIcon from './prev-icon.svg';
 import PrevPageIcon from './prev-page-icon.svg';
@@ -26,6 +27,7 @@ export {
   EditIcon,
   ErrorIcon,
   LikeIcon,
+  LoginIcon,
   NextIcon,
   PrevIcon,
   PrevPageIcon,
