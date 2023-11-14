@@ -19,8 +19,12 @@ const ChatbotAnswer = ({ question }: AnswerListProps) => {
       const res = await getSampleAnswer(question.content);
 
       if (res?.status === 200) {
-        setAnswer(res.data.data);
+        if (res.data.message === 'success') {
+          return setAnswer(res.data.data);
+        }
+        return setAnswer(res.data.message);
       }
+      setAnswer('답을 불러오는 데 실패했어요. 😥');
     })();
   }, [question.content]);
 
