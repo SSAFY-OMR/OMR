@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import MDEditor from '@uiw/react-md-editor';
+
 import ChatbotAnswerLoading from './ChatbotAnswerLoading';
 import styles from './index.module.scss';
 
@@ -40,7 +42,7 @@ const ChatbotAnswer = ({ question }: AnswerListProps) => {
               <div className={styles.nickname}>Chatbot</div>
             </div>
           </div>
-          <div className={styles.content}>{answer}</div>
+          <MDEditor.Markdown source={answer.replaceAll(/ \*\*|\*\* /g, '**')} />
         </div>
       ) : (
         <>
