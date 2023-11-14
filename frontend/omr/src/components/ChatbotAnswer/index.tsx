@@ -18,7 +18,10 @@ const ChatbotAnswer = ({ question }: AnswerListProps) => {
 
   useEffect(() => {
     (async () => {
-      const res = await getSampleAnswer(question.content);
+      const res = await getSampleAnswer(
+        question.category.name,
+        question.content,
+      );
 
       if (res?.status === 200) {
         if (res.data.message === 'success') {
@@ -28,7 +31,7 @@ const ChatbotAnswer = ({ question }: AnswerListProps) => {
       }
       setAnswer('답을 불러오는 데 실패했어요. 😥');
     })();
-  }, [question.content]);
+  }, [question.category.name, question.content]);
 
   return (
     <div className={styles.AnswerList}>

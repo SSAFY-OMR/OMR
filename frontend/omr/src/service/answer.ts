@@ -51,9 +51,10 @@ export const updateLikeAnswer = async (answerId: number) => {
   }
 };
 
-export const getSampleAnswer = async (question: string) => {
+export const getSampleAnswer = async (category: string, question: string) => {
   try {
     const res = await axiosInstance.post(`/omr-chatbot/chat`, {
+      category: category,
       question: question,
     });
 
