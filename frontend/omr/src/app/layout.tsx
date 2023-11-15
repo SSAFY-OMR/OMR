@@ -85,9 +85,9 @@ export default function RootLayout({
           <div id="rootDiv" className="fixed-width">
             <Header />
             {children}
-            <div id="portal" />
             <Footer />
           </div>
+          <div id="portal" />
         </RecoilRootProvider>
       </body>
     </html>

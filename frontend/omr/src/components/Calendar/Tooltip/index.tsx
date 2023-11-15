@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { createPortal } from 'react-dom';
-
 import styles from './index.module.scss';
+
+import Portal from '@/components/UI/Portal';
 
 type TooltipProps = {
   isShown: boolean;
@@ -17,14 +17,15 @@ const Tooltip = ({ isShown, content, left, top }: TooltipProps) => {
     top: `${top}px`,
   };
 
-  return createPortal(
-    <div
-      className={`${styles.Tooltip} ${isShown ? styles.show : ''}`}
-      style={style}
-    >
-      {content}
-    </div>,
-    document.body,
+  return (
+    <Portal selector="#portal">
+      <div
+        className={`${styles.Tooltip} ${isShown ? styles.show : ''}`}
+        style={style}
+      >
+        {content}
+      </div>
+    </Portal>
   );
 };
 
