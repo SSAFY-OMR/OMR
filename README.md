@@ -1,4 +1,4 @@
-<img src="./docs/omr_logo.png"/>
+<img src="./docs/omr_logo.PNG"/>
 <br>
 
 
@@ -72,17 +72,17 @@ Nginx                   1.18.0
 ### AI 문제 답변
 문제의 정답을 모르겠다면, AI 문제 답변 기능을 통해 문제의 정답을 확인할 수 있습니다.
 
-<img src="./docs/AI문제.PNG"/>
+<img src="./docs/챗봇.PNG" width=400/>
 
  
  <br><br>
 # 📏 프로젝트 아키텍처
 
 ## 시스템 아키텍처
-<img src="./docs/시스템아키텍처.png"/>
+<img src="./docs/시스템아키텍처.PNG"/>
 
 ## ERD 설계
-<img src="./docs/ERD.png"/>
+<img src="./docs/ERD.PNG"/>
 
 <br>
 
