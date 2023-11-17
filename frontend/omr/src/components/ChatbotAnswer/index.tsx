@@ -36,7 +36,7 @@ const ChatbotAnswer = ({ question }: AnswerListProps) => {
   return (
     <div className={styles.AnswerList}>
       {answer ? (
-        <div className={`${styles.UserAnswerView}`}>
+        <div className={`${styles.UserAnswerView}`} data-color-mode="light">
           <div className={styles.header}>
             <div className={styles.profile}>
               <div className={styles.profileEmojiContainer}>
