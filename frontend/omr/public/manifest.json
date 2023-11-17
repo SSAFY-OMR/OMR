@@ -1,0 +1,92 @@
+{
+  "theme_color": "#18b3e7",
+  "background_color": "#18b3e7",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "name": "OMR:오늘의 문제를 알려줘!",
+  "short_name": "OMR",
+  "description": "\uc624\ub298\uc758 \ubb38\uc81c\ub97c \uc54c\ub824\uc918",
+  "screenshots": [
+    {
+      "src": "images/www.omrcs.com_Desktop_1.png",
+      "type": "image/png",
+      "sizes": "625x922",
+      "form_factor": "wide"
+    },
+    {
+      "src": "images/www.omrcs.com_Desktop_2.png",
+      "type": "image/png",
+      "sizes": "625x922",
+      "form_factor": "wide"
+    },
+    {
+      "src": "images/www.omrcs.com_Desktop_3.png",
+      "type": "image/png",
+      "sizes": "625x922",
+      "form_factor": "wide"
+    },
+    {
+      "src": "images/www.omrcs.com_SamsungGalaxyS20Ultra_1.png",
+      "type": "image/png",
+      "sizes": "1442x3202",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "images/www.omrcs.com_SamsungGalaxyS20Ultra_2.png",
+      "type": "image/png",
+      "sizes": "1442x3202",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "images/www.omrcs.com_SamsungGalaxyS20Ultra_3.png",
+      "type": "image/png",
+      "sizes": "1442x3202",
+      "form_factor": "narrow"
+    }
+  ],
+  "icons": [
+    {
+      "src": "images/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

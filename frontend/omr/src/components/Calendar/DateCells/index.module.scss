@@ -1,0 +1,17 @@
+.DateCells {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.dateCell {
+  width: 24px;
+  height: 24px;
+  margin: 3px;
+  border-radius: 5px;
+}
+
+.week {
+  display: flex;
+  justify-content: space-between;
+}

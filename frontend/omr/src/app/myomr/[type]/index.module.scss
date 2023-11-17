@@ -1,0 +1,46 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.subheader {
+  text-align: center;
+  padding: 20px;
+  padding-top: 10px;
+  font-size: var(--font-size-xlarge);
+  font-weight: 600;
+}
+
+.text {
+  cursor: pointer;
+  user-select: none;
+}
+
+.active {
+  color: var(--color-blue-700);
+  font-weight: 600;
+}
+
+.category {
+  margin: 0 20px;
+  width: calc(100% - 20px);
+  display: flex;
+  justify-content: center;
+}
+
+.questionList {
+  flex-grow: 0;
+  padding: 15px 20px;
+  padding-bottom: 0;
+}
+
+.paging {
+  margin: 20px 0;
+}
+
+.nodata {
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,32 @@
+.CateoryCardList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 90%;
+  max-width: 400px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: var(--font-size-large);
+  padding-left: 5px;
+  font-weight: 600;
+}
+
+.list {
+  display: flex;
+  gap: 7px;
+  width: 100%;
+  padding-top: 0.2em;
+  overflow: auto;
+}
+
+.viewAllBtn {
+  font-size: var(--font-size-small);
+  font-weight: 600;
+}

@@ -1,0 +1,43 @@
+.Calendar {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 276px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-neutral-500);
+}
+
+.currentMonth {
+  font-weight: 600;
+}
+
+.days {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-xsmall);
+  color: var(--color-neutral-100);
+}
+
+.day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+}
+
+.streakDays {
+  font-weight: 600;
+  color: var(--color-blue-700);
+}
+
+.longestStreak {
+  padding-top: 5px;
+}

@@ -1,0 +1,15 @@
+.CategoryTag {
+  padding: 6px 8px;
+  width: fit-content;
+  font-weight: 500;
+  border-radius: 100px;
+  background-color: var(--color-blue-50);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.category {
+  font-size: var(--font-size-xsmall);
+  color: var(--color-blue-900);
+}
