@@ -1,0 +1,22 @@
+.radioInput {
+  display: none;
+}
+
+.radioBtn {
+  background-color: white;
+  padding: 8px 10px;
+  margin: 2px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  & > .label {
+    color: var(--color-neutral-500);
+    font-weight: 600;
+    font-size: var(--font-size-small);
+  }
+  &.selected {
+    outline: 2px solid var(--color-blue-700);
+    & > .label {
+      color: var(--color-blue-700);
+    }
+  }
+}

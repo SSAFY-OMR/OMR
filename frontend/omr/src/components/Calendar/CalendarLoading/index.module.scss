@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.calendar {
+  border-radius: 10px;
+  width: 276px;
+  height: 290px;
+}
+
+.title {
+  width: 200px;
+  height: 15px;
+  border-radius: 5px;
+}
+
+.blinking {
+  -webkit-animation: blink 0.5s ease-in-out infinite alternate;
+  -moz-animation: blink 0.5s ease-in-out infinite alternate;
+  animation: blink 0.5s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes blink {
+  0% {
+    background-color: var(--color-neutral-30);
+  }
+  100% {
+    background-color: var(--color-neutral-40);
+  }
+}
+
+@-moz-keyframes blink {
+  0% {
+    background-color: var(--color-neutral-30);
+  }
+  100% {
+    background-color: var(--color-neutral-40);
+  }
+}
+
+@keyframes blink {
+  0% {
+    background-color: var(--color-neutral-30);
+  }
+  100% {
+    background-color: var(--color-neutral-40);
+  }
+}

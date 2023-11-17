@@ -1,0 +1,83 @@
+.UserAnswerView {
+  background-color: white;
+  padding: 20px;
+  padding-top: 15px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  &.isMine {
+    padding-right: 10px;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profileEmojiContainer {
+  padding: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profileEmoji {
+  font-size: var(--font-size-large);
+}
+
+.nickname {
+  font-size: var(--font-size-small);
+}
+
+.content {
+  height: 10px;
+  border-radius: 5px;
+}
+
+.blinking {
+  -webkit-animation: blink 0.5s ease-in-out infinite alternate;
+  -moz-animation: blink 0.5s ease-in-out infinite alternate;
+  animation: blink 0.5s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes blink {
+  0% {
+    background-color: var(--color-neutral-20);
+  }
+  100% {
+    background-color: var(--color-neutral-40);
+  }
+}
+
+@-moz-keyframes blink {
+  0% {
+    background-color: var(--color-neutral-20);
+  }
+  100% {
+    background-color: var(--color-neutral-40);
+  }
+}
+
+@keyframes blink {
+  0% {
+    background-color: var(--color-neutral-20);
+  }
+  100% {
+    background-color: var(--color-neutral-40);
+  }
+}

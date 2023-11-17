@@ -1,0 +1,51 @@
+.AnswerInput {
+  vertical-align: middle;
+  width: 100%;
+  max-width: 400px;
+  height: 240px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  padding-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.answerAreaWrapper {
+  width: 100%;
+  max-height: 100%;
+  overflow: auto;
+}
+
+/* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+.answerAreaWrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.answerAreaWrapper {
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+
+.answerArea {
+  width: 100%;
+  line-height: 22px;
+  min-height: 22px;
+  resize: none;
+  border: none;
+  text-align: center;
+  outline: none;
+}
+
+.answerArea[contenteditable]:empty::before {
+  content: '여기를 눌러 답변을 입력하세요.';
+  color: gray;
+}
+
+.saveBtn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}

@@ -1,0 +1,55 @@
+.EmojiModal {
+  width: 500px;
+  @media (max-width: 500px) {
+    width: 100%;
+  }
+  background: none;
+  position: absolute;
+  height: 100dvh;
+  overflow: auto;
+}
+
+.modalWrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background: none;
+}
+
+.modalBackGround {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.7;
+}
+
+.modal {
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  background-color: white;
+  border: solid 1px;
+  border-radius: 10px;
+  margin-top: 90px;
+  position: absolute;
+  z-index: 10;
+}
+
+.modalHeader {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.modalExitButton {
+  border-radius: 10px;
+  font-size: var(--font-size-xlarge);
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.modalExitButton:hover {
+  background-color: gainsboro;
+}
