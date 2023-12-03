@@ -14,11 +14,14 @@ import java.util.Optional;
 public interface InterviewQuestionRepository extends JpaRepository<InterviewQuestion, Long>, InterviewQuestionRepositoryCustom {
 
     @Query(value = """
-                select q
-                from InterviewQuestion q
-                order by rand(:seed)
-                limit 1
-            """)
+                select q.*
+                from interview_question as q
+                join(select interview_question_id
+                    from interview_question
+                    order by rand(:seed)
+                    limit 1) as r
+                on q.interview_question_id = r.interview_question_id
+            """, nativeQuery = true)
     Optional<InterviewQuestion> findRandomQuestion(@Param("seed") Integer seed);
 
 
