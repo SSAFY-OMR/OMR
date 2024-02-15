@@ -1,4 +1,6 @@
-<img src="./docs/omr_logo.PNG"/>
+<div align='center'>
+<img src="./docs/omr_logo.PNG" width=300/>
+</div>
 <br>
 
 
@@ -18,11 +20,12 @@ react                   18
 next                    13.5.6
 typescript              5
 node                    18.18.0
-Storybook
-SWR
-Recoil, Recoil-persist
-axios
-Sass
+Storybook               7.5.1
+SWR                     2.2.4
+Recoil                  0.7.7
+Recoil-persist          5.1.0
+axios                   1.5.1
+Sass                    1.69.4
 ```
 
 ### BE 스택 & 버전
@@ -59,7 +62,7 @@ Nginx                   1.18.0
 <img src="./docs/문제풀이.PNG" width=400/>
 
 ### 오늘의 문제 추천
-하루에 한번씩 사용자에게 랜덤 문제를 추천해줍니다.
+하루에 한 번 사용자에게 랜덤 문제를 추천해줍니다.
  
 <img src="./docs/오늘의문제.PNG" width=400/>
 
@@ -87,7 +90,7 @@ Nginx                   1.18.0
 <br>
 
 # 😃 팀원들
-|                                         Backend                                          |                                          Backend                                          |                                          Backend                                          |                                         Backend                                         |                                        Frontend                                         |                                         Frontend                                         |
+|                                         Backend                                          |                                          Backend                                          |                                          Backend                                          |                                         Backend                                         |                                        Frontend                                         |                                         Backend                                         |
 | :--------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------: | 
 | <img src="https://avatars.githubusercontent.com/u/55014803?v=4" width=400px alt="한성"/> | <img src="https://avatars.githubusercontent.com/u/96672609?v=4" width=400px alt="승윤"/> | <img src="https://avatars.githubusercontent.com/u/65756225?v=4" width=400px alt="현철"/> | <img src="https://avatars.githubusercontent.com/u/86272688?v=4" width=400px alt="태용"> | <img src="https://avatars.githubusercontent.com/u/68845258?v=4" width=400px alt="정현"> | <img src="https://avatars.githubusercontent.com/u/59381113?v=4" width=400px alt="용준"> |
 |                      [김한성](https://github.com/khs960616)                      |                         [백승윤](https://github.com/inputTitleHere)                          |                         [신현철](https://github.com/moonn6pence)                          |                          [김태용](https://github.com/YongsHub)                          |                          [좌정현](https://github.com/imhynni)                           |                        [이용준](https://github.com/jjuny0310)                        |
